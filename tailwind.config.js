@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        crayola: "#E57238",
+        cornblue: "#9C77C9",
+        realemerald: "#66B67E"
+      },
+    },
   },
   plugins: [],
 }

@@ -1,10 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from 'react'   // Importamos React para poder usar JSX
+import ReactDOM from 'react-dom'   // Importamos ReactDOM para renderizar la aplicación
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+import App from './NovelliaApp'
+
+ReactDOM.render(<App />, document.getElementById('root'))   // Renderizamos el componente App en el elemento con id root
