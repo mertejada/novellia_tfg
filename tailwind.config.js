@@ -9,7 +9,8 @@ export default {
       colors: {
         crayola: "#E57238",
         cornblue: "#9C77C9",
-        realemerald: "#66B67E"
+        realemerald: "#66B67E",
+        pinkk: "#D37C90"
       },
     },
   },
