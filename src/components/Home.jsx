@@ -15,7 +15,6 @@ const Home = ({userMail}) => {
     return (
         <div>
             <h1>Welcome to the Home Page, {userMail}</h1>
-            <button className="button gradient2 rounded-3xl" onClick={()=>{signOut(auth)}}>Log out</button>
         </div>
     )
 }

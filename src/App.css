@@ -6,29 +6,23 @@
 
 
 @layer  utilities {
-  .gradient {
-    @apply bg-gradient-to-r from-crayola via-sun to-aqua;
+  .gradient{
+    @apply bg-gradient-to-r from-test via-test2 to-test3 ;
   }
 
   .button {
-    @apply bg-crayola text-white font-semibold rounded-md;
+    @apply text-white font-semibold rounded-md;
   }
-
-  .gradient2 {
-    @apply bg-gradient-to-r from-crayola2 via-mutedpink to-lavender;
-  }
-
-    /*
-  .button-gradient2 {
-    @apply bg-gradient-to-r from-crayola2 via-mutedpink to-lavender text-white font-bold rounded-md;
-  }
-
-  .button-gradient3 {
-    @apply bg-gradient-to-r from-salmon  to-sunrise text-white font-bold rounded-md;
-  }
-  */
 
   .title {
     @apply font-playfair font-extrabold;
   }
+
+  .text-gradient {
+    @apply text-transparent bg-clip-text;
+  }
+}
+
+*{
+  font-family: 'Poppins', sans-serif;
 }
