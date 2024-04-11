@@ -5,7 +5,6 @@ import appFirebase from '../services/firebase';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-
 const auth = getAuth(appFirebase);
 
 const Login = () => {
@@ -33,7 +32,8 @@ const Login = () => {
                 const db = getFirestore(appFirebase);
 
                 await addDoc(collection(db, "users"), {
-                    email: email
+                    email: email,
+                    registerInfo: false
                 });
 
             } else {
@@ -70,6 +70,15 @@ const Login = () => {
             const provider = new GoogleAuthProvider();
             await signInWithPopup(auth, provider);
             setShowError(false);
+            
+            const db = getFirestore(appFirebase);
+            const user = auth.currentUser;
+
+            await addDoc(collection(db, "users"), {
+                email: user.email,
+                registerInfo: false
+            });
+
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");

@@ -11,7 +11,7 @@ const NavBar = ({ isLoggedIn, isAdmin }) => {
     const renderAdminNav = () => (
         <>
             <div className="flex items-center space-x-4 font-medium">
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Admin</a>
+                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Books</a>
                 <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Users</a>
             </div>
             <div className="flex items-center gap-2 text-gray-500 cursor-pointer" onClick= { () => signOut(auth)}>
