@@ -3,7 +3,7 @@ import bkImg from '../assets/img/test.jpg';
 import appFirebase from '../services/firebase';
 
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(appFirebase);
 
@@ -30,11 +30,12 @@ const Login = () => {
                 await createUserWithEmailAndPassword(auth, email, password);
 
                 const db = getFirestore(appFirebase);
-
-                await addDoc(collection(db, "users"), {
+                const userData = {
                     email: email,
-                    registerInfo: false
-                });
+                    userInfo: false
+                }
+
+                await setDoc(doc(db,"users",auth.currentUser.uid), userData);
 
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
@@ -68,22 +69,24 @@ const Login = () => {
     const signInWithGoogle = async () => {
         try {
             const provider = new GoogleAuthProvider();
-            await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth, provider);
             setShowError(false);
             
+            const email = result.user.email; // Get the user's email from the authentication result
             const db = getFirestore(appFirebase);
-            const user = auth.currentUser;
-
-            await addDoc(collection(db, "users"), {
-                email: user.email,
-                registerInfo: false
-            });
-
+            const userData = {
+                email: email,
+                userInfo: false
+            }
+    
+            await setDoc(doc(db,"users",auth.currentUser.uid), userData);
+    
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
         }
     };
+    
 
     return (
         <section style={{ backgroundImage: `url(${bkImg})` }} className='p-20 bg-cover font-poppins font-light h-fit flex justify-center items-center lg:justify-start'>
