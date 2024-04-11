@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import bkImg from '../assets/img/test.jpg';
 import appFirebase from '../services/firebase';
+
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+
+import { writeUserCredentials } from '../services/databaseFunctions';
 
 const auth = getAuth(appFirebase);
 
@@ -26,6 +30,9 @@ const Login = () => {
         try {
             if (register) {
                 await createUserWithEmailAndPassword(auth, email, password);
+
+                const db = getFirestore(appFirebase);
+
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
             }
