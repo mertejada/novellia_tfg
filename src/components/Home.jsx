@@ -7,7 +7,7 @@ import UserRegister from "./UserRegister";
 const auth = getAuth(appFirebase);
 
 const Home = ({ userMail }) => {
-    const [userRegisterInfo, setUserRegisterInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -17,9 +17,8 @@ const Home = ({ userMail }) => {
                 const userQuery = query(usersRef, where("email", "==", userMail));
                 const querySnapshot = await getDocs(userQuery);
 
-                if(querySnapshot.docs[0].data().registerInfo) {
-                    setUserRegisterInfo(true);
-                }
+                console.log(querySnapshot.docs[0].data());
+
 
             } catch (error) {
                 console.error('Error al obtener datos del usuario:', error);
@@ -33,7 +32,7 @@ const Home = ({ userMail }) => {
         <div>
             <h1>Home</h1>
             <button onClick={() => signOut(auth)}>Cerrar sesión</button>
-            { !userRegisterInfo && <UserRegister />}
+            { !userInfo && <UserRegister />}
         </div>
     );
 };
