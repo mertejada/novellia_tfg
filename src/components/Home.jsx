@@ -14,7 +14,6 @@ const auth = getAuth(appFirebase);
 const Home = ({userMail}) => {
     return (
         <div>
-            <h1>Welcome to the Home Page, {userMail}</h1>
         </div>
     )
 }
