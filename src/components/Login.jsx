@@ -5,7 +5,6 @@ import appFirebase from '../services/firebase';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-import { writeUserCredentials } from '../services/databaseFunctions';
 
 const auth = getAuth(appFirebase);
 
@@ -32,6 +31,10 @@ const Login = () => {
                 await createUserWithEmailAndPassword(auth, email, password);
 
                 const db = getFirestore(appFirebase);
+
+                await addDoc(collection(db, "users"), {
+                    email: email
+                });
 
             } else {
                 await signInWithEmailAndPassword(auth, email, password);

@@ -19,7 +19,7 @@ const NavBar = ({ isLoggedIn }) => {
                     <><div className="flex items-center space-x-4 font-medium">
                         <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Home</a>
                         <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Discover</a>
-                        <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Progress</a>
+                        <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Bookshelf</a>
                     </div><div>
                             <img src={auth.currentUser.photoURL} className="h-8 w-8 rounded-full cursor-pointer" alt="User" onClick={() => signOut(auth)} />
                         </div></>
