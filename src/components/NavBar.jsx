@@ -2,19 +2,27 @@ import React from "react";
 import logoImg from '../assets/img/logo.png';
 
 import appFirebase from '../services/firebase';
-import { getAuth, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth'; 
 
 const auth = getAuth(appFirebase);
 
 const NavBar = ({ isLoggedIn, isAdmin }) => {
 
     const renderAdminNav = () => (
-        <><div>
-            <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Admin</a>
-            <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Users</a>
-        </div>
-            <button onClick={() => signOut(auth)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign Out</button>
+        <>
+            <div className="flex items-center space-x-4 font-medium">
+                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Admin</a>
+                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Users</a>
+            </div>
+            <div className="flex items-center gap-2 text-gray-500 cursor-pointer" onClick= { () => signOut(auth)}>
+                <span>Log out</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+                </svg>
+            </div>
         </>
+
+
 
     );
 
@@ -56,7 +64,7 @@ const NavBar = ({ isLoggedIn, isAdmin }) => {
         <nav className="bg-white sticky top-0  border-b border-gray-200 z-10">
             <div className=" shadow-lg flex justify-between items-center p-6 pl-8 pr-8">
                 <a href="#" className="flex items-center space-x-2">
-                    <img src={logoImg} className="h-8" alt="Flowbite Logo" />
+                    <img src={logoImg} className="h-8" alt="Novellia Logo" />
                 </a>
                 {isLoggedIn && (
                     (isAdmin) ? (renderAdminNav()) : (renderUserNav())
