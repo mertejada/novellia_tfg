@@ -3,7 +3,7 @@ import bkImg from '../assets/img/test.jpg';
 import appFirebase from '../services/firebase';
 
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, collection, addDoc, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(appFirebase);
 

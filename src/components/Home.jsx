@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import appFirebase from '../services/firebase';
 import { getAuth, signOut } from 'firebase/auth';
-import { collection, query, where, getFirestore, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import UserRegister from "./UserRegister";
 
 const auth = getAuth(appFirebase);
@@ -13,26 +13,25 @@ const Home = ({ userMail }) => {
         const fetchUserData = async () => {
             try {
                 const db = getFirestore(appFirebase);
-                const usersRef = collection(db, "users");
-                const userQuery = query(usersRef, where("email", "==", userMail));
-                const querySnapshot = await getDocs(userQuery);
-
-                console.log(querySnapshot.docs[0].data());
-
-
+                const userDocRef = doc(db, 'users', auth.currentUser.uid);
+                const userDocSnapshot = await getDoc(userDocRef);
+                
+                if (userDocSnapshot.exists()) {
+                    console.log(userDocSnapshot.data());
+                } else {
+                    console.log('No data available');
+                }
             } catch (error) {
-                console.error('Error al obtener datos del usuario:', error);
+                console.error(error);
             }
         };
-        
+
         fetchUserData();
     }, [userMail]);
 
     return (
         <div>
-            <h1>Home</h1>
-            <button onClick={() => signOut(auth)}>Cerrar sesión</button>
-            { !userInfo && <UserRegister />}
+            {!userInfo && <UserRegister />}
         </div>
     );
 };
