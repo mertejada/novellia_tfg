@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import StepPersonal from "./StepPersonal";
 import StepsGoals from "./StepGoals";
+import StepsInterest from "./StepsInterests";
 
 const UserRegister = () => {
     const [step, setStep] = useState(1);
 
     const nextStep = () => {
-        setStep(prevStep => prevStep + 1);
+        if (step === 1) {
+            setStep(prevStep => prevStep + 1);
+        }
     };
 
     const prevStep = () => {
@@ -24,7 +27,7 @@ const UserRegister = () => {
             case 2:
                 return <StepsGoals onNext={nextStep} onPrev={prevStep} />;
             case 3:
-                // Render the next step component or final step component
+                return <StepsInterest onNext={nextStep} onPrev={prevStep} />;
                 break;
             default:
                 return null;
@@ -59,10 +62,19 @@ const UserRegister = () => {
                 <form className="flex flex-col gap-4 mt-10 mb-10">
                     {renderStep()}
                 </form>
-                <div className="flex justify-between gap-5">
-                    {step > 1 && <button onClick={prevStep} className="p-2 bg-gray-300 button mt-4">Previous</button>}
-                    {step < 3 ? <button onClick={nextStep} className="p-2 bg-crayola button mt-4" >Continue</button> : <button className="p-2 bg-crayola button mt-4">Finish</button>}
-                    <button onClick={cancelRegister} className="p-2 bg-gray-300 button mt-4">Continue later</button>
+                <div className="flex justify-between">
+                    <button onClick={cancelRegister} className="p-2 text-gray-300 mt-4">
+                        <p className="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            Continue later</p>
+
+                    </button>
+                    <div className="flex gap-2 font-light">
+                        {step > 1 && <button onClick={prevStep} className="p-2 bg-gray-300 button mt-4">Previous</button>}
+                        {step < 3 ? <button onClick={nextStep} className="p-2 bg-crayola button mt-4" >Continue</button> : <button className="p-2 bg-crayola button mt-4">Finish</button>}
+                    </div>
                 </div>
             </div>
         </div>

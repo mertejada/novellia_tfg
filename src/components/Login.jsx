@@ -122,7 +122,7 @@ const Login = () => {
                         )}
 
                         <button type="submit" className="h-12 p-2 button bg-zinc-700 rounded-3xl">{register ? "Sign up" : "Log in"}</button>
-                        <button type="button" onClick={signInWithGoogle} className="flex items-center justify-center h-12 p-2 bg-white rounded-xl shadow-md border border-gray-300 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" onClick={signInWithGoogle} className="flex button items-center justify-center h-12 p-2 bg-white rounded-xl shadow-md border border-gray-300 hover:bg-gray-100 focus:outline-none">
                             <img className="h-6 w-6 mr-2" src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" alt="Google Logo" />
                             <span className="font-medium text-gray-800">Continue with Google</span>
                         </button>
