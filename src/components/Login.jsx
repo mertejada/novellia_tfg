@@ -71,21 +71,38 @@ const Login = () => {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             setShowError(false);
-    
-            const email = result.user.email; // Obtén el correo electrónico del usuario desde el resultado de autenticación
+
+            const email = result.user.email; // Get the user's email from the authentication result
+            
             const db = getFirestore(appFirebase);
             const userData = {
                 email: email,
-                userInfo: false
-            };
-            
-            // Verifica si el documento del usuario ya existe en la base de datos
-            const docRef = doc(db, "users", result.user.uid);
-            const docSnap = await docRef.get();
-            if (!docSnap.exists()) {
-                await setDoc(docRef, userData); // Inyecta los datos del usuario si no existen en la base de datos
+                userInfo: false,
+                personalInfo: {
+                    name: "",
+                    lastName: "",
+                    birthDate: "",
+                    phoneNumber: "",
+                    gender: ""
+                },
+                readingGoals: {
+                    booksPerMonth: 5,
+                    dailyReading: 30,
+                    diffGenres: 4
+                },
+                genres: [],
+                lists: {
+                    readingList: [],
+                    wishList: [],
+                    favourites: [],
+                    finished: []
+                },
+                readingSessions: []
             }
-    
+            if(result.additionalUserInfo.isNewUser){ // Check if the user is new
+                await setDoc(doc(db, "users", auth.currentUser.uid), userData);
+            }
+            
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
