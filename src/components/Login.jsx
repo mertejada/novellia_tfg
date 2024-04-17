@@ -71,43 +71,50 @@ const Login = () => {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             setShowError(false);
-
+    
             const email = result.user.email; // Get the user's email from the authentication result
             
             const db = getFirestore(appFirebase);
-            const userData = {
-                email: email,
-                userInfo: false,
-                personalInfo: {
-                    name: "",
-                    lastName: "",
-                    birthDate: "",
-                    phoneNumber: "",
-                    gender: ""
-                },
-                readingGoals: {
-                    booksPerMonth: 5,
-                    dailyReading: 30,
-                    diffGenres: 4
-                },
-                genres: [],
-                lists: {
-                    readingList: [],
-                    wishList: [],
-                    favourites: [],
-                    finished: []
-                },
-                readingSessions: []
-            }
-            if(result.additionalUserInfo.isNewUser){ // Check if the user is new
-                await setDoc(doc(db, "users", auth.currentUser.uid), userData);
-            }
             
+            // Check if the user document already exists
+            const userDocRef = doc(db, "users", auth.currentUser.uid);
+            const docSnap = await getDoc(userDocRef);
+            
+            if (!docSnap.exists()) {
+                // If the document doesn't exist, create a new one
+                const userData = {
+                    email: email,
+                    userInfo: false,
+                    personalInfo: {
+                        name: "",
+                        lastName: "",
+                        birthDate: "",
+                        phoneNumber: "",
+                        gender: ""
+                    },
+                    readingGoals: {
+                        booksPerMonth: 5,
+                        dailyReading: 30,
+                        diffGenres: 4
+                    },
+                    genres: [],
+                    lists: {
+                        readingList: [],
+                        wishList: [],
+                        favourites: [],
+                        finished: []
+                    },
+                    readingSessions: []
+                };
+    
+                await setDoc(userDocRef, userData);
+            }
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
         }
     };
+    
     
 
 
