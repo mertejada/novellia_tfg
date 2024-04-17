@@ -2,7 +2,7 @@ import React from "react";
 
 const StepsGoals = () => {
     return (
-            <div className="flex flex-col gap-4 items-center justify-center">
+            <div className="flex flex-col gap-4 items-center justify-center flex-wrap">
                 <h2 className="text-2xl text-center mb-6 text-gray-700">What are your reading goals for the year?<span className='text-black'>.</span></h2>
                 <div className="flex flex-col md:flex-row gap-7">
                     <div className="flex flex-col w-full md:w-1/3 gap-2 items-center">
@@ -28,7 +28,6 @@ const StepsGoals = () => {
                     </div>
                 </div>
             </div>
-        
     )
 }
 

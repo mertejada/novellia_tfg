@@ -7,7 +7,7 @@ import UserRegister from "./UserRegister";
 const auth = getAuth(appFirebase);
 
 const Home = ({ userMail }) => {
-    const [userInfo, setUserInfo] = useState(null);
+    const [userInfo, setUserInfo] = useState(true);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -18,6 +18,7 @@ const Home = ({ userMail }) => {
                 
                 if (userDocSnapshot.exists()) {
                     console.log(userDocSnapshot.data());
+                    setUserInfo(userDocSnapshot.data().userInfo); // Modifica el estado usando setUserInfo
                 } else {
                     console.log('No data available');
                 }
