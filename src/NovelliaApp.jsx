@@ -48,8 +48,10 @@ function App() {
             />
             <Route path="/home" element={<Home userMail={user?.email} />} />
             <Route path="/profile" element={<ProfileSettings />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/login" element={<Login isAdmin={isAdmin}/>} />
+
+            {isAdmin && 
+                <Route path="/admin" element={<Admin />} />}
             </Routes>
             <Footer />
         </Router>

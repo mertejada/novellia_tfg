@@ -5,7 +5,7 @@ import appFirebase from '../services/firebase';
 import { useNavigate } from 'react-router-dom';
 
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const auth = getAuth(appFirebase);
 
@@ -105,6 +105,8 @@ const Login = ({ isAdmin }) => {
             if (!docSnap.exists()) {
                 await setDoc(userDocRef, userTemplate(email));
             }
+
+            navigate("/home");
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
