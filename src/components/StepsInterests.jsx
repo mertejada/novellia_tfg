@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { HiCheck } from "react-icons/hi";
 
 function StepsInterest({ formData, setFormData }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
 
   const toggleGenre = (genre) => {
-    const updatedGenres = selectedGenres.includes(genre)
-      ? selectedGenres.filter((g) => g !== genre)
-      : [...selectedGenres, genre];
+    if (selectedGenres.includes(genre)) {
+      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
+    } else {
+      if (selectedGenres.length === 3) return;
+      setSelectedGenres([...selectedGenres, genre]);
+    }
+  };
 
-    setSelectedGenres(updatedGenres);
-
+  const updateFormData = () => {
     setFormData({
       ...formData,
-      genres: updatedGenres // Aquí usamos la versión actualizada de selectedGenres
+      genres: selectedGenres
     });
   };
 
@@ -26,7 +28,10 @@ function StepsInterest({ formData, setFormData }) {
       {genres.map((genre) => (
         <button
           key={genre}
-          onClick={() => toggleGenre(genre)}
+          onClick={() => {
+            toggleGenre(genre);
+            updateFormData();
+          }}
           style={{
             backgroundColor: selectedGenres.includes(genre) ? "#007bff" : "transparent",
             color: selectedGenres.includes(genre) ? "#fff" : "#000",
@@ -39,7 +44,6 @@ function StepsInterest({ formData, setFormData }) {
           value={genre}
         >
           {genre}
-          {selectedGenres.includes(genre) }
         </button>
       ))}
     </div>

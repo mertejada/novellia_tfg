@@ -2,6 +2,16 @@ import { update } from "firebase/database";
 import React from "react";
 
 const StepPersonal = ({ formData, setFormData }) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            personalInfo: {
+                ...prevState.personalInfo,
+                [name]: value
+            }
+        }));
+    };
     return (
         <div className=" grid gap-10 m-5">
             <div className="flex flex-col md:flex-row md:gap-10">
@@ -9,18 +19,12 @@ const StepPersonal = ({ formData, setFormData }) => {
                     <label className="text-gray-600 dark:text-gray-400">Name</label>
                     <input
                         type="text"
+                        name="name"
                         placeholder="Name"
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.name}
-                        onChange={(event) =>
-                            setFormData({
-                                ...formData,
-                                personalInfo: {
-                                    ...formData.personalInfo,
-                                    name: event.target.value
-                                }
-                            })
-                        }
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
@@ -29,17 +33,12 @@ const StepPersonal = ({ formData, setFormData }) => {
                     <input
                         type="text"
                         placeholder="Last Name"
+                        name= "lastName"
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.lastName}
-                        onChange={(event) =>
-                            setFormData({
-                                ...formData,
-                                personalInfo: {
-                                    ...formData.personalInfo,
-                                    lastName: event.target.value
-                                }
-                            })
-                        }
+                        onChange={handleChange}
+
+                        required
                     />
                 </div>
 
@@ -53,17 +52,12 @@ const StepPersonal = ({ formData, setFormData }) => {
                     <input
                         type="number"
                         placeholder="Phone Number"
+                        name="phoneNumber"
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.phoneNumber}
-                        onChange={(event) =>
-                            setFormData({
-                                ...formData,
-                                personalInfo: {
-                                    ...formData.personalInfo,
-                                    phoneNumber: event.target.value
-                                }
-                            })
-                        }
+                        onChange={handleChange}
+
+                        required
                     />
                 </div>
 
@@ -72,17 +66,11 @@ const StepPersonal = ({ formData, setFormData }) => {
                     <input
                         type="date"
                         placeholder="Birthdate"
+                        name="birthDate"
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.birthDate}
-                        onChange={(event) =>
-                            setFormData({
-                                ...formData,
-                                personalInfo: {
-                                    ...formData.personalInfo,
-                                    birthDate: event.target.value
-                                }
-                            })
-                        }
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
@@ -90,15 +78,9 @@ const StepPersonal = ({ formData, setFormData }) => {
                     <label className="text-gray-600 dark:text-gray-400">Gender</label>
                     <select className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                     value={formData.personalInfo.gender}
-                    onChange={(event) =>
-                        setFormData({
-                            ...formData,
-                            personalInfo: {
-                                ...formData.personalInfo,
-                                gender: event.target.value
-                            }
-                        })
-                    }>
+                    name="gender"
+                    onChange={handleChange}
+                    >
                         <option value="feminine">Feminine</option>
                         <option value="masculine">Masculine</option>
                         <option value="other">Other</option>

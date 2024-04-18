@@ -11,6 +11,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InterestsIcon from '@mui/icons-material/Interests';
 import BookIcon from '@mui/icons-material/Book';
+import { set } from "firebase/database";
 
 const UserRegister = () => {
     const auth = getAuth(appFirebase);
@@ -18,6 +19,8 @@ const UserRegister = () => {
     const db = getFirestore(appFirebase);
 
     const [step, setStep] = useState(0);
+    const [showFormError, setFormErrorMsg] = useState(null);
+
 
     const [formData, setFormData] = useState({
         personalInfo: {
@@ -55,6 +58,13 @@ const UserRegister = () => {
     }, [user]);
 
     const nextStep = () => {
+        //validar que los campos estén llenos
+        if (step === 0 && (formData.personalInfo.name === "" || formData.personalInfo.lastName === "" || formData.personalInfo.phoneNumber === "")) {
+            setFormErrorMsg("You must fill all the fields to continue");
+            return;
+        }else{
+            setFormErrorMsg(null);
+        }
         setStep(step + 1);
     }
 
@@ -113,6 +123,7 @@ const UserRegister = () => {
                     </li>
                 </ol>
                 {renderForm()}
+                {showFormError && <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4">{showFormError}</p>}
                 <div className="flex justify-between">
                     <button onClick={continueLater} className="p-2 text-gray-300 mt-4">
                         <p className="flex items-center gap-2">

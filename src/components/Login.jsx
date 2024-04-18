@@ -32,7 +32,14 @@ const Login = () => {
                 const db = getFirestore(appFirebase);
                 const userData = {
                     email: email,
-                    userInfo: false
+                    userInfo: false,
+                    lists: {
+                        readingList: [],
+                        wishList: [],
+                        favourites: [],
+                        finished: []
+                    },
+                    readingSessions: []
                 }
 
                 await setDoc(doc(db, "users", auth.currentUser.uid), userData);
