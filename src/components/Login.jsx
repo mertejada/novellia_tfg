@@ -9,13 +9,31 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(appFirebase);
 
-const Login = ({isAdmin}) => {
+const Login = ({ isAdmin }) => {
     const [register, setRegister] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showErrorMsg, setShowErrorMsg] = useState(null);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
 
     const navigate = useNavigate();
+    const userTemplate = (email) =>{
+        let userData =  {
+            email: email,
+            userInfo: false,
+            lists: {
+                readingList: [],
+                wishList: [],
+                favourites: [],
+                finished: []
+            },
+            readingSessions: []
+        }
+
+        return userData;
+    }
+    
+
+    const db = getFirestore(appFirebase);
 
     const authentication = async (event) => {
         event.preventDefault();
@@ -32,21 +50,8 @@ const Login = ({isAdmin}) => {
         try {
             if (register) {
                 await createUserWithEmailAndPassword(auth, email, password);
-
-                const db = getFirestore(appFirebase);
-                const userData = {
-                    email: email,
-                    userInfo: false,
-                    lists: {
-                        readingList: [],
-                        wishList: [],
-                        favourites: [],
-                        finished: []
-                    },
-                    readingSessions: []
-                }
-
-                await setDoc(doc(db, "users", auth.currentUser.uid), userData);
+                await setDoc(doc(db, "users", auth.currentUser.uid), userTemplate(email));
+                navigate("/home");
 
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
@@ -89,51 +94,24 @@ const Login = ({isAdmin}) => {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             setShowError(false);
-    
+
             const email = result.user.email; // Get the user's email from the authentication result
-            
-            const db = getFirestore(appFirebase);
-            
+
+
             // Check if the user document already exists
             const userDocRef = doc(db, "users", auth.currentUser.uid);
             const docSnap = await getDoc(userDocRef);
-            
+
             if (!docSnap.exists()) {
-                // If the document doesn't exist, create a new one
-                const userData = {
-                    email: email,
-                    userInfo: false,
-                    personalInfo: {
-                        name: "",
-                        lastName: "",
-                        birthDate: "",
-                        phoneNumber: "",
-                        gender: ""
-                    },
-                    readingGoals: {
-                        booksPerMonth: 5,
-                        dailyReading: 30,
-                        diffGenres: 4
-                    },
-                    genres: [],
-                    lists: {
-                        readingList: [],
-                        wishList: [],
-                        favourites: [],
-                        finished: []
-                    },
-                    readingSessions: []
-                };
-    
-                await setDoc(userDocRef, userData);
+                await setDoc(userDocRef, userTemplate(email));
             }
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
         }
     };
-    
-    
+
+
 
 
     return (
