@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import bkImg from '../assets/img/test.jpg';
 import appFirebase from '../services/firebase';
 
+import { useNavigate } from 'react-router-dom';
+
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(appFirebase);
 
-const Login = () => {
+const Login = ({isAdmin}) => {
     const [register, setRegister] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showErrorMsg, setShowErrorMsg] = useState(null);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
+
+    const navigate = useNavigate();
 
     const authentication = async (event) => {
         event.preventDefault();
@@ -46,6 +50,13 @@ const Login = () => {
 
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
+
+                if (email === "admin@novellia.com") {
+                    navigate("/admin");
+                    return;
+                }
+
+                navigate("/home");
             }
 
             setShowError(false);

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import logoImg from '../assets/img/logo.png';
 
+import { useNavigate, Link } from "react-router-dom";
+
 import appFirebase from '../services/firebase';
-import { getAuth, signOut } from 'firebase/auth'; 
+import { getAuth, signOut } from 'firebase/auth';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -13,6 +15,7 @@ const auth = getAuth(appFirebase);
 const NavBar = ({ isLoggedIn, isAdmin }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -31,26 +34,29 @@ const NavBar = ({ isLoggedIn, isAdmin }) => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleLogout = () => {
+        signOut(auth);
+        navigate("/login");
+    };
+
+
     const renderAdminNav = () => (
         <>
             <div className="flex items-center space-x-4 font-medium">
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Books</a>
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Users</a>
+
             </div>
             <div className="flex items-center gap-2 text-gray-500 cursor-pointer">
-                <span onClick={() => signOut(auth)}>Log out</span>
+                <span onClick={handleLogout}>Log out</span>
                 <LogoutIcon />
             </div>
         </>
     );
-    
+
 
     const renderUserNav = () => (
         <>
             <div className="flex items-center space-x-4 font-medium">
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Home</a>
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Discover</a>
-                <a href="#" className="text-gray-800 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">Bookshelf</a>
+                <Link to="/home">Home</Link>
             </div>
             <div className="relative" ref={menuRef}>
                 {auth.currentUser.photoURL ? (
@@ -68,9 +74,9 @@ const NavBar = ({ isLoggedIn, isAdmin }) => {
                         <ul className="py-2">
                             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={toggleMenu}>
                                 <SettingsIcon className="mr-2" />
-                                Settings
+                                <Link to="/profile">Settings</Link>
                             </li>
-                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => signOut(auth)}>
+                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                                 <LogoutIcon className="mr-2" />
                                 Log out
                             </li>

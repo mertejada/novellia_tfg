@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 
 import './App.css';
 
@@ -13,6 +15,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
 import Home from './components/Home';
+import ProfileSettings from './components/ProfileSettings';
 
 
 function App() {
@@ -29,13 +32,27 @@ function App() {
     });
 
     return (
-        
-        <div>
+        //routes
+        <Router>
             <NavBar isLoggedIn={user ? true : null} isAdmin={isAdmin} />
-            {user ? (isAdmin ? <Admin /> : <Home userMail={user.email} />) : <Login />}
+            <Routes>
+            <Route
+                path="/"
+                element={
+                    user ? (
+                        isAdmin ? <Navigate to="/home" /> : <Navigate to="/admin" />
+                    ) : (
+                        <Navigate to="/login" />
+                    )
+                }
+            />
+            <Route path="/home" element={<Home userMail={user?.email} />} />
+            <Route path="/profile" element={<ProfileSettings />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/login" element={<Login isAdmin={isAdmin}/>} />
+            </Routes>
             <Footer />
-        </div>
-
+        </Router>
     );
 }
 
