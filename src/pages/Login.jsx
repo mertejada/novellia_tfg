@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import bkImg from '../assets/img/test.jpg';
-import appFirebase from '../services/firebase';
 
 import { useNavigate } from 'react-router-dom';
 
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
 
 

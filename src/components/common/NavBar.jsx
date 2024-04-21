@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import logoImg from '../assets/img/logo.png';
+import logoImg from '../../assets/img/logo.png';
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from '../context/AuthContext'; // Importa el hook useAuth
+import { useAuth } from '../../contexts/AuthContext';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';

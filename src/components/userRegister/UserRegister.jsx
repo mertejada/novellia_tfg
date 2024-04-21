@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 import StepPersonal from "./StepPersonal";
 import StepGoals from "./StepGoals";
 import StepsInterests from "./StepsInterests";
 
-import { db } from '../services/firebase';
+import { db } from '../../services/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 import CancelIcon from '@mui/icons-material/Cancel';

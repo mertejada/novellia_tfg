@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import appFirebase from '../services/firebase';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import UserRegister from "../components/UserRegister";
-import { useAuth } from '../context/AuthContext';
+import UserRegister from "../components/userRegister/UserRegister";
+import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
 
 
