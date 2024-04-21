@@ -4,18 +4,22 @@ import appFirebase from '../services/firebase';
 
 import { useNavigate } from 'react-router-dom';
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
-const auth = getAuth(appFirebase);
+import { useAuth } from '../context/AuthContext';
 
-const Login = ({ isAdmin }) => {
+
+
+const Login = () => {
     const [register, setRegister] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showErrorMsg, setShowErrorMsg] = useState(null);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
 
+    const { user, isAdmin, auth } = useAuth(); // Destructure user and isAdmin from context
     const navigate = useNavigate();
+
     const userTemplate = (email) =>{
         let userData =  {
             email: email,
@@ -56,7 +60,7 @@ const Login = ({ isAdmin }) => {
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
 
-                if (email === "admin@novellia.com") {
+                if (isAdmin) {
                     navigate("/admin");
                     return;
                 }
@@ -68,24 +72,8 @@ const Login = ({ isAdmin }) => {
         } catch (error) {
             setShowError(true);
             setPasswordMatchError(false);
-            let errorMessage = "";
-
-            switch (error.code) {
-                case "auth/invalid-credential":
-                    errorMessage = "Wrong email or password. Please try again.";
-                    break;
-                case "auth/weak-password":
-                    errorMessage = "Weak password. Please try again.";
-                    break;
-                case "auth/email-already-in-use":
-                    errorMessage = "Email is already in use. Try another one or log in.";
-                    break;
-                default:
-                    errorMessage = "An error occurred while attempting to authenticate. Please try again.";
-                    break;
-            }
-
-            setShowErrorMsg(errorMessage);
+            
+            setShowErrorMsg(errorType(error.code));
         }
     };
 
@@ -95,10 +83,8 @@ const Login = ({ isAdmin }) => {
             const result = await signInWithPopup(auth, provider);
             setShowError(false);
 
-            const email = result.user.email; // Get the user's email from the authentication result
+            const email = result.user.email; 
 
-
-            // Check if the user document already exists
             const userDocRef = doc(db, "users", auth.currentUser.uid);
             const docSnap = await getDoc(userDocRef);
 
@@ -113,6 +99,26 @@ const Login = ({ isAdmin }) => {
         }
     };
 
+    const errorType = (errorCode) => {
+        let errorMessage = "";
+        switch (errorCode) {
+            case "auth/invalid-credential":
+                errorMessage = "Wrong email or password. Please try again.";
+                break;
+            case "auth/weak-password":
+                errorMessage = "Weak password. Please try again.";
+                break;
+            case "auth/email-already-in-use":
+                errorMessage = "Email is already in use. Try another one or log in.";
+                break;
+            default:
+                errorMessage = "An error occurred while attempting to authenticate. Please try again.";
+                break;
+        }
+
+        return errorMessage;
+    }
+
 
 
 
@@ -124,11 +130,11 @@ const Login = ({ isAdmin }) => {
 
                 <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 max-w-md w-full">
                     <form className='flex flex-col gap-4' onSubmit={authentication}>
-                        <input id="email" type="email" placeholder="Your mail" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none" />
-                        <input id="password" type="password" placeholder="Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none" />
+                        <input id="email" type="email" placeholder="Your mail" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
+                        <input id="password" type="password" placeholder="Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                         {register && (
                             <>
-                                <input id="password_repeat" type="password" placeholder="Repeat Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none" />
+                                <input id="password_repeat" type="password" placeholder="Repeat Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                                 {passwordMatchError && (
 
                                     <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4">

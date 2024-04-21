@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
 import appFirebase from '../services/firebase';
-import { getAuth, signOut } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import UserRegister from "./UserRegister";
+import { useAuth } from '../context/AuthContext';
 
-const auth = getAuth(appFirebase);
-
-const Home = ({ userMail }) => {
+const Home = () => { 
     const [userInfo, setUserInfo] = useState(true);
-
+    const { user, isAdmin } = useAuth();
+    
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const db = getFirestore(appFirebase);
-                const userDocRef = doc(db, 'users', auth.currentUser.uid);
-                const userDocSnapshot = await getDoc(userDocRef);
-                
-                if (userDocSnapshot.exists()) {
-                    console.log(userDocSnapshot.data());
-                    setUserInfo(userDocSnapshot.data().userInfo); // Modifica el estado usando setUserInfo
-                } else {
-                    console.log('No data available');
+        if (user) {  // Ensure user and user.uid are not null or undefined
+            const fetchUserData = async () => {
+                try {
+                    const db = getFirestore(appFirebase);
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDocSnapshot = await getDoc(userDocRef);
+                    
+                    if (userDocSnapshot.exists()) {
+                        setUserInfo(userDocSnapshot.data().userInfo); // Modify state with fetched data
+                        console.log(user.uid);
+                    } else {
+                        console.log('No data available');
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch user data:', error);
                 }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+            };
 
-        fetchUserData();
-    }, [userMail]);
+            fetchUserData();
+        }
+    }, [user]);
 
     return (
         <div>
