@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import appFirebase from '../services/firebase';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 import { useEffect } from "react";
+
+import { useAuth } from '../context/AuthContext';
+
 import StepPersonal from "./StepPersonal";
 import StepGoals from "./StepGoals";
 import StepsInterests from "./StepsInterests";
+
+import { db } from '../services/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import CancelIcon from '@mui/icons-material/Cancel';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InterestsIcon from '@mui/icons-material/Interests';
 import BookIcon from '@mui/icons-material/Book';
-import { set } from "firebase/database";
 
 const UserRegister = () => {
-    const auth = getAuth(appFirebase);
-    const user = auth.currentUser;
-    const db = getFirestore(appFirebase);
+
+    const { user } = useAuth();
 
     const [step, setStep] = useState(0);
     const [showFormError, setFormErrorMsg] = useState(null);

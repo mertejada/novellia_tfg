@@ -3,6 +3,8 @@ import appFirebase from '../services/firebase';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import UserRegister from "./UserRegister";
 import { useAuth } from '../context/AuthContext';
+import { db } from '../services/firebase';
+
 
 const Home = () => { 
     const [userInfo, setUserInfo] = useState(true);
@@ -12,7 +14,6 @@ const Home = () => {
         if (user) {  // Ensure user and user.uid are not null or undefined
             const fetchUserData = async () => {
                 try {
-                    const db = getFirestore(appFirebase);
                     const userDocRef = doc(db, 'users', user.uid);
                     const userDocSnapshot = await getDoc(userDocRef);
                     

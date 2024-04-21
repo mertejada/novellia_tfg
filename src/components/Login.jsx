@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithP
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 import { useAuth } from '../context/AuthContext';
+import { db } from '../services/firebase';
 
 
 
@@ -19,6 +20,7 @@ const Login = () => {
 
     const { user, isAdmin, auth } = useAuth(); // Destructure user and isAdmin from context
     const navigate = useNavigate();
+    
 
     const userTemplate = (email) =>{
         let userData =  {
@@ -36,8 +38,6 @@ const Login = () => {
         return userData;
     }
     
-
-    const db = getFirestore(appFirebase);
 
     const authentication = async (event) => {
         event.preventDefault();
