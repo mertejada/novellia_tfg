@@ -8,19 +8,32 @@
 
 @layer  utilities {
   .gradient{
-    @apply bg-gradient-to-r from-test via-test2 to-test3 ;
+    @apply bg-gradient-to-r from-lavender via-salmon to-crayola ;
   }
+
 
   .button {
     @apply text-white rounded-full px-4 py-2;
   }
 
   .title {
-    @apply font-playfair font-extrabold;
+    @apply font-playfair font-extrabold sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  .subtitle {
+    @apply font-poppins font-light text-2xl sm:text-2xl md:text-3xl lg:text-4xl;
   }
 
   .text-gradient {
     @apply text-transparent bg-clip-text;
+  }
+
+  .content {
+    @apply m-5 sm:m-10;
+  }
+
+  .content-element {
+    @apply mt-16 sm:mt-24;
   }
 }
 

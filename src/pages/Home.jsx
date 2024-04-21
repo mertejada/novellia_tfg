@@ -5,6 +5,8 @@ import UserRegister from "../components/userRegister/UserRegister";
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
 
+import About from "../components/about/About";
+
 
 
 const Home = () => { 
@@ -36,6 +38,7 @@ const Home = () => {
     return (
         <div>
             {!userInfo && <UserRegister />}
+            <About />
         </div>
     );
 };
