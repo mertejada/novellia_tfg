@@ -3,12 +3,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
+
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Home from './components/Home';
-import ProfileSettings from './components/ProfileSettings';
-import Login from './components/Login';
-import Admin from './components/Admin';
+
+import Home from './pages/Home';
+import ProfileSettings from './pages/ProfileSettings';
+import Login from './pages/Login';
+import Admin from './pages/Admin';
 
 //css
 import './App.css';
