@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
 
 import About from "../components/about/About";
-
+import HomeIntro from "../components/home/HomeIntro";
 
 
 const Home = () => { 
@@ -38,6 +38,7 @@ const Home = () => {
     return (
         <div>
             {!userInfo && <UserRegister />}
+            <HomeIntro id="about-info" />
             <About />
         </div>
     );
