@@ -8,14 +8,13 @@ import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 const InfoCard = ({ color, title, text, icon }) => {
     let icons = [
-        <LocalLibraryIcon style={{ color: color }} className="hover:gradient hover:text-gradient" />,
-        <TimelineIcon style={{ color: color }} />,
-        <FindInPageIcon style={{ color: color }} />,
-        <BookmarkAddIcon style={{ color: color }} />
+        <LocalLibraryIcon style={{ color: color  }} fontSize= "large"/>,
+        <TimelineIcon style={{ color: color }} fontSize= "large"/>,
+        <FindInPageIcon style={{ color: color }} fontSize= "large"/>,
+        <BookmarkAddIcon style={{ color: color }} fontSize= "large"/>
         
         
     ];
-
 
 
     return (

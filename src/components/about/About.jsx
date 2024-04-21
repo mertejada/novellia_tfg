@@ -26,7 +26,7 @@ const About = () => {
                     <InfoCard
                         color="#EE902D"
                         title="Add books"
-                        text="You can't find a book? Add it yourself and let us know!"
+                        text="You can't find a book? Add it yourself and share it with the world!"
                         icon={3} />
                 </div>
 
