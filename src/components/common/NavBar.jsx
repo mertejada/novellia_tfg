@@ -44,6 +44,14 @@ const NavBar = () => {
     );
 
     const renderUserNav = () => (
+        <>
+        <div className="flex items-center gap-10 font-semibold mr-20">
+
+        <Link to="/home" className=" cursor-pointer">Home</Link>
+        <Link to="/bookshelf" className=" cursor-pointer">Library</Link>
+        <Link to="/tracker" className=" cursor-pointer">Tracker</Link>
+        <Link to="/discover" className=" cursor-pointer">Discover</Link>
+        </div>
         <div className="relative" ref={menuRef}>
             {user.photoURL ? (
                 <img
@@ -69,7 +77,7 @@ const NavBar = () => {
                     </ul>
                 </div>
             )}
-        </div>
+        </div></>
     );
 
     return (
