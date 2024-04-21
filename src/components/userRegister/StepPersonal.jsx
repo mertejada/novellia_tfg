@@ -25,6 +25,8 @@ const StepPersonal = ({ formData, setFormData }) => {
                         value={formData.personalInfo.name}
                         onChange={handleChange}
                         required
+                        pattern="[A-Za-z]{3,}"
+                        title="Please enter a valid name."
                     />
                 </div>
 
@@ -37,8 +39,9 @@ const StepPersonal = ({ formData, setFormData }) => {
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.lastName}
                         onChange={handleChange}
-
                         required
+                        pattern="[A-Za-z]{3,}"
+                        title="Please enter a valid last name."
                     />
                 </div>
 
@@ -56,8 +59,9 @@ const StepPersonal = ({ formData, setFormData }) => {
                         className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                         value={formData.personalInfo.phoneNumber}
                         onChange={handleChange}
-
                         required
+                        pattern="\d{10}" 
+                        title="Please enter a valid phone number. (10 digits)"
                     />
                 </div>
 
@@ -71,6 +75,7 @@ const StepPersonal = ({ formData, setFormData }) => {
                         value={formData.personalInfo.birthDate}
                         onChange={handleChange}
                         required
+                        min= "1900-01-01"
                     />
                 </div>
 

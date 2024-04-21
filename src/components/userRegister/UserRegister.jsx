@@ -14,6 +14,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InterestsIcon from '@mui/icons-material/Interests';
 import BookIcon from '@mui/icons-material/Book';
+import ErrorIcon from '@mui/icons-material/Error';
+
 
 const UserRegister = () => {
 
@@ -58,16 +60,49 @@ const UserRegister = () => {
         });
     }, [user]);
 
-    const nextStep = () => {
-        //validar que los campos estén llenos
-        if (step === 0 && (formData.personalInfo.name === "" || formData.personalInfo.lastName === "" || formData.personalInfo.phoneNumber === "")) {
-            setFormErrorMsg("You must fill all the fields to continue");
+    const nextStep = () => { 
+        if(!validatePersonalInput()){
             return;
-        }else{
-            setFormErrorMsg(null);
         }
         setStep(step + 1);
     }
+
+    const validatePersonalInput = () => {
+        const { name, lastName, phoneNumber, birthDate } = formData.personalInfo;
+        const currentDate = new Date();
+
+
+        if (name === "" || lastName === "" || phoneNumber === "" || birthDate === "") {
+            setFormErrorMsg("You must fill all the fields to continue");
+            return false;
+        }
+
+        if(phoneNumber.length !== 9 || isNaN(phoneNumber)){
+            setFormErrorMsg("Enter a valid phone number before continuing");
+            return false;
+        }
+
+        if(new Date(birthDate) > currentDate || new Date(birthDate) < new Date("1900-01-01")){
+            setFormErrorMsg("Enter a valid birthdate before continuing");
+            return false;
+        }
+
+        if(name.length < 3 || lastName.length < 3){
+            setFormErrorMsg("Name and last name must be at least 3 characters long");
+            return false;
+        }
+
+        //if name or last name are not letters
+        if(!/^[a-zA-Z]*$/.test(name) || !/^[a-zA-Z]*$/.test(lastName)){
+            setFormErrorMsg("Name and last name must contain only letters");
+            return false;
+        }
+
+
+        setFormErrorMsg(null);
+        return true;
+    }
+
 
     const previousStep = () => {
         setStep(step - 1);
@@ -124,7 +159,10 @@ const UserRegister = () => {
                     </li>
                 </ol>
                 {renderForm()}
-                {showFormError && <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4">{showFormError}</p>}
+                {showFormError && 
+                <div className="flex items-center justify-center gap-2 text-red-500 p-5">
+                    <ErrorIcon />
+                    <p>{showFormError}</p></div>}
                 <div className="flex justify-between">
                     <button onClick={continueLater} className="p-2 text-gray-300 mt-4">
                         <p className="flex items-center gap-2">
