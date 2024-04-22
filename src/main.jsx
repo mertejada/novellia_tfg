@@ -1,15 +1,16 @@
-import React from 'react'   // Importamos React para poder usar JSX
-import ReactDOM from 'react-dom'   // Importamos ReactDOM para renderizar la aplicación
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import App from './NovelliaApp'
-
-
+import { MediaQueriesProvider } from './contexts/MediaQueries'; // Asegúrate de tener la ruta correcta
+import App from './NovelliaApp';
 
 ReactDOM.render(
     <React.StrictMode>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+        <AuthProvider>
+            <MediaQueriesProvider>
+                <App />
+            </MediaQueriesProvider>
+        </AuthProvider>
     </React.StrictMode>,
     document.getElementById('root')
-  );   // Renderizamos el componente App en el elemento con id root
+);

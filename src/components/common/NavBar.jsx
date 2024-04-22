@@ -1,42 +1,38 @@
 import React, { useState, useEffect, useRef } from "react";
 import logoImg from '../../assets/img/logo.png';
-import logoImgMobile from '../../assets/img/logo-mobile.png';
 
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
+import { useMediaQueries } from '../../contexts/MediaQueries';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
+import { set } from "firebase/database";
 
 const NavBar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [img, setImg] = useState(logoImg); // Selecciona la imagen a mostrar [logoImg, logoImgMobile
-    const menuRef = useRef(null);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [isLinksMenuOpen, setIsLinksMenuOpen] = useState(false);
+    const profileMenuRef = useRef(null);
+    const linksMenuRef = useRef(null);
+
+    const  img = logoImg;
+
     const navigate = useNavigate();
 
     const { user, isAdmin, logout } = useAuth(); // Utiliza el contexto de autenticación
+    const { isMobile } = useMediaQueries(); // Utiliza el contexto de media queries
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 768) {
-                setImg(logoImgMobile);
-            } else {
-                setImg(logoImg);
-            }
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }
-);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
+            if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+                setIsUserMenuOpen(false);
+            }
+
+            if (linksMenuRef.current && !linksMenuRef.current.contains(event.target)) {
+                setIsLinksMenuOpen(false);
             }
         };
 
@@ -46,9 +42,14 @@ const NavBar = () => {
         };
     }, []);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    const toggleUserMenu = () => {
+        setIsUserMenuOpen(!isUserMenuOpen);
     };
+
+    const toggleLinksMenu = () => {
+        setIsLinksMenuOpen(!isLinksMenuOpen);
+    };
+
 
     const handleLogout = () => {
         logout();
@@ -66,42 +67,61 @@ const NavBar = () => {
         { name: "Admin", path: "/admin" },
     ];
 
-    const renderLinks = (links) => (
-        <div className="flex items-center gap-10 font-semibold">
-            {links.map((link) => (
-                <Link key={link.name} to={link.path} className=" cursor-pointer">{link.name}</Link>
-            ))}
-        </div>
-    );
+    const renderLinks = (links) => {
+        return isMobile ? (
+            <>
+                <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer absolute top-15 right-20" />
+                {isLinksMenuOpen && (
+                    <div className="absolute top-16 right-20 w-40 bg-white border border-gray-200 rounded shadow-md" ref={linksMenuRef}>
+                        <ul className="py-2 p-4 text-right">
+                            {links.map((link) => (
+                                <li key={link.name} className="px-4 py-2 hover:bg-gray-100  cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
+                                    <Link to={link.path} >{link.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </>
+        ) : (
+            links.map((link) => (
+                <Link key={link.name} to={link.path}>
+                    {link.name}
+                </Link>
+            ))
+        );
+    };
+    
 
     const renderAdminNav = () => (
-        <div className="flex items-center gap-2 text-gray-800 cursor-pointer">
+        <div className="flex items-center gap-10 text-gray-800 cursor-pointer">
             {renderLinks(userLinks)}
             <span onClick={handleLogout}>Log out</span>
             <LogoutIcon />
         </div>
     );
 
+
     const renderUserNav = () => (
         <>
-            <div className="flex items-center gap-2 text-gray-800 cursor-pointer">
+            <div className="flex items-center gap-10 text-gray-800 cursor-pointer font-semibold">
                 {renderLinks(userLinks)}
             </div>
-            <div ref={menuRef}>
+            <div ref={profileMenuRef}>
                 {user.photoURL ? (
                     <img
                         src={user.photoURL}
                         className="h-8 w-8 rounded-full cursor-pointer"
                         alt="User"
-                        onClick={toggleMenu}
+                        onClick={toggleUserMenu}
                     />
                 ) : (
-                    <AccountCircleIcon className="cursor-pointer" onClick={toggleMenu} />
+                    <AccountCircleIcon className="cursor-pointer" onClick={toggleUserMenu} />
                 )}
-                {isMenuOpen && (
-                    <div className="absolute top-10 right-0 w-40 bg-white border border-gray-200 rounded shadow-md">
+                {isUserMenuOpen && (
+                    <div className="absolute top-15 right-10 w-40 bg-white border border-gray-200 rounded shadow-md">
                         <ul className="py-2">
-                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={toggleMenu}>
+                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
                                 <SettingsIcon className="mr-2" />
                                 <Link to="/profile">Settings</Link>
                             </li>
@@ -114,6 +134,7 @@ const NavBar = () => {
                 )}
             </div></>
     );
+
 
 
     return (
