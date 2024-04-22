@@ -1,35 +1,49 @@
-// src/App.jsx
-
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from './contexts/AuthContext';
-
 import NavBar from './components/common/NavBar';
 import Footer from './components/common/Footer';
-
 import Home from './pages/Home';
 import ProfileSettings from './pages/ProfileSettings';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import { AuthContext } from './contexts/AuthContext';
 
-//css
 import './App.css';
 
 function App() {
+    const { user, isAdmin } = useContext(AuthContext);
+
     return (
-        <AuthProvider>
-            <Router>
-                <NavBar />
-                <Routes>
-                    <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/profile" element={<ProfileSettings />} />
-                    <Route path="/login" element={<Login />} />
+        <Router>
+            <NavBar />
+            <Routes>
+                {user && isAdmin &&
+                <>
+                    <Route path="/" element={<Admin />} />
                     <Route path="/admin" element={<Admin />} />
-                </Routes>
-                <Footer />
-            </Router>
-        </AuthProvider>
+                    </>
+                }
+
+                {user ?
+                    <>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/profile" element={<ProfileSettings />} />
+                        <Route path="/admin" element={user.isAdmin ? <Admin /> : <Navigate to="/" />} />
+                    </>
+                    :
+                    <>
+                        <Route path="/" element={<Login />} />
+                        <Route path="/admin" element={<Login />} />
+                    </>
+                }
+
+                
+
+                
+            </Routes>
+            <Footer />
+        </Router>
     );
 }
 

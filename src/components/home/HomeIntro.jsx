@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const HomeIntro = () => {
     const leadToAbout = () => {
-        const aboutSection = document.getElementById('about-info');
+        const aboutSection = document.getElementById('about-move');
         if (aboutSection) {
             aboutSection.scrollIntoView({ behavior: 'smooth' });
         }
@@ -13,7 +13,7 @@ const HomeIntro = () => {
 
     return (
         <div className="bg-black relative">
-            <video src={videoBg} autoPlay loop muted className="w-full h-full object-cover opacity-20"></video>
+            <video src={videoBg} autoPlay loop muted className="w-full h-full object-cover opacity-40"></video>
             
             <div className="absolute top-0 right-0  m-10 z-10 text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity
             duration-300 ease-in-out"

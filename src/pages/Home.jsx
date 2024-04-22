@@ -39,6 +39,7 @@ const Home = () => {
         <div>
             {!userInfo && <UserRegister />}
             <HomeIntro id="about-info" />
+            <div id="about-move"></div>
             <About />
         </div>
     );
