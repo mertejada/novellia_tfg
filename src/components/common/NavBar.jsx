@@ -81,7 +81,7 @@ const NavBar = () => {
     );
 
     return (
-        <nav className="bg-white sticky top-0 border-b border-gray-200 z-10">
+        <nav className="bg-white sticky top-0 border-b border-gray-200 z-20">
             <div className="shadow-lg flex justify-between items-center p-6 pl-8 pr-8">
                 <a href="/" className="flex items-center space-x-2">
                     <img src={logoImg} className="h-8" alt="Novellia Logo" />

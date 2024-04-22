@@ -25,8 +25,8 @@ const HomeIntro = () => {
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-4 font-playfair">Welcome to Novellia</h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-white gradient text-gradient font-light">We're happy to see you here! Continue with your reading journey.</p>
                 <div className="flex gap-4 mt-4">
-                    <button className="border border-white  text-white p-2 px-4 rounded-lg">Get Started</button>
-                    <button className="bg-white text-black p-2 px-4 rounded-lg">Learn More</button>
+                    <button className="border border-white  text-white p-2 px-4 rounded-lg">Discover</button>
+                    <button className="bg-white text-black p-2 px-4 rounded-lg">See progress</button>
                     </div>
             </div>
         </div>
