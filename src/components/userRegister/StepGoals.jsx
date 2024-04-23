@@ -1,6 +1,11 @@
 import React from "react";
+import { useMediaQueries } from '../../contexts/MediaQueries';
+
 
 const StepsGoals = ({ formData, setFormData }) => {
+    const { isMobile } = useMediaQueries();
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -14,7 +19,7 @@ const StepsGoals = ({ formData, setFormData }) => {
 
 
     return (
-        <div className="flex flex-col gap-4 m-10 items-center justify-center flex-wrap">
+        <div className=" grid gap-10 my-8 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
             <h2 className="text-2xl text-center mb-6 text-gray-300">What are your reading goals for the year?</h2>
             <div className="flex flex-col md:flex-row gap-7">
                 <div className="flex flex-col w-full md:w-1/3 gap-2 items-center">

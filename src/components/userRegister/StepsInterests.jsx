@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useMediaQueries } from '../../contexts/MediaQueries';
 
 function StepsInterest({ formData, setFormData }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const { isMobile } = useMediaQueries();
+
 
   const toggleGenre = (genre) => {
     if (selectedGenres.includes(genre)) {
@@ -24,7 +27,7 @@ function StepsInterest({ formData, setFormData }) {
   ];
 
   return (
-    <div>
+    <div className=" flex flex-wrap justify-center py-10 px-3 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
       {genres.map((genre) => (
         <button
           key={genre}

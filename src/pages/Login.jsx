@@ -92,9 +92,11 @@ const Login = () => {
 
             if (!docSnap.exists()) {
                 await setDoc(userDocRef, userTemplate(email));
+                
             }
 
             navigate("/home");
+            
         } catch (error) {
             setShowError(true);
             setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");

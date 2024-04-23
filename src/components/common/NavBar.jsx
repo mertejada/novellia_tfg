@@ -21,9 +21,8 @@ const NavBar = () => {
 
     const navigate = useNavigate();
 
-    const { user, isAdmin, logout } = useAuth(); // Utiliza el contexto de autenticación
-    const { isMobile } = useMediaQueries(); // Utiliza el contexto de media queries
-
+    const { user, isAdmin, logout } = useAuth();
+    const { isMobile } = useMediaQueries();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -50,7 +49,6 @@ const NavBar = () => {
         setIsLinksMenuOpen(!isLinksMenuOpen);
     };
 
-
     const handleLogout = () => {
         logout();
         navigate("/");
@@ -70,13 +68,13 @@ const NavBar = () => {
     const renderLinks = (links) => {
         return isMobile ? (
             <>
-                <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer absolute top-15 right-20" />
+                <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
                 {isLinksMenuOpen && (
-                    <div className="absolute top-16 right-20 w-40 bg-white border border-gray-200 rounded shadow-md" ref={linksMenuRef}>
-                        <ul className="py-2 p-4 text-right">
+                    <div className="absolute top-20 right-0 left-0 bg-white border border-gray-200 rounded" ref={linksMenuRef}>
+                        <ul className="py-2 px-4">
                             {links.map((link) => (
-                                <li key={link.name} className="px-4 py-2 hover:bg-gray-100  cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
-                                    <Link to={link.path} >{link.name}</Link>
+                                <li key={link.name} className="hover:bg-gray-100  cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
+                                    <Link to={link.path} className="block py-2">{link.name}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -85,29 +83,28 @@ const NavBar = () => {
             </>
         ) : (
             links.map((link) => (
-                <Link key={link.name} to={link.path}>
+                <Link key={link.name} to={link.path} className="mx-4">
                     {link.name}
                 </Link>
             ))
         );
     };
-    
 
     const renderAdminNav = () => (
-        <div className="flex items-center gap-10 text-gray-800 cursor-pointer">
+        <div className="flex items-center  text-gray-800 cursor-pointer">
             {renderLinks(userLinks)}
             <span onClick={handleLogout}>Log out</span>
             <LogoutIcon />
         </div>
     );
 
-
     const renderUserNav = () => (
-        <>
-            <div className="flex items-center gap-10 text-gray-800 cursor-pointer font-semibold">
-                {renderLinks(userLinks)}
-            </div>
-            <div ref={profileMenuRef}>
+        <div className="flex items-center text-gray-800 cursor-pointer">
+            <div className="flex gap-5 mr-10">
+
+
+            {renderLinks(userLinks)}</div>
+            <div ref={profileMenuRef} className="relative">
                 {user.photoURL ? (
                     <img
                         src={user.photoURL}
@@ -119,30 +116,29 @@ const NavBar = () => {
                     <AccountCircleIcon className="cursor-pointer" onClick={toggleUserMenu} />
                 )}
                 {isUserMenuOpen && (
-                    <div className="absolute top-15 right-10 w-40 bg-white border border-gray-200 rounded shadow-md">
-                        <ul className="py-2">
-                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
+                    <div className="absolute top-full right-0 bg-white rounded shadow w-40">
+                        <ul className="m-6 flex gap-2 flex-col">
+                            <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
                                 <SettingsIcon className="mr-2" />
                                 <Link to="/profile">Settings</Link>
                             </li>
-                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
+                            <li className="hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                                 <LogoutIcon className="mr-2" />
                                 Log out
                             </li>
                         </ul>
                     </div>
                 )}
-            </div></>
+            </div>
+        </div>
     );
-
-
 
     return (
         <nav className="bg-white sticky top-0 border-b border-gray-200 z-20">
-            <div className="shadow-lg flex justify-between items-center p-6 pl-8 pr-8">
-                <a href="/" className="flex items-center space-x-2">
-                    <img src= {img} alt="Logo" className="h-8" />
-                </a>
+            <div className="shadow-lg flex justify-between items-center p-4 md:p-6 font-semibold">
+                <Link to="/" className="flex items-center space-x-2">
+                    <img src={img} alt="Logo" className="h-8" />
+                </Link>
                 {user ? (isAdmin ? renderAdminNav() : renderUserNav()) : null}
             </div>
         </nav>
