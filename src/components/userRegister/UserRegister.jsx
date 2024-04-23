@@ -54,9 +54,9 @@ const UserRegister = () => {
                 gender: ""
             },
             readingGoals: {
-                dailyReading: 30,
-                booksPerYear: 10,
-                diffGenres: 4
+                dailyReading: [0,30],
+                booksPerYear: [0,10],
+                diffGenres: [0,3],
             },
             genres: [],
             userInfo: true
