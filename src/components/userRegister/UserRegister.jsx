@@ -141,9 +141,9 @@ const UserRegister = () => {
 
     return (
         <div id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8 w-fit lg:w-2/3 ">
+            <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8 w-fit xl:w-2/3  ">
                 <h1 className="  mb-10 mt-5 text-xl text-center md:text-left md:text-3xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
-                <ol className="pb-6 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
+                <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
                     <li className={`flex md:w-full items-center ${step >= 0 ? 'text-crayola dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
                             <AccountCircleIcon className="p-1" />
@@ -168,17 +168,17 @@ const UserRegister = () => {
                     <p>{showFormError}</p></div>}
                 <div className="flex justify-between h-50">
                     <button onClick={continueLater} className="p-2 text-gray-300 mt-4">
-                        <p className="flex items-center gap-2">
+                        <p className="flex items-center gap-2 ">
                             <CancelIcon />
                             { isMobile ? 
-                            "Cancel" : "Continue later"    
+                            "Exit" : "Continue later"    
                         }
                         </p>
 
                     </button>
                     <div className="flex items-end gap-2 font-light ">
-                        {step > 0 && <button onClick={previousStep} className=" bg-gray-300 button ">Previous</button>}
-                        {step < 2 ? <button onClick={nextStep} className=" bg-crayola button " >Continue</button> : <button className=" bg-crayola button" onClick={handleSubmit}>Finish</button>}
+                        {step > 0 && <button onClick={previousStep} className=" bg-gray-300 button-register">Previous</button>}
+                        {step < 2 ? <button onClick={nextStep} className=" bg-crayola button-register" >Continue</button> : <button className=" bg-crayola button button-register" onClick={handleSubmit}>Finish</button>}
                     </div>
                 </div>
             </div>

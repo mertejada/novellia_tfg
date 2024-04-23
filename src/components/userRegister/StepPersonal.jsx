@@ -18,7 +18,7 @@ const StepPersonal = ({ formData, setFormData }) => {
     const { isMobile } = useMediaQueries();
  
     return (
-        <div className=" grid gap-10 m-5 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
+        <div className=" grid gap-10 m-5 overflow-y-auto h-fit md:px-10" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
             <div className="flex flex-col md:flex-row md:gap-10">
                 <div className="flex flex-col w-full md:w-1/2 gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Name</label>

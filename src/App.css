@@ -13,7 +13,11 @@
 
 
   .button {
-    @apply text-white h-fit rounded-full md:rounded-full px-2 py-1 md:px-4 md:py-2;
+    @apply text-white h-fit rounded-full md:rounded-full px-4 py-3;
+  }
+
+  .button-register {
+    @apply text-white h-fit rounded-full md:rounded-full px-2 py-2;
   }
 
   .title {
