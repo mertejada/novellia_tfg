@@ -163,7 +163,7 @@ const UserRegister = () => {
                 </ol>
                 {renderForm()}
                 {showFormError && 
-                <div className="flex items-center justify-center gap-2 text-red-500 p-5">
+                <div className="flex items-center justify-center gap-2 text-red-500 m-1">
                     <ErrorIcon />
                     <p>{showFormError}</p></div>}
                 <div className="flex justify-between h-50">

@@ -22,7 +22,6 @@ const Home = () => {
                     
                     if (userDocSnapshot.exists()) {
                         setUserInfo(userDocSnapshot.data().userInfo); // Modify state with fetched data
-                        console.log(user.uid);
                     } else {
                         console.log('No data available');
                     }
@@ -37,7 +36,7 @@ const Home = () => {
 
     return (
         <div>
-            {!userInfo && <UserRegister />}
+            {!userInfo && <UserRegister /> }
             <HomeIntro id="about-info" />
             <div id="about-move" className="p-2"></div>
             <About />
