@@ -19,6 +19,7 @@ import BookIcon from '@mui/icons-material/Book';
 import ErrorIcon from '@mui/icons-material/Error';
 
 
+
 const UserRegister = () => {
 
     const { user } = useAuth();
@@ -26,6 +27,18 @@ const UserRegister = () => {
     const [step, setStep] = useState(0);
     const [showFormError, setFormErrorMsg] = useState(null);
     const { isMobile } = useMediaQueries();
+
+    useEffect(() => {
+        window.scrollTo(0, 0, { behavior: 'smooth' });
+        // Bloquear el scroll al montar el componente
+        document.body.style.overflow = 'hidden';
+
+        // Función de limpieza que se ejecuta al desmontar el componente
+        return () => {
+            // Reactivar el scroll al desmontar el componente
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
 
 
     const [formData, setFormData] = useState({
@@ -142,7 +155,8 @@ const UserRegister = () => {
     return (
         <div id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
             <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8 w-fit xl:w-2/3  ">
-                <h1 className="  mb-10 mt-5 text-xl text-center md:text-left md:text-3xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
+                <div className="flex flex-col items-center">
+                <h1 className="  mb-10 mt-5 text-xl text-center md:text-left md:text-2xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
                 <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
                     <li className={`flex md:w-full items-center ${step >= 0 ? 'text-crayola dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
                         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
@@ -161,6 +175,8 @@ const UserRegister = () => {
                         Interests
                     </li>
                 </ol>
+                </div>
+                
                 {renderForm()}
                 {showFormError && 
                 <div className="flex items-center justify-center gap-2 text-red-500 m-1">

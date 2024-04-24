@@ -7,6 +7,10 @@ import ProfileSettings from './pages/ProfileSettings';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import Bookshelf from './pages/Bookshelf';
+import List from './pages/List';
+import Tracker from './pages/Tracker';
+import Discover from './pages/Discover';
+
 import { AuthContext } from './contexts/AuthContext';
 
 import './App.css';
@@ -32,8 +36,10 @@ function App() {
                         <Route path="/profile" element={<ProfileSettings />} />
                         
                         <Route path="/bookshelf" element={<Bookshelf />} />
-                        <Route path="/tracker" element={<Bookshelf />} />
-                        <Route path="/discover" element={<Bookshelf />} />
+                        <Route path="/bookshelf/*" element={<List />} />
+
+                        <Route path="/tracker" element={<Tracker />} />
+                        <Route path="/discover" element={<Discover />} />
                         
                     </>
                     :
