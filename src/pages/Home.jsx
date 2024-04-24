@@ -9,6 +9,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import About from "../components/about/About";
 import HomeIntro from "../components/home/HomeIntro";
 import UserRegister from "../components/userRegister/UserRegister";
+import { set } from "firebase/database";
 
 
 
@@ -26,6 +27,7 @@ const Home = () => {
                     
                     if (userDocSnapshot.exists()) {
                         setUserInfo(userDocSnapshot.data().userInfo); // Modify state with fetched data
+                        
                     } else {
                         console.log('No data available');
                     }
@@ -38,9 +40,10 @@ const Home = () => {
         }
     }, [user]);
 
+
     return (
         <div>
-            {!userInfo && <UserRegister /> }
+            
             <HomeIntro id="about-info" />
             <div id="about-move" className="p-2"></div>
             <About />

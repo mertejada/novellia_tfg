@@ -29,10 +29,10 @@ const Login = () => {
             email: email,
             userInfo: false,
             lists: {
-                readingList: [],
+                currentlyReading: [],
                 wishList: [],
                 favourites: [],
-                finished: []
+                finishedBooks: []
             },
             readingSessions: []
         }

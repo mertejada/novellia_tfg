@@ -30,12 +30,9 @@ const UserRegister = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0, { behavior: 'smooth' });
-        // Bloquear el scroll al montar el componente
         document.body.style.overflow = 'hidden';
 
-        // Función de limpieza que se ejecuta al desmontar el componente
         return () => {
-            // Reactivar el scroll al desmontar el componente
             document.body.style.overflow = 'auto';
         };
     }, []);
