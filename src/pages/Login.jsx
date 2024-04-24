@@ -57,7 +57,7 @@ const Login = () => {
             if (register) {
                 await createUserWithEmailAndPassword(auth, email, password);
                 await setDoc(doc(db, "users", auth.currentUser.uid), userTemplate(email));
-                navigate("/home");
+                navigate("/");
 
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
@@ -67,7 +67,7 @@ const Login = () => {
                     return;
                 }
 
-                navigate("/home");
+                navigate("/");
             }
 
             setShowError(false);
@@ -95,7 +95,7 @@ const Login = () => {
                 
             }
 
-            navigate("/home");
+            navigate("/");
             
         } catch (error) {
             setShowError(true);

@@ -55,8 +55,8 @@ const NavBar = () => {
     };
 
     const userLinks = [
-        { name: "Home", path: "/home" },
-        { name: "Library", path: "/bookshelf" },
+        { name: "Home", path: "/" },
+        { name: "Bookshelf", path: "/bookshelf" },
         { name: "Tracker", path: "/tracker" },
         { name: "Discover", path: "/discover" },
     ];

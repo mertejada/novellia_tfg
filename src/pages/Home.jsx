@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import appFirebase from '../services/firebase';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import UserRegister from "../components/userRegister/UserRegister";
+
 import { useAuth } from '../contexts/AuthContext';
+
 import { db } from '../services/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+
 
 import About from "../components/about/About";
 import HomeIntro from "../components/home/HomeIntro";
+import UserRegister from "../components/userRegister/UserRegister";
+
 
 
 const Home = () => { 
@@ -19,6 +22,7 @@ const Home = () => {
                 try {
                     const userDocRef = doc(db, 'users', user.uid);
                     const userDocSnapshot = await getDoc(userDocRef);
+                    
                     
                     if (userDocSnapshot.exists()) {
                         setUserInfo(userDocSnapshot.data().userInfo); // Modify state with fetched data

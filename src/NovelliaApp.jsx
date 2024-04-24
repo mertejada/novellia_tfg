@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import ProfileSettings from './pages/ProfileSettings';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import Bookshelf from './pages/Bookshelf';
 import { AuthContext } from './contexts/AuthContext';
 
 import './App.css';
@@ -26,10 +27,14 @@ function App() {
 
                 {user ?
                     <>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/*" element={<Home />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/profile" element={<ProfileSettings />} />
-                        <Route path="/admin" element={user.isAdmin ? <Admin /> : <Navigate to="/" />} />
+                        
+                        <Route path="/bookshelf" element={<Bookshelf />} />
+                        <Route path="/tracker" element={<Bookshelf />} />
+                        <Route path="/discover" element={<Bookshelf />} />
+                        
                     </>
                     :
                     <>
