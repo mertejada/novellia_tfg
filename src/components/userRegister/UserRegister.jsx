@@ -20,7 +20,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 
 
-const UserRegister = () => {
+const UserRegister = ({ handleClose }) => {
 
     const { user } = useAuth();
 
@@ -180,7 +180,7 @@ const UserRegister = () => {
                     <ErrorIcon />
                     <p>{showFormError}</p></div>}
                 <div className="flex justify-between h-50">
-                    <button onClick={continueLater} className="p-2 text-gray-300 mt-4">
+                    <button onClick={handleClose} className="p-2 text-gray-300 mt-4">
                         <p className="flex items-center gap-2 ">
                             <CancelIcon />
                             { isMobile ? 
