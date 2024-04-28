@@ -8,7 +8,7 @@ import HomeIntro from "../components/home/HomeIntro";
 import UserRegister from "../components/userRegister/UserRegister";
 
 const Home = () => {
-    const [userInfo, setUserInfo] = useState(null); // Start with null to distinguish no data loaded yet
+    const [userInfo, setUserInfo] = useState(null); 
     const [showForm, setShowForm] = useState(false);
     const { user } = useAuth();
     

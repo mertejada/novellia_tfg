@@ -40,7 +40,6 @@ const AddList = ({ handleClose, currentUserLists }) => {
                         return group1.toUpperCase();
                     });
 
-                    //si la lista ya existe
                 if (currentUserLists[camelCaseListName]) {
                     alert("List already exists");
                     handleClose();
@@ -49,7 +48,7 @@ const AddList = ({ handleClose, currentUserLists }) => {
 
                 const updatedLists = {
                     ...currentUserLists,
-                    [camelCaseListName]: [] // Agregar nueva lista con el nombre proporcionado
+                    [camelCaseListName]: []
                 };
 
                 await updateDoc(userDocRef, {
