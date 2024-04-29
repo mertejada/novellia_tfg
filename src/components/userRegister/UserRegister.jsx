@@ -40,7 +40,7 @@ const UserRegister = ({ handleClose }) => {
 
     const [formData, setFormData] = useState({
         personalInfo: {
-            name: "wefwe",
+            name: "",
             lastName: "",
             birthDate: "",
             phoneNumber: "",
