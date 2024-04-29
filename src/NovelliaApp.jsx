@@ -10,6 +10,7 @@ import Bookshelf from './pages/Bookshelf';
 import List from './pages/List';
 import Tracker from './pages/Tracker';
 import Discover from './pages/Discover';
+import Book from './pages/Book';
 
 import { AuthContext } from './contexts/AuthContext';
 
@@ -40,6 +41,10 @@ function App() {
 
                         <Route path="/tracker" element={<Tracker />} />
                         <Route path="/discover" element={<Discover />} />
+                        <Route path="/book/*" element={<Book />} />
+                        
+
+                        
                         
                     </>
                     :
