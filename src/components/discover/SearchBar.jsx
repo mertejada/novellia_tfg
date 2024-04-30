@@ -6,7 +6,7 @@ const SearchBar = () => {
 
 
     return (
-        <div className="w-1/3 relative flex items-center">
+        <div className=" relative w-1/3">
             <SearchIcon style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'gray' }} />
             <input
                 type="text"
