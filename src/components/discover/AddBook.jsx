@@ -19,7 +19,10 @@ const AddBook = ({ toggleAddBook }) => {
         published: '',
         isbn: '',
         genre: '',
-        publisher: ''
+        publisher: '',
+        rating: 0,
+        insertDate: new Date().toISOString(),
+
     });
 
     useEffect(() => {

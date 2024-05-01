@@ -14,7 +14,6 @@ import List from "../../pages/List";
 
 const ListElement = ({ name }) => {
     const navigate = useNavigate();
-    const [icon, setIcon] = useState("📚"); // Estado inicial para el ícono
 
 
     //que las minúsculas se conviertan en mayúsculas
