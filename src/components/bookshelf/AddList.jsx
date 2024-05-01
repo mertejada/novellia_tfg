@@ -56,7 +56,6 @@ const AddList = ({ handleClose, currentUserLists }) => {
                 });
 
                 handleClose();
-                navigate(`/bookshelf/${camelCaseListName}`);
             } catch (error) {
                 console.log("Error adding new list:", error);
             }

@@ -8,28 +8,8 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddList from "./AddList";
 
 const Lists = () => {
-    const [userLists, setUserLists] = useState(null);
     const [showAddList, setShowAddList] = useState(false);
-    const { user } = useAuth();
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const docRef = doc(db, 'users', user.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    setUserLists(docSnap.data().lists);
-                } else {
-                    console.log("No such document!");
-                }
-            } catch (error) {
-                console.log("Failed to fetch user data:", error);
-            }
-        };
-
-        fetchUserData();
-    }, [user]);
+    const { user, userLists } = useAuth();
 
     const handleListCreation = () => {
         setShowAddList(true);
