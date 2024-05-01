@@ -20,7 +20,7 @@ const AddBook = ({ toggleAddBook }) => {
         isbn: '',
         genre: '',
         publisher: '',
-        rating: 0,
+        rating: '',
         insertDate: new Date().toISOString(),
 
     });

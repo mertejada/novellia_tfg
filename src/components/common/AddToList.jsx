@@ -7,13 +7,11 @@ import { list } from "firebase/storage";
 
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
-const AddToList = ({ toggleAddToList, bookInfo }) => {
+const AddToList = ({ toggleAddToList, bookId }) => {
     const { user, userLists } = useAuth();
     const addToListRef = useRef(null);
-    console.log(userLists);
 
-    const bookId = bookInfo.id;
-
+    
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (addToListRef.current && !addToListRef.current.contains(event.target)) {
