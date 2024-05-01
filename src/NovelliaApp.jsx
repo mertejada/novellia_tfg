@@ -23,7 +23,7 @@ function App() {
         <Router>
             <NavBar />
             <Routes>
-                {user && isAdmin &&
+                {isAdmin &&
                 <>
                     <Route path="/" element={<Admin />} />
                     <Route path="/admin" element={<Admin />} />
@@ -32,7 +32,7 @@ function App() {
 
                 {user ?
                     <>
-                        <Route path="/*" element={<Home />} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/profile" element={<ProfileSettings />} />
                         
@@ -50,7 +50,6 @@ function App() {
                     :
                     <>
                         <Route path="/" element={<Login />} />
-                        <Route path="/admin" element={<Login />} />
                     </>
                 }
 

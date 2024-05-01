@@ -34,7 +34,7 @@ const BookElement = ({ bookInfo }) => {
 
                     <div className="relative w-1/3 flex justify-end gap-5">
                     <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
-                    {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookInfo={bookInfo} />}
+                    {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookInfo={bookInfo} className="w-52 h-auto  shadow p-5 rounded-lg z-10 absolute -top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
                     </div>
                     
 

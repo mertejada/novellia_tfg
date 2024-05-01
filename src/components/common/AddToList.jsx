@@ -8,30 +8,11 @@ import { list } from "firebase/storage";
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 const AddToList = ({ toggleAddToList, bookInfo }) => {
-    const { user } = useAuth();
-    const [userLists, setUserLists] = useState(null);
+    const { user, userLists } = useAuth();
     const addToListRef = useRef(null);
+    console.log(userLists);
 
     const bookId = bookInfo.id;
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const docRef = doc(db, 'users', user.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    setUserLists(docSnap.data().lists);
-                } else {
-                    console.log("No such document!");
-                }
-            } catch (error) {
-                console.log("Failed to fetch user data:", error);
-            }
-        };
-
-        fetchUserData();
-    }, [user]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
