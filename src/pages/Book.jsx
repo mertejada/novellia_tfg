@@ -126,8 +126,8 @@ const Book = () => {
                 <div className="flex flex-col sm:flex-row gap-10">
                     <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
-                        <div className="flex items-center p-3 relative bg-crayola gap-4 justify-between w-full rounded-md" >
-                            <PlaylistAddIcon className="cursor-pointer text-white" onClick={toggleAddToList} />
+                        <div className="flex items-center p-3 relative bg-crayola gap-4 justify-between w-full rounded-md cursor-pointer" onClick={toggleAddToList}>
+                            <PlaylistAddIcon className="cursor-pointer text-white"  />
 
                             <p className="text-white text-lg mr-2">Add to list</p>
 
