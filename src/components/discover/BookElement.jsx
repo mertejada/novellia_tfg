@@ -1,12 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState } from "react"; 
+
+
 
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddToList from "../common/AddToList";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const BookElement = ({ bookInfo, bookId }) => {
+const BookElement = ({ bookInfo, bookId, isList }) => {
 
     const navigate = useNavigate();
 
@@ -15,6 +18,10 @@ const BookElement = ({ bookInfo, bookId }) => {
     const toggleAddToList = () => {
         setShowAddToList(!showAddToList);
     }
+
+    const deleteBookFromList = () => {
+    }
+
 
     return (
         <div className="book-element bg-white py-10 rounded-lg border shadow-md flex items-center flex-col">
@@ -34,10 +41,12 @@ const BookElement = ({ bookInfo, bookId }) => {
                     </div>
 
                     <div className=" w-1/3 flex justify-end gap-5">
-                    <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
-                    {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
+                        <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
+                        {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
                     </div>
-                    
+
+
+
 
 
                 </div>
@@ -48,6 +57,16 @@ const BookElement = ({ bookInfo, bookId }) => {
                 >
                     See more
                 </button>
+
+                {
+                    isList && <button
+                        className=" text-gray-400 mt-4 w-full text-sm " onClick={deleteBookFromList}
+                    >
+                        <DeleteIcon className="text-red-500 mr-1" />
+                        <span>Remove from list</span>
+                    </button>
+                }
+
             </div>
         </div>
     );
