@@ -112,11 +112,11 @@ const Book = () => {
         return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
     }
 
-    
+
     return (
         <main className="content p-5">
             <div className="flex items-center mb-8">
-            <div className="text-zinc-200" onClick={() => navigate(-1)}>
+                <div className="text-zinc-200" onClick={() => navigate(-1)}>
                     <div className="flex items-center gap-2">
                         <ArrowBackIosIcon />
                         <h1 className="text-2xl font-semibold ml-4 text-zinc-200">Back</h1>
@@ -126,19 +126,20 @@ const Book = () => {
             </div>
             {book && (
                 <div className="flex flex-col sm:flex-row gap-10">
-                    <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 ">
+                    <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 relative ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
-                        <div className="flex items-center p-3 relative bg-crayola gap-4 justify-between w-full rounded-md cursor-pointer" onClick={toggleAddToList}>
-                            <PlaylistAddIcon className="cursor-pointer text-white"  />
-
-                            <p className="text-white text-lg mr-2">Add to list</p>
-
-                            {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="w-52 h-auto  shadow p-5 rounded-lg z-10 absolute -top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
+                        <div className='relative w-full'>
+                            <div className="flex items-center p-3  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
+                                <p className="text-white cursor-default mr-2">Add to list</p>
+                                <PlaylistAddIcon className=" cursor-pointer text-white" onClick={toggleAddToList} />
+                            </div>
+                            {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="w-52 h-auto  shadow p-5 rounded-lg z-10 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
                         </div>
+
                         <div className="flex items-center  p-3 relative bg-black gap-4 justify-between w-full rounded-md" >
+                            <p className="text-white  cursor-default mr-2">Start session</p>
 
                             <PlayCircleIcon className="cursor-pointer text-white" />
-                            <p className="text-white text-lg mr-2">Start session</p>
 
                         </div>
 
@@ -165,7 +166,7 @@ const Book = () => {
 
                             </Stack>
 
-                                <p className="text-gray-500">{book.sipnosis}</p>
+                            <p className="text-gray-500">{book.sipnosis}</p>
                         </div>
                     </div>
                 </div>

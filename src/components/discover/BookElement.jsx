@@ -24,7 +24,7 @@ const BookElement = ({ bookInfo, bookId }) => {
                 className="w-46 h-72 object-cover rounded-lg img-shadow"
             />
             <div className="w-2/3 mt-10 ">
-                <div className=" w-full flex items-center justify-evenly gap-10 ">
+                <div className=" w-full flex items-center justify-evenly gap-10 relative ">
                     <div className="w-2/3">
                         <h3 className="text-lg font-semibold overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.title}</h3>
                         <p className="text-sm text-crayola">{bookInfo.author}</p>
@@ -33,9 +33,9 @@ const BookElement = ({ bookInfo, bookId }) => {
 
                     </div>
 
-                    <div className="relative w-1/3 flex justify-end gap-5">
+                    <div className=" w-1/3 flex justify-end gap-5">
                     <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
-                    {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookInfo.id} className="absolute right-0" />}
+                    {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
                     </div>
                     
 

@@ -11,17 +11,23 @@ const ListBooks = () => {
     const { user, userLists } = useAuth();
     const location = useLocation();
     const path = location.pathname;
-    const listName = path.split("/")[2];
+    let listName = path.split("/")[2];
 
     const [books, setBooks] = useState([]);
     const [booksId, setBooksId] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        if (userLists) {
+            setList(userLists[listName]);
+        }
+    }, [userLists, listName]);
 
     useEffect(() => {
         const fetchBooks = async () => {
-            setLoading(true);
             try {
-                const list = userLists[listName];
+
                 const promises = list.map(async (bookId) => {
                     const docRef = doc(db, "books", bookId);
                     const docSnap = await getDoc(docRef);
@@ -38,12 +44,15 @@ const ListBooks = () => {
             } catch (error) {
                 console.error('Error al obtener los libros:', error);
             } finally {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             }
         };
 
         fetchBooks();
-    }, [listName, userLists]);
+    }, [list]);
+
 
     if (loading) {
         return <div>Cargando libros...</div>;
@@ -52,7 +61,7 @@ const ListBooks = () => {
 
     return (
 
-        <>
+        <main className="content p-5">
             <div className="flex items-center mb-8">
                 <Link to="/bookshelf" className="text-zinc-200">
                     <div className="flex items-center gap-2">
@@ -66,10 +75,10 @@ const ListBooks = () => {
 
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
                 {books.map((book, index) => (
-                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} />
+                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} isList={true} />
                 ))}
             </div>
-        </>
+        </main>
     );
 };
 
