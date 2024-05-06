@@ -75,7 +75,7 @@ const ListBooks = () => {
 
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
                 {books.map((book, index) => (
-                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} isList={true} />
+                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} isList={true} listName={listName} />
                 ))}
             </div>
         </main>

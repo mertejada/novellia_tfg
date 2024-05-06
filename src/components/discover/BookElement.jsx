@@ -1,6 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react"; 
+import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../services/firebase";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+
 
 
 
@@ -9,9 +13,11 @@ import AddToList from "../common/AddToList";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const BookElement = ({ bookInfo, bookId, isList }) => {
+const BookElement = ({ bookInfo, bookId, isList, listName }) => {
 
     const navigate = useNavigate();
+    const { user, userLists } = useAuth();
+
 
     const [showAddToList, setShowAddToList] = useState(false);
 
@@ -19,10 +25,37 @@ const BookElement = ({ bookInfo, bookId, isList }) => {
         setShowAddToList(!showAddToList);
     }
 
-    const deleteBookFromList = () => {
+    const deleteBookFromList = async () => {
+        try {
+            if (userLists && userLists[listName]) {
+                const updatedList = userLists[listName].filter(id => id !== bookId);
+                
+                // Obtener el documento del usuario
+                const userRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userRef);
+    
+                if (userDoc.exists()) {
+                    // Obtener el objeto actual de "lists" del documento del usuario
+                    const userData = userDoc.data();
+                    const lists = userData.lists || {};
+    
+                    // Actualizar la lista específica dentro del objeto "lists"
+                    lists[listName] = updatedList;
+    
+                    // Actualizar el documento del usuario con el nuevo objeto de "lists"
+                    await updateDoc(userRef, { lists });
+    
+                    console.log("Book successfully removed from list!");
+                } else {
+                    console.error("User document not found!");
+                }
+            } else {
+                console.error("List not found!");
+            }
+        } catch (error) {
+            console.error("Error removing book from list:", error);
+        }
     }
-
-
     return (
         <div className="book-element bg-white py-10 rounded-lg border shadow-md flex items-center flex-col">
             <img
