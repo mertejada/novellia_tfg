@@ -7,9 +7,15 @@ import { list } from "firebase/storage";
 
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
+import Alert from '@mui/material/Alert';
+
+
 const AddToList = ({ toggleAddToList, bookId }) => {
     const { user, userLists } = useAuth();
     const addToListRef = useRef(null);
+
+    const [feedback, setFeedback] = useState(null);
+    const [error, setError] = useState(null);
 
     
     useEffect(() => {
@@ -27,19 +33,31 @@ const AddToList = ({ toggleAddToList, bookId }) => {
     }, [toggleAddToList]);
 
     const addBookToList = (listName, bookId, userLists) => {
+        if (userLists[listName].includes(bookId)) {
+            setError("Book already in list");
+            return; // Exit early if the book is already in the list
+        } 
+    
         const updatedLists = {
             ...userLists,
             [listName]: [...userLists[listName], bookId]
         };
-
+    
         const userDocRef = doc(db, 'users', user.uid);
-
+    
         updateDoc(userDocRef, {
             lists: updatedLists
+        }).then(() => {
+            setFeedback("Book added to list");
+            setTimeout(() => {
+                toggleAddToList();
+            }, 1000);
+        }).catch((error) => {
+            console.error("Error adding book to list: ", error);
+            setError("Failed to add book to list. Please try again later.");
         });
-
-        toggleAddToList();
     }
+    
 
 
     return (
@@ -57,6 +75,9 @@ const AddToList = ({ toggleAddToList, bookId }) => {
                     </li>
                 ))}
             </ul>
+            {feedback && <Alert severity="success" className="mt-2">{feedback}</Alert>}
+            {error && <Alert severity="error" className="mt-2">{error}</Alert>}
+           
         </div>
     );
 }
