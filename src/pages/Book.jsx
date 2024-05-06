@@ -15,6 +15,12 @@ import Box from '@mui/material/Box';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddToList from "../components/common/AddToList";
 
+import bookIconImg from '../assets/img/book-info-icons/files.png';
+import languageIconImg from '../assets/img/book-info-icons/language.png';
+import editorialImg from '../assets/img/book-info-icons/signature.png';
+import ibanCode from '../assets/img/book-info-icons/barcode-scan.png';
+
+
 
 const Book = () => {
     const { userLists, user, userRatedBooks } = useAuth();
@@ -146,8 +152,9 @@ const Book = () => {
                     </div>
                     <div className="w-full  sm:w-3/5 md:w-4/5">
                         <div>
-                            <h1 className="text-5xl font-bold font-playfair mb-4">{book.title}</h1>
+                            <h1 className="text-5xl font-bold font-playfair mb-4">{book.title} <span className="text-2xl font-normal text-gray-500">({book.published})</span></h1>
                             <h2 className="text-xl mb-4 text-crayola">{book.author}</h2>
+
                             <Stack spacing={1} direction="row" className="mb-4">
                                 <Rating
                                     name="simple-controlled"
@@ -166,8 +173,46 @@ const Book = () => {
 
                             </Stack>
 
-                            <p className="text-gray-500">{book.sipnosis}</p>
+                            <div>
+                                <h3 className="text-lg font-normal mb-2">Sipnosis</h3>
+                                <p className="text-gray-500">{book.sipnosis}</p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row justify-between mx-16 gap-16 mt-16">
+                                <div className="flex flex-col items-center gap-2">
+                                    <img src={bookIconImg} alt="Files" className='w-12' />
+                                    <div className=" text-center">
+                                        <p className=" text-gray-500 mb-0">Pages</p>
+                                        <p className="font-semibold">{book.pages}</p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-center gap-2">
+                                    <img src={editorialImg} alt="Editorial" className='w-12'/>
+                                    <div className=" text-center">
+                                        <p className=" text-gray-500 mb-0">Editorial</p>
+                                        <p className="font-semibold">{book.publisher}</p>
+                                        </div>
+                                </div>
+                                <div className="flex flex-col items-center gap-2">
+                                    <img src={languageIconImg} alt="Language" className='w-12' />
+                                    <div className=" text-center">
+                                        <p className=" text-gray-500 mb-0">Language</p>
+                                        <p className="font-semibold">{book.language}</p>
+                                        </div>
+                                </div>
+                                <div className="flex flex-col items-center gap-2">
+                                    <img src={ibanCode} alt="IBAN" className='w-12' />
+                                    <div className=" text-center">
+                                        <p className=" text-gray-500 mb-0">ISBN-10</p>
+                                        <p className="font-semibold">{book.isbn}</p>
+                                        </div>
+                                    </div>
+                                
+
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             )}

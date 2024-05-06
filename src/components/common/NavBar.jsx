@@ -56,9 +56,9 @@ const NavBar = () => {
 
     const userLinks = [
         { name: "Home", path: "/" },
+        { name: "Discover", path: "/discover" },
         { name: "Bookshelf", path: "/bookshelf" },
         { name: "Tracker", path: "/tracker" },
-        { name: "Discover", path: "/discover" },
     ];
 
     const adminLinks = [
