@@ -35,7 +35,7 @@ const Books = () => {
         
         <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
             {books && books.map(book => (
-                <BookElement bookInfo={book} key={book.id} />
+                <BookElement bookInfo={book} key={book.id} bookId={book.id} />
             ))}
         </div>
 

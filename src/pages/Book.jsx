@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 import { db } from '../services/firebase';
 import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -32,6 +32,8 @@ const Book = () => {
     const location = useLocation();
     const path = location.pathname;
     const bookId = path.split("/")[2];
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -114,12 +116,12 @@ const Book = () => {
     return (
         <main className="content p-5">
             <div className="flex items-center mb-8">
-                <Link to="/discover" className="text-zinc-200">
+            <div className="text-zinc-200" onClick={() => navigate(-1)}>
                     <div className="flex items-center gap-2">
                         <ArrowBackIosIcon />
-                        <h1 className="text-2xl font-semibold ml-4 text-zinc-200">Discover</h1>
+                        <h1 className="text-2xl font-semibold ml-4 text-zinc-200">Back</h1>
                     </div>
-                </Link>
+                </div>
 
             </div>
             {book && (

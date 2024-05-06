@@ -49,23 +49,24 @@ const ListBooks = () => {
         return <div>Cargando libros...</div>;
     }
 
+
     return (
 
         <>
             <div className="flex items-center mb-8">
-                <Link to="/discover" className="text-zinc-200">
+                <Link to="/bookshelf" className="text-zinc-200">
                     <div className="flex items-center gap-2">
                         <ArrowBackIosIcon />
-                        <h1 className="text-2xl font-semibold ml-4 text-zinc-200">Discover</h1>
+                        <h1 className="text-2xl font-semibold ml-4 text-zinc-200">Bookshelf</h1>
                     </div>
                 </Link>
 
             </div>
             <h1 className="text-3xl font-bold text-center mt-10">{listName}</h1>
-            
+
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
                 {books.map((book, index) => (
-                    <BookElement key={booksId[index]} bookInfo={book} />
+                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} />
                 ))}
             </div>
         </>

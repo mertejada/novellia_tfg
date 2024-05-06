@@ -6,7 +6,7 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddToList from "../common/AddToList";
 
 
-const BookElement = ({ bookInfo }) => {
+const BookElement = ({ bookInfo, bookId }) => {
 
     const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const BookElement = ({ bookInfo }) => {
 
                 <button
                     className="bg-gray-300 text-white p-2 rounded-lg mt-4 w-full "
-                    onClick={() => navigate(`/book/${bookInfo.id}`)}
+                    onClick={() => navigate(`/book/${bookId}`)}
                 >
                     See more
                 </button>
