@@ -92,6 +92,8 @@ const Login = () => {
 
             if (!docSnap.exists()) {
                 await setDoc(userDocRef, userTemplate(email));
+                navigate("/");
+                return;
                 
             }
 

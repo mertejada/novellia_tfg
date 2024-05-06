@@ -22,7 +22,7 @@ const Home = () => {
                     if (userDocSnapshot.exists()) {
                         const userInfoData = userDocSnapshot.data().userInfo;
                         setUserInfo(userInfoData);
-                        setShowForm(!userInfoData); // Show form if userInfo is false
+                        setShowForm(!userInfoData); 
                     } else {
                         console.log('No data available');
                     }
