@@ -26,8 +26,8 @@ const Discover = () => {
 
                 <div className="content flex justify-center items-center w-full gap-5">
                     <SearchBar />
-                    <button className="border-2 p-2 rounded-lg flex gap-2 text-white">
-                        <AddIcon  onClick={toggleAddBook}  />
+                    <button className="border-2 p-2 rounded-lg flex gap-2 text-white" onClick={toggleAddBook}>
+                        <AddIcon    />
                         Add book
                     </button>
                     
