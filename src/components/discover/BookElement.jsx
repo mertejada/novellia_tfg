@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react"; 
+import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 
 
 
@@ -13,7 +13,7 @@ import AddToList from "../common/AddToList";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const BookElement = ({ bookInfo, bookId, isList, listName }) => {
+const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin }) => {
 
     const navigate = useNavigate();
     const { user, userLists } = useAuth();
@@ -29,22 +29,22 @@ const BookElement = ({ bookInfo, bookId, isList, listName }) => {
         try {
             if (userLists && userLists[listName]) {
                 const updatedList = userLists[listName].filter(id => id !== bookId);
-                
+
                 // Obtener el documento del usuario
                 const userRef = doc(db, "users", user.uid);
                 const userDoc = await getDoc(userRef);
-    
+
                 if (userDoc.exists()) {
                     // Obtener el objeto actual de "lists" del documento del usuario
                     const userData = userDoc.data();
                     const lists = userData.lists || {};
-    
+
                     // Actualizar la lista específica dentro del objeto "lists"
                     lists[listName] = updatedList;
-    
+
                     // Actualizar el documento del usuario con el nuevo objeto de "lists"
                     await updateDoc(userRef, { lists });
-    
+
                     console.log("Book successfully removed from list!");
                 } else {
                     console.error("User document not found!");
@@ -56,6 +56,15 @@ const BookElement = ({ bookInfo, bookId, isList, listName }) => {
             console.error("Error removing book from list:", error);
         }
     }
+
+    const adminDeleteBook = async () => {
+        try {
+            await deleteDoc(doc(db, "books", bookId));
+        } catch (error) {
+            console.error("Error deleting book:", error);
+        }
+    }
+
     return (
         <div className="book-element bg-white py-10 rounded-lg border shadow-md flex items-center flex-col">
             <img
@@ -73,23 +82,33 @@ const BookElement = ({ bookInfo, bookId, isList, listName }) => {
 
                     </div>
 
-                    <div className=" w-1/3 flex justify-end gap-5">
-                        <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
-                        {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
-                    </div>
-
-
-
-
-
+                    {isAdmin ?
+                        <div className=" w-1/3 flex justify-end gap-5">
+                            <DeleteIcon className="cursor-pointer text-red-500" onClick={adminDeleteBook} />
+                        </div> :
+                        <div className=" w-1/3 flex justify-end gap-5">
+                            <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
+                            {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
+                        </div>
+                    }
                 </div>
 
-                <button
-                    className="bg-gray-300 text-white p-2 rounded-lg mt-4 w-full "
-                    onClick={() => navigate(`/book/${bookId}`)}
-                >
-                    See more
-                </button>
+                {
+                    isAdmin ?
+                        <button
+                            className=" bg-gray-300 text-white p-2 rounded-lg mt-4 w-full " onClick={() => navigate(`/admin/books/${bookId}`)}
+                        >
+                            <span>Edit book</span>
+                        </button> 
+                        :
+                        <button
+                            className="bg-gray-300 text-white p-2 rounded-lg mt-4 w-full "
+                            onClick={() => navigate(`/book/${bookId}`)}
+                        >
+                            See more
+                        </button>
+
+                }
 
                 {
                     isList && <button
@@ -99,6 +118,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName }) => {
                         <span>Remove from list</span>
                     </button>
                 }
+
 
             </div>
         </div>

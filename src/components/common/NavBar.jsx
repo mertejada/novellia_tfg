@@ -73,7 +73,7 @@ const NavBar = () => {
                     <div className="absolute top-20 right-0 left-0 bg-white border border-gray-200 rounded" ref={linksMenuRef}>
                         <ul className="py-2 px-4">
                             {links.map((link) => (
-                                <li key={link.name} className="hover:bg-gray-100  cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
+                                <li key={link.name} className="hover:bg-gray-100 cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
                                     <Link to={link.path} className="block py-2">{link.name}</Link>
                                 </li>
                             ))}
@@ -83,7 +83,7 @@ const NavBar = () => {
             </>
         ) : (
             links.map((link) => (
-                <Link key={link.name} to={link.path} className="mx-4">
+                <Link key={link.name} to={link.path} className="mx-8">
                     {link.name}
                 </Link>
             ))
@@ -91,8 +91,8 @@ const NavBar = () => {
     };
 
     const renderAdminNav = () => (
-        <div className="flex items-center  text-gray-800 cursor-pointer">
-            {renderLinks(userLinks)}
+        <div className="flex items-center gap-2  text-gray-800 cursor-pointer">
+            {renderLinks(adminLinks)}
             <span onClick={handleLogout}>Log out</span>
             <LogoutIcon />
         </div>
