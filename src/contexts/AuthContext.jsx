@@ -9,11 +9,12 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+    const auth = getAuth(appFirebase);
+
     const [user, setUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const [userLists, setUserLists] = useState(null);
     const [userRatedBooks, setUserRatedBooks] = useState(null);
-    const auth = getAuth(appFirebase);
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
@@ -22,16 +23,19 @@ export const AuthProvider = ({ children }) => {
                 const docRef = doc(db, 'users', user.uid);
                 const docSnap = await getDoc(docRef);
 
+                if (user.email == "admin@novellia.com") {
+                    setIsAdmin(true);
+                    return;
+                }else{
+                    setIsAdmin(false);
+                }
+
                 if (docSnap.exists()) {
                     setUserLists(docSnap.data().lists);
                     setUserRatedBooks(docSnap.data().ratedBooks);
                 } else {
                     console.log("No such document!");
                 }
-
-                setIsAdmin(user.email === "admin@novellia.com");
-
-                // Suscribirse a los cambios en los documentos de usuario
                 const userDocUnsubscribe = onSnapshot(docRef, (doc) => {
                     if (doc.exists()) {
                         setUserLists(doc.data().lists);
@@ -39,15 +43,9 @@ export const AuthProvider = ({ children }) => {
                     }
                 });
 
-                // Limpieza de la suscripción al desmontar el componente
                 return () => {
                     userDocUnsubscribe();
                 };
-            } else {
-                setUser(null);
-                setIsAdmin(false);
-                setUserLists(null);
-                setUserRatedBooks(null);
             }
         });
 
@@ -59,6 +57,9 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         signOut(auth).then(() => {
+            setUser(null);
+            setUserLists(null);
+            setUserRatedBooks(null);
             console.log("Sign out successful");
         }).catch((error) => {
             console.error("Sign out error:", error);

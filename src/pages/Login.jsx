@@ -57,24 +57,15 @@ const Login = () => {
             if (register) {
                 await createUserWithEmailAndPassword(auth, email, password);
                 await setDoc(doc(db, "users", auth.currentUser.uid), userTemplate(email));
-                navigate("/");
-
+            
             } else {
                 await signInWithEmailAndPassword(auth, email, password);
-
-                if (isAdmin) {
-                    navigate("/admin");
-                    return;
-                }
-
-                navigate("/");
             }
 
             setShowError(false);
         } catch (error) {
             setShowError(true);
             setPasswordMatchError(false);
-
             setShowErrorMsg(errorType(error.code));
         }
     };

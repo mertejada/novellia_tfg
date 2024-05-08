@@ -18,9 +18,8 @@ const Admin = () => {
     }
 
     return (
-        <div>
-            <h1>Admin</h1>
-            <div>
+        <div className="content">
+            <div className="flex justify-center gap-4 mt-4 text-lg my-4 "> {/* Add gap-4 class to the div */}
                 <button onClick={() => handleShowContent("books")}>Books</button>
                 <button onClick={() => handleShowContent("users")}>Users</button>
                 {/*<button onClick={() => handleShowContent("settings")}>Settings</button>*/} 
