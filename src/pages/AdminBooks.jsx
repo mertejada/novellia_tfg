@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { useState } from 'react';
-import Books from "../../../components/discover/Books";
-import AddBook from '../../../components/discover/AddBook';
-import SearchBar from '../../../components/discover/SearchBar';
+import Books from "../components/discover/Books";
+import AddBook from '../components/discover/AddBook';
+import SearchBar from '../components/discover/SearchBar';
 
 const AdminBooks = () => {
     const [showAddBook, setShowAddBook] = useState(false);

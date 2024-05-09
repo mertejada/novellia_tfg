@@ -7,8 +7,6 @@ import BookElement from "./BookElement";
 const Books = ({isAdmin}) => {
     const [books, setBooks] = useState(null);
     
-
-
     useEffect(() => {
         const fetchBooks = async () => {
             try {

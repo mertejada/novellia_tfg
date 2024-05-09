@@ -6,13 +6,14 @@ import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import ProfileSettings from './pages/ProfileSettings';
 import Login from './pages/Login';
-import Admin from './pages/Admin';
 import Bookshelf from './pages/Bookshelf';
 import List from './pages/List';
 import Tracker from './pages/Tracker';
 import Discover from './pages/Discover';
 import Book from './pages/Book';
+import AdminBooks from './pages/AdminBooks';
 import AdminBook from './pages/AdminBook';
+import AdminGenres from './pages/AdminGenres';
 
 import { AuthContext } from './contexts/AuthContext';
 
@@ -20,12 +21,7 @@ import './App.css';
 
 function App() {
     const { user, isAdmin } = useContext(AuthContext);
-
-
-    useEffect(() => {
-        console.log(isAdmin);
-    }, [isAdmin]);
-
+    
     return (
         <Router>
             <NavBar />
@@ -33,9 +29,10 @@ function App() {
                 {user ? (
                     isAdmin ? (
                         <>
-                            <Route path="/" element={<Admin />} />
-                            <Route path="/admin" element={<Admin />} />
+                            <Route path="/" element={<AdminBooks />} />
+                            <Route path="/admin" element={<AdminBooks />} />
                             <Route path="/admin/books/*" element={<AdminBook />} />
+                            <Route path="/admin/genres" element={<AdminGenres />} />
                         </>
                     ) : (
                         <>
