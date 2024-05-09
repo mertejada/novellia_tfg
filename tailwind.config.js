@@ -10,12 +10,23 @@ export default {
       colors: {
         lavender: "#1F7AC5",
         salmon: "#F36057",
-        crayola: "#EE902D"
+        crayola: "#EE902D",
+        white: "#FEFEFD",
+        black: "#0B0A0B",
       },
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],
         'poppins': ['Poppins', 'sans-serif']
       },
+      screens: {
+        'xs': '375px',
+        'sm': '640px',  
+        'md': '768px',  
+        'lg': '1024px',  
+        'xl': '1280px',  
+        '2xl': '1536px',
+      }
+  
     }
   },
   plugins: [

@@ -8,31 +8,6 @@
 
 
 @layer  utilities {
-  .gradient{
-    @apply bg-gradient-to-r from-lavender via-salmon to-crayola ;
-  }
-
-
-  .button {
-    @apply text-white h-fit rounded-full md:rounded-full px-4 py-3;
-  }
-
-  .button-register {
-    @apply text-white h-fit rounded-full md:rounded-full px-2 py-2;
-  }
-
-  .title {
-    @apply font-playfair font-extrabold sm:text-5xl md:text-6xl lg:text-7xl;
-  }
-
-  .subtitle {
-    @apply font-poppins font-light text-2xl sm:text-2xl md:text-3xl lg:text-4xl;
-  }
-
-  .text-gradient {
-    @apply text-transparent bg-clip-text;
-  }
-
   .content {
     @apply m-5 sm:m-10;
   }
@@ -40,6 +15,32 @@
   .content-element {
     @apply mt-16 sm:mt-24;
   }
+
+  .gradient{
+    @apply bg-gradient-to-r from-lavender via-salmon to-crayola ;
+  }
+
+  .button {
+    @apply  h-fit rounded-full md:rounded-full px-2 py-1 text-xs xs:text-base xs:px-4 xs:py-3 ;
+  }
+
+  .button-register {
+    @apply text-white h-fit rounded-full md:rounded-full px-2 py-2;
+  }
+
+  .title {
+    @apply font-playfair font-extrabold text-2xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl;
+  }
+
+  .subtitle {
+    @apply font-poppins font-extralight  sm:text-xl md:text-2xl ;
+  }
+
+  .text-gradient {
+    @apply text-transparent bg-clip-text p-1;
+  }
+
+  
 }
 
 *{
@@ -59,4 +60,6 @@ video{
   width: 50%;
   height: auto;
 }
+
+
 

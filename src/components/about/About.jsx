@@ -5,9 +5,9 @@ import InfoCard from './InfoCard';
 
 const About = () => {
     return (
-        <div className='content ' >
+        <div className='content' >
                 <Intro className="mt-10" />
-                <div className="content-element flex flex-col sm:flex-row flex-wrap justify-center items-center gap-10">
+                <div className="content-element mx-12 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8">
                     <InfoCard
                         color="#EE902D"
                         title="Bookshelf"
@@ -16,17 +16,17 @@ const About = () => {
                     <InfoCard
                         color="#F36057"
                         title="Tracking"
-                        text="Keep track of your reading progress and reach your goals."
+                        text="Keep track of your progress and reach your goals."
                         icon={1} />
                     <InfoCard
                         color="#1F7AC5"
                         title="Discover"
-                        text="Explore the books and do searchs based on your interests."
+                        text="Explore and search for new books."
                         icon={2} />
                     <InfoCard
                         color="#EE902D"
                         title="Add books"
-                        text="You can't find a book? Add it yourself and share it with the world!"
+                        text="Add new books and share them all!"
                         icon={3} />
                 </div>
 

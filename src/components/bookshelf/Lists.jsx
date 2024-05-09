@@ -7,6 +7,9 @@ import ListElement from "./ListElement";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddList from "./AddList";
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 const Lists = () => {
     const [showAddList, setShowAddList] = useState(false);
     const { user, userLists } = useAuth();
@@ -52,7 +55,7 @@ const Lists = () => {
                     {showAddList && <AddList handleClose={handleClose} currentUserLists={userLists} />}
                 </>
             ) : (
-                <div>Loading...</div>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CircularProgress /></Box>
             )}
         </div>
     );

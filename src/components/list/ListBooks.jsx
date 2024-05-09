@@ -7,6 +7,9 @@ import { useAuth } from "../../contexts/AuthContext";
 import BookElement from "../discover/BookElement";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 const ListBooks = () => {
     const { user, userLists } = useAuth();
     const location = useLocation();
@@ -54,11 +57,6 @@ const ListBooks = () => {
     }, [list]);
 
 
-    if (loading) {
-        return <div>Cargando libros...</div>;
-    }
-
-
     return (
 
         <main className="content p-5">
@@ -78,6 +76,8 @@ const ListBooks = () => {
                     <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} isList={true} listName={listName} />
                 ))}
             </div>
+
+            
         </main>
     );
 };

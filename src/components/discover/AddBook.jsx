@@ -7,10 +7,14 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { languages } from "../../data";
 
+import Alert from '@mui/material/Alert';
+
+
 const AddBook = ({ toggleAddBook }) => {
     const navigate = useNavigate();
-    const [genres, setGenres] = useState([]);
-    const [error, setError] = useState(null);
+    const [message, setMessage] = useState({ type: null, content: null });
+
+    const [genres, setGenres] = useState([]);    
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
@@ -24,6 +28,7 @@ const AddBook = ({ toggleAddBook }) => {
         insertDate: new Date().toISOString(),
 
     });
+
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -47,26 +52,59 @@ const AddBook = ({ toggleAddBook }) => {
         const imageFile = imageInputElement.files[0];
 
         if (!bookInfo.title || !bookInfo.author || !bookInfo.sipnosis || !bookInfo.pages || !bookInfo.published || !bookInfo.isbn || !bookInfo.genre || !bookInfo.publisher ) {
-            setError('All fields are required');
+            setMessage({ type: "error", content: "All fields are required" });
             return;
         }
 
-        setError(null);
+        //si author o title no es un string
+        if (typeof bookInfo.author !== "string" || typeof bookInfo.title !== "string") {
+            setMessage({ type: "error", content: "Author and title must be strings" });
+            return;
+        }
+
+        //si el isbn no es un numero con 10 digitos
+        if (isNaN(parseInt(bookInfo.isbn)) || bookInfo.isbn.length !== 10) {
+            setMessage({ type: "error", content: "ISBN must be a number with 10 digits" });
+            return;
+        }
+
+        //el autor el publisher y el genero deben tener al menos 3 caracteres
+        if (bookInfo.author.length < 3 || bookInfo.publisher.length < 3 || bookInfo.genre.length < 3) {
+            setMessage({ type: "error", content: "Author, publisher and genre must be at least 3 characters long" });
+            return;
+
+        }
+
+        //la sipnosis debe tener al menos 50 caracteres
+        if (bookInfo.sipnosis.length < 50) {
+            setMessage({ type: "error", content: "Sipnosis must be at least 50 characters long" });
+            return;
+        }
+
+        //el publisher y el author deben contener solo letras
+        if (!/^[a-zA-Z]*$/.test(bookInfo.author) || !/^[a-zA-Z]*$/.test(bookInfo.publisher)) {
+            setMessage({ type: "error", content: "Author and publisher must contain only letters" });
+            return;
+        }
+
+
+
+        setMessage({ type: "none", content: null });
 
 
         try {
 
             if (!imageFile.type.includes("image/")) {
-                setError("Invalid file type");
+                setMessage({ type: "error", content: "File must be an image" });
                 return;
             }
 
             if (imageFile.size > 1000000) {
-                setError("File is too big");
+                setMessage({ type: "error", content: "File must be smaller than 1MB" });
                 return;
             }
 
-            setError(null);
+
 
             let coverUrl = null;
 
@@ -79,8 +117,11 @@ const AddBook = ({ toggleAddBook }) => {
 
             await addDoc(collection(db, "books"), bookInfo);
 
+            setMessage({ type: "success", content: "Book added successfully" });
+
         } catch (err) {
-            setError(err.message);
+            console.error('Error adding book:', err);
+            setMessage({ type: "error", content: "Failed to add book. Please try again later." });
         }
 
 
@@ -104,6 +145,8 @@ const AddBook = ({ toggleAddBook }) => {
                             {genres.map((genre) => (
                                 <option key={genre} value={genre}>{genre}</option>
                             ))}
+
+                            <option value="genre">Genre</option>
                         </select>
                         <select name="language" className="border border-gray-300 p-2 rounded-lg" onChange={handleChange}>
                             <option value="">Select a language</option>
@@ -119,8 +162,10 @@ const AddBook = ({ toggleAddBook }) => {
                         <button type="submit" className="bg-crayola text-white px-4 py-2 rounded-lg" >Add book</button>
                         <button type="button" onClick={toggleAddBook}>Cancel</button>
                     </div>
-                    {error && <p className="text-red-500">{error}</p>}
                 </form>
+                {message.type === "success" && <Alert severity="success" className="mt-2">{message.content}</Alert>}
+                {message.type === "error" && <Alert severity="error" className="mt-2">{message.content}</Alert>}
+
             </div>
         </div>
     );

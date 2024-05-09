@@ -11,6 +11,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { set } from "firebase/database";
 
+
+
 const NavBar = () => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isLinksMenuOpen, setIsLinksMenuOpen] = useState(false);
@@ -57,8 +59,7 @@ const NavBar = () => {
     const userLinks = [
         { name: "Home", path: "/" },
         { name: "Discover", path: "/discover" },
-        { name: "Bookshelf", path: "/bookshelf" },
-        { name: "Tracker", path: "/tracker" },
+        { name: "Bookshelf", path: "/bookshelf" }
     ];
 
     const adminLinks = [
@@ -70,14 +71,19 @@ const NavBar = () => {
             <>
                 <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
                 {isLinksMenuOpen && (
-                    <div className="absolute top-20 right-0 left-0 bg-white border border-gray-200 rounded" ref={linksMenuRef}>
-                        <ul className="py-2 px-4">
+                    <div className="absolute top-0 right-0 left-0 z-10 text-center bg-white border border-gray-200 rounded p-5" ref={linksMenuRef}>
+                        <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
+                        
+                        <ul className="py-2 px-4 text-center m-2">
+
                             {links.map((link) => (
                                 <li key={link.name} className="hover:bg-gray-100 cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
-                                    <Link to={link.path} className="block py-2">{link.name}</Link>
+                                    <Link to={link.path} className="block p-2">{link.name}</Link>
                                 </li>
                             ))}
                         </ul>
+                        <img src={img} alt="Logo" className="my-4 h-4 mx-auto" />
+                        
                     </div>
                 )}
             </>
@@ -117,6 +123,7 @@ const NavBar = () => {
                 )}
                 {isUserMenuOpen && (
                     <div className="absolute top-full right-0 bg-white rounded shadow w-40">
+                        
                         <ul className="m-6 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
                                 <SettingsIcon className="mr-2" />

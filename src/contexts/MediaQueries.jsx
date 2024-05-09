@@ -16,14 +16,15 @@ export const MediaQueriesProvider = ({ children }) => {
                 setIsMobile(true);
                 setIsTablet(false);
                 setIsDesktop(false);
-            } else if (window.innerWidth < 1024) {
-                setIsMobile(false);
+            } else if (window.innerWidth <= 1024) {
                 setIsTablet(true);
+                setIsMobile(false);
                 setIsDesktop(false);
+                
             } else {
+                setIsDesktop(true);
                 setIsMobile(false);
                 setIsTablet(false);
-                setIsDesktop(true);
             }
         };
 
@@ -39,14 +40,14 @@ export const MediaQueriesProvider = ({ children }) => {
             setIsMobile(true);
             setIsTablet(false);
             setIsDesktop(false);
-        } else if (window.innerWidth < 1024) {
-            setIsMobile(false);
+        } else if (window.innerWidth <= 1024) {
             setIsTablet(true);
+            setIsMobile(false);
             setIsDesktop(false);
         } else {
+            setIsDesktop(true);
             setIsMobile(false);
             setIsTablet(false);
-            setIsDesktop(true);
         }
     }, []);
 
