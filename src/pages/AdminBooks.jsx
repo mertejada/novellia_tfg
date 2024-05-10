@@ -24,7 +24,7 @@ const AdminBooks = () => {
                 Add Book
             </button>
             </div>
-            {showAddBook && <AddBook toggleAddBook={toggleAddBook} />}
+            {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="true" />}
             <Books isAdmin="true"/>
         </main>
     )

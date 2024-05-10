@@ -9,16 +9,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
+
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import AddToList from "../components/common/AddToList";
 
 import bookIconImg from '../assets/img/book-info-icons/files.png';
 import languageIconImg from '../assets/img/book-info-icons/language.png';
 import editorialImg from '../assets/img/book-info-icons/signature.png';
 import ibanCode from '../assets/img/book-info-icons/barcode-scan.png';
+
+import AddToList from "../components/common/AddToList";
+import VerifiedBook from '../components/common/VerifiedBook';
 
 
 
@@ -152,7 +155,17 @@ const Book = () => {
                     </div>
                     <div className="w-full  sm:w-3/5 md:w-4/5">
                         <div>
-                            <h1 className="text-5xl font-bold font-playfair mb-4">{book.title} <span className="text-2xl font-normal text-gray-500">({book.published})</span></h1>
+                            <div className="flex items-center gap-2">
+                                <h1 className="text-5xl font-bold font-playfair mb-4">
+                                    <VerifiedBook verified={book.verified} fontSize="large" />
+                                    {book.title}
+                                    <span className="text-2xl font-normal text-gray-500">({book.published})</span>
+                                </h1>
+
+
+
+
+                            </div>
                             <h2 className="text-xl mb-4 text-crayola">{book.author}</h2>
 
                             <Stack spacing={1} direction="row" className="mb-4">
@@ -187,27 +200,27 @@ const Book = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center gap-2">
-                                    <img src={editorialImg} alt="Editorial" className='w-12'/>
+                                    <img src={editorialImg} alt="Editorial" className='w-12' />
                                     <div className=" text-center">
                                         <p className=" text-gray-500 mb-0">Editorial</p>
                                         <p className="font-semibold">{book.publisher}</p>
-                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex flex-col items-center gap-2">
                                     <img src={languageIconImg} alt="Language" className='w-12' />
                                     <div className=" text-center">
                                         <p className=" text-gray-500 mb-0">Language</p>
                                         <p className="font-semibold">{book.language}</p>
-                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex flex-col items-center gap-2">
                                     <img src={ibanCode} alt="IBAN" className='w-12' />
                                     <div className=" text-center">
                                         <p className=" text-gray-500 mb-0">ISBN-10</p>
                                         <p className="font-semibold">{book.isbn}</p>
-                                        </div>
                                     </div>
-                                
+                                </div>
+
 
                             </div>
 
@@ -215,8 +228,9 @@ const Book = () => {
 
                     </div>
                 </div>
-            )}
-        </main>
+            )
+            }
+        </main >
     );
 }
 

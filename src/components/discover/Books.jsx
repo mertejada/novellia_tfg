@@ -10,9 +10,7 @@ const Books = ({isAdmin}) => {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                // Realizar la consulta a la colección "books"
                 const querySnapshot = await getDocs(collection(db, "books"));
-                // Mapear los documentos obtenidos y extraer los datos de cada libro
                 const bookData = querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
@@ -20,13 +18,12 @@ const Books = ({isAdmin}) => {
                 setBooks(bookData);
             } catch (error) {
                 console.error('Error al obtener los libros:', error);
-                // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
             }
         };
-
-        // Llamar a la función fetchBooks cuando el componente se monte
+    
         fetchBooks();
-    }, [books]); //cuida que no se haga un loop infinito
+    }, []);
+    
 
     return (
         <>

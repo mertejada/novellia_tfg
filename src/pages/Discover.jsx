@@ -36,7 +36,7 @@ const Discover = () => {
 
             <Books />
 
-            {showAddBook && <AddBook toggleAddBook={toggleAddBook} />}
+            {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false" />}
 
         </>
 

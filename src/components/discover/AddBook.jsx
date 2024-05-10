@@ -10,7 +10,7 @@ import { languages } from "../../data";
 import Alert from '@mui/material/Alert';
 
 
-const AddBook = ({ toggleAddBook }) => {
+const AddBook = ({ toggleAddBook, adminVerified }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState({ type: null, content: null });
 
@@ -26,6 +26,7 @@ const AddBook = ({ toggleAddBook }) => {
         publisher: '',
         rating: '',
         insertDate: new Date().toISOString(),
+        adminVerified: adminVerified,
 
     });
 
@@ -81,9 +82,9 @@ const AddBook = ({ toggleAddBook }) => {
             return;
         }
 
-        //el publisher y el author deben contener solo letras
-        if (!/^[a-zA-Z]*$/.test(bookInfo.author) || !/^[a-zA-Z]*$/.test(bookInfo.publisher)) {
-            setMessage({ type: "error", content: "Author and publisher must contain only letters" });
+        //el publisher y el author deben contener solo caracteres alfabeticos y espacios
+        if (!/^[a-zA-Z\s]*$/.test(bookInfo.author) || !/^[a-zA-Z\s]*$/.test(bookInfo.publisher)) {
+            setMessage({ type: "error", content: "Author and publisher must contain only alphabetic characters and spaces" });
             return;
         }
 
