@@ -77,7 +77,7 @@ const AdminBook = () => {
         };
 
         fetchGenres();
-    }, []);
+    }, [bookId]);
     
 
     return (
