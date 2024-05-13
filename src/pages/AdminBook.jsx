@@ -14,6 +14,8 @@ const AdminBook = () => {
     const [book, setBook] = useState({});
     const [genres, setGenres] = useState([]);
     const [formData, setFormData] = useState({});
+    const [message, setMessage] = useState({ type: null, content: null });
+    const [loading, setLoading] = useState(true); // Añadir un estado para controlar la carga de datos [1
     const location = useLocation();
     const bookId = location.pathname.split("/").pop();
 
@@ -42,7 +44,7 @@ const AdminBook = () => {
 
         getBook();
 
-    }, [bookId]); // Añade las dependencias adecuadas si es necesario para evitar bucles infinitos
+    }, []); // Añade las dependencias adecuadas si es necesario para evitar bucles infinitos
 
 
     const handleSubmit = async (e) => {
@@ -51,9 +53,9 @@ const AdminBook = () => {
             //añadir el campo adminVerified al objeto formData
             formData.adminVerified = true;
             await updateDoc(doc(db, "books", bookId), formData); // Actualizar los datos del libro en la base de datos
-            console.log("Book updated successfully!");
+            setMessage({ type: "success", content: "Book updated successfully" });
         } catch (error) {
-            console.error("Error updating book:", error);
+            setMessage({ type: "error", content: "Error updating book:"+error.message });
         }
     };
 
@@ -99,7 +101,7 @@ const AdminBook = () => {
             <h1 className="text-4xl mb-4 font-playfair font-extrabold self-start">Edit book information</h1>
 
             <form onSubmit={handleSubmit} >
-
+        
                 {!book.adminVerified ? <Alert severity="warning" className="mb-4">This book has not been verified by an admin yet.</Alert>
                     :
                     <div className=" rounded-md my-2 mb-10">
@@ -170,9 +172,13 @@ const AdminBook = () => {
 
                 </div>
 
+                {message.type === "success" && <Alert severity="success" className="mb-5">{message.content}</Alert>}
+                {message.type === "error" && <Alert severity="error" className="mb-5">{message.content}</Alert>}
+
                 <button type="submit" className="button bg-crayola text-white w-52 ">Update
                     {!book.adminVerified ? " and verify" : ""}
                 </button>
+
 
 
             </form>

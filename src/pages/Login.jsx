@@ -34,6 +34,11 @@ const Login = () => {
                 favourites: [],
                 finishedBooks: []
             },
+            readingGoals: {
+                dailyReading: [0, 30],
+                booksPerYear: [0, 10],
+                diffGenres: [0, 3],
+            },
             readingSessions: []
         }
 
