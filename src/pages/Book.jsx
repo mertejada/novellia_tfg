@@ -22,6 +22,7 @@ import ibanCode from '../assets/img/book-info-icons/barcode-scan.png';
 
 import AddToList from "../components/common/AddToList";
 import VerifiedBook from '../components/common/VerifiedBook';
+import { set } from 'firebase/database';
 
 
 
@@ -29,9 +30,12 @@ const Book = () => {
     const { userLists, user, userRatedBooks } = useAuth();
 
     const [book, setBook] = useState(null);
+    const [bookGenreData, setBookGenreData] = useState(null);
     const [ratingAverage, setRatingAverage] = useState(0);
     const [ratingTimes, setRatingTimes] = useState(0);
     const [showAddToList, setShowAddToList] = useState(false);
+
+    const [loading, setLoading] = useState(true);
 
     const [hover, setHover] = React.useState(-1);
     const [value, setValue] = React.useState(2);
@@ -47,14 +51,17 @@ const Book = () => {
 
     useEffect(() => {
         const fetchBook = async () => {
+            setLoading(true);
             try {
                 const docRef = doc(db, "books", bookId);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
                     setBook(docSnap.data());
+                    setBookGenreData(await getDoc(doc(db, "genres", docSnap.data().genre)));
                     setRatingAverage(Object.values(docSnap.data().rating).reduce((acc, rating) => acc + parseInt(rating), 0) / Object.keys(docSnap.data().rating).length);
                     setRatingTimes(Object.keys(docSnap.data().rating).length);
+                    setLoading(false);
                 } else {
                     console.log('No such document!');
                 }
@@ -133,7 +140,8 @@ const Book = () => {
                 </button>
 
             </div>
-            {book && (
+
+            {loading ? <p>Loading...</p> : (
                 <div className="flex flex-col sm:flex-row gap-10">
                     <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 relative ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
@@ -162,13 +170,12 @@ const Book = () => {
                                     <span className="text-2xl font-normal text-gray-500">({book.published})</span>
                                 </h1>
 
-
-
-
                             </div>
                             <h2 className="text-xl mb-4 text-crayola">{book.author}</h2>
+                            <p to={`/genres/${book.genre}`} style={{ backgroundColor: bookGenreData?.data().color }} className="text-white w-fit px-2 py-1 mb-10 rounded-md">{bookGenreData?.data().name}</p>
 
-                            <Stack spacing={1} direction="row" className="mb-4">
+
+                            <Stack spacing={1} direction="row" className="my-4">
                                 <Rating
                                     name="simple-controlled"
                                     value={ratingAverage}

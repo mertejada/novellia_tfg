@@ -42,12 +42,7 @@ const Home = () => {
 
     return (
         <div>
-            {showForm ?
-                setTimeout(() => {
-                    <UserRegister handleClose={handleClose} />
-                }, 2000)
-                : null
-            }
+            {showForm && <UserRegister handleClose={handleClose} />}
 
             <HomeIntro id="about-info" />
             <div id="about-move" className="p-2"></div>
