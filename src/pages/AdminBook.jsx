@@ -15,7 +15,6 @@ const AdminBook = () => {
     const [genres, setGenres] = useState([]);
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState({ type: null, content: null });
-    const [loading, setLoading] = useState(true); // Añadir un estado para controlar la carga de datos [1
     const location = useLocation();
     const bookId = location.pathname.split("/").pop();
 

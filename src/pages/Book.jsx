@@ -165,7 +165,7 @@ const Book = () => {
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="text-5xl font-bold font-playfair mb-4">
-                                    <VerifiedBook verified={book.verified} fontSize="large" />
+                                    {book.adminVerified ===true && <VerifiedBook fontSize="large" />}
                                     {book.title}
                                     <span className="text-2xl font-normal text-gray-500">({book.published})</span>
                                 </h1>

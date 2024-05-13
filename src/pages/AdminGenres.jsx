@@ -3,20 +3,19 @@ import { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { collection, getDocs, deleteDoc, doc, setDoc, where, query, updateDoc } from "firebase/firestore";
 
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import Alert from '@mui/material/Alert';
-import { set } from "firebase/database";
 
 
 const AdminGenres = () => {
     const [loading, setLoading] = useState(true);
-    const [showEditGenre, setShowEditGenre] = useState(false);
     const [genresId, setGenresId] = useState([]);
     const [genreInfo, setGenreInfo] = useState([]);
     const [genreMessage, setGenreMessage] = useState({ type: null, content: null });
     const [message, setMessage] = useState({ type: null, content: null });
+
+    
 
     const fetchGenres = async () => {
         setLoading(true);

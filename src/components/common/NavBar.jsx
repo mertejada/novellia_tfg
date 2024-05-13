@@ -63,7 +63,8 @@ const NavBar = () => {
     ];
 
     const adminLinks = [
-        { name: "Admin", path: "/admin" },
+        { name: "Books", path: "/admin" },
+        { name: "Genres", path: "/admin/genres" },
     ];
 
     const renderLinks = (links) => {

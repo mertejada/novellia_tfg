@@ -8,13 +8,14 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { languages } from "../../data";
 
 import Alert from '@mui/material/Alert';
+import { CleaningServicesOutlined } from "@mui/icons-material";
 
 
 const AddBook = ({ toggleAddBook, adminVerified }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState({ type: null, content: null });
-
     const [genres, setGenres] = useState([]);    
+
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
@@ -29,6 +30,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         adminVerified: adminVerified,
 
     });
+
+    console.log(adminVerified);
 
 
     useEffect(() => {
@@ -63,9 +66,9 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             return;
         }
 
-        //si el isbn no es un numero con 10 digitos
-        if (isNaN(parseInt(bookInfo.isbn)) || bookInfo.isbn.length !== 10) {
-            setMessage({ type: "error", content: "ISBN must be a number with 10 digits" });
+        //si el isbn no es un numero con 10 digitos o 13 digitos
+        if (!/^\d{10}|\d{13}$/.test(bookInfo.isbn)) {
+            setMessage({ type: "error", content: "ISBN must be a 10 or 13 digit number" });
             return;
         }
 
@@ -87,8 +90,6 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             setMessage({ type: "error", content: "Author and publisher must contain only alphabetic characters and spaces" });
             return;
         }
-
-
 
         setMessage({ type: "none", content: null });
 

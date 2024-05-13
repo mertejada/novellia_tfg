@@ -121,16 +121,12 @@ const UserRegister = ({ handleClose }) => {
         setStep(step - 1);
     }
 
-    const continueLater = () => {
-        document.getElementById('register-form').style.display = 'none';
-    }
 
     const handleSubmit = async () => {
         try {
             const userDocRef = doc(db, "users", user.uid);
             await updateDoc(userDocRef, formData);
-            // Close the form
-            document.getElementById('register-form').style.display = 'none';
+            handleClose();
         } catch (error) {
             console.error("Error updating data: ", error);
         }
