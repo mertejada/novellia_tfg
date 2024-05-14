@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
@@ -17,10 +17,7 @@ import VerifiedBook from '../common/VerifiedBook';
 
 
 const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }) => {
-
-    const navigate = useNavigate();
     const { user, userLists } = useAuth();
-
 
     const [showAddToList, setShowAddToList] = useState(false);
 
@@ -47,7 +44,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
 
                     // Actualizar el documento del usuario con el nuevo objeto de "lists"
                     await updateDoc(userRef, { lists });
-                    
+
                 } else {
                     console.error("User document not found!");
                 }
@@ -84,7 +81,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
                 <div className=" w-full flex items-center justify-evenly gap-10 relative ">
                     <div className="w-2/3">
                         <h3 className="text-lg font-semibold overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                            {bookInfo.adminVerified !== "false"  && <VerifiedBook fontSize="small" />}
+                            {bookInfo.adminVerified !== "false" && <VerifiedBook fontSize="small" />}
                             {bookInfo.title}</h3>
 
                         <p className="text-sm text-crayola overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.author}</p>
@@ -109,19 +106,23 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
 
                 {
                     isAdmin ?
-                        <button
-                            className=" bg-gray-300 text-white p-2 rounded-lg mt-4 w-full " onClick={() => navigate(`/admin/books/${bookId}`)}
-                        >
-                            <span>Edit book</span>
-                        </button>
+                        <div className="flex items-center gap-5">
+                            <Link
+                                className=" bg-gray-300 text-center text-white p-2 rounded-lg mt-4 w-full " to={`/admin/books/${bookId}`}
+                                onClick={handleScrollTop}>
+                                <span>Edit book</span>
+                            </Link>
+                        </div>
                         :
-                        <button
-                            className="bg-gray-300 text-white p-2 rounded-lg mt-4 w-full "
-                            onClick={() => navigate(`/book/${bookId}`)}
-                        >
-                            See more
-                        </button>
-
+                        <div className="flex items-center gap-5">
+                            <Link
+                                className="bg-gray-300 text-white text-center p-2 rounded-lg mt-4 w-full "
+                                to={`/book/${bookId}`}
+                                onClick={handleScrollTop}
+                            >
+                                See more
+                            </Link>
+                        </div>
                 }
 
                 {

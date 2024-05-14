@@ -29,6 +29,7 @@ const ListElement = ({ name }) => {
     };
 
     const handleListRedirection = () => {
+        window.scrollTo(0, 0);
         navigate(`/bookshelf/${name}`);
     }
 
