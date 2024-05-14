@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
 
-const SearchBar = () => {
+const SearchBar = ({isAdmin}) => {
     const [books, setBooks] = useState(null);
     const [searchInput, setSearchInput] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -45,13 +45,29 @@ const SearchBar = () => {
     };
 
     const handleRedirection = (id) => () => {
-        navigate(`/book/${id}`);
+        if(isAdmin){
+            navigate(`/admin/books/${id}`);
+
+        }else{
+            navigate(`/book/${id}`);
+        }
         setSuggestions([]);
         setSearchInput('');
     };
 
+    //cerrar si se hace clic fuera de la barra de búsqueda
+    useEffect(() => {
+        const handleClick = (event) => {
+            if (event.target.tagName !== 'INPUT') {
+                setSuggestions([]);
+            }
+        };
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+    }, []);
+
     return (
-        <div className="relative w-1/2">
+        <div className="relative w-3/4 xs:w-1/2 ">
             <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }}>
                 <SearchIcon style={{ color: 'black' }} />
             </div>
@@ -63,9 +79,9 @@ const SearchBar = () => {
                 onChange={handleInputChange}
             />
             {suggestions.length > 0 && (
-                <ul className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-md mt-1">
+                <ul className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-md my-3">
                     {suggestions.map((book, index) => (
-                        <li key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-100" onClick={handleRedirection(book.id)}>
+                        <li key={index} className="px-4 py-5 cursor-pointer hover:bg-gray-100" onClick={handleRedirection(book.id)}>
                             <div className='flex items-center' >
                                 <img src={book.cover} alt={book.title} className='w-10 object-cover rounded-lg mr-3' />
                                 <p className='text-black'>{book.title} -<span className='text-crayola font-light'> {book.author}</span></p>

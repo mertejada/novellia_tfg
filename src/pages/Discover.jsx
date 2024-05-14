@@ -24,9 +24,9 @@ const Discover = () => {
                 <h2 className="text-4xl font-light"><span className="text-gradient gradient">what everybody else's reading</span></h2>
 
 
-                <div className="content flex justify-center items-center w-full gap-5">
+                <div className="content flex flex-col xs:flex-row justify-center items-center w-full gap-5">
                     <SearchBar />
-                    <button className="border-2 p-2 rounded-lg flex gap-2 text-white" onClick={toggleAddBook}>
+                    <button className="border-2 p-2 rounded-lg flex gap-2 text-white w-3/4 xs:w-auto" onClick={toggleAddBook}>
                         <AddIcon    />
                         Add book
                     </button>

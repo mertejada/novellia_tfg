@@ -13,19 +13,21 @@ const AdminBooks = () => {
     }
 
     return (
-        <main>
-            <div className="flex w-full justify-center gap-2 items-center">
-                
-            <SearchBar />
-            <button
-                className="button bg-crayola text-white py-2 px-4 rounded"
-                onClick={toggleAddBook}
-            >
-                Add Book
-            </button>
+        <main className='sm:content '>
+            <div className="flex flex-col mt-10 sm:mt-0 w-full justify-center gap-6 items-center">
+                    <h1 className="title w-fit font-bold font-playfair text-center gradient text-gradient">Admin Books</h1>
+                    <h2 className="subtitle font-light text-center">Manage all the books</h2>
+
+                <SearchBar isAdmin="true" />
+                <button
+                    className="button bg-crayola text-white py-2 px-4 rounded"
+                    onClick={toggleAddBook}
+                >
+                    Add Book
+                </button>
             </div>
             {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="true" />}
-            <Books isAdmin="true"/>
+            <Books isAdmin="true" />
         </main>
     )
 }
