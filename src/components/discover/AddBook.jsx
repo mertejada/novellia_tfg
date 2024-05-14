@@ -27,7 +27,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         publisher: '',
         rating: '',
         insertDate: new Date().toISOString(),
-        adminVerified: Boolean(adminVerified),
+        adminVerified: adminVerified,
 
     });
 

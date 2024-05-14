@@ -33,7 +33,7 @@
   }
 
   .subtitle {
-    @apply font-poppins font-extralight  sm:text-xl md:text-2xl ;
+    @apply font-poppins font-light  sm:text-xl md:text-2xl ;
   }
 
   .text-gradient {

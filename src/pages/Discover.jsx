@@ -20,8 +20,8 @@ const Discover = () => {
         <>
 
             <div className=" bg-white py-20  flex flex-col justify-center items-center gap-5" style={{ backgroundImage: `url(${bkImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <h1 className=" text-8xl font-bold font-playfair text-center   text-white">Discover</h1>
-                <h2 className="text-4xl font-light"><span className="text-gradient gradient">what everybody else's reading</span></h2>
+                <h1 className=" title font-bold font-playfair text-center   text-white">Discover</h1>
+                <h2 className="subtitle text-center mx-5 font-light"><span className="text-gradient gradient">what everybody else's reading</span></h2>
 
 
                 <div className="content flex flex-col xs:flex-row justify-center items-center w-full gap-5">
@@ -35,7 +35,7 @@ const Discover = () => {
             </div>
 
             <Books />
-            {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false" />}
+            {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false"/>}
 
         </>
 

@@ -19,9 +19,16 @@ const HomeIntro = () => {
     }, [isMobile, isTablet]);
 
     const leadToAbout = () => {
-        const aboutSection = document.getElementById('about-move');
+        const aboutSection = document.getElementById('about');
         if (aboutSection) {
             aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const leadToNewBooks = () => {
+        const newBooksSection = document.getElementById('new-books');
+        if (newBooksSection) {
+            newBooksSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -30,13 +37,13 @@ const HomeIntro = () => {
             <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-15"></video>
 
             {!isMobile && (
-                <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>
+                <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out">
 
                     <div className="text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>
                         About
                         <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
                     </div>
-                    <div className=" text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>
+                    <div className=" text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>
                         New
                         <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
                     </div>
@@ -47,7 +54,7 @@ const HomeIntro = () => {
             <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center p-4 gap-4 text-center">
                 {isMobile && (
                     <ul className="flex items-center gap-4 justify-center ">
-                        <li className="text-white  cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>New
+                        <li className="text-white  cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>New
                             <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
 
                         </li>

@@ -5,8 +5,8 @@ import { doc, getDoc } from 'firebase/firestore';
 
 import About from "../components/about/About";
 import HomeIntro from "../components/home/HomeIntro";
+import NewBooks from "../components/home/NewBooks";
 import UserRegister from "../components/userRegister/UserRegister";
-import { set } from "firebase/database";
 
 const Home = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -45,7 +45,10 @@ const Home = () => {
             {showForm && <UserRegister handleClose={handleClose} />}
 
             <HomeIntro id="about-info" />
-            <div id="about-move" className="p-2"></div>
+            <div id="new-books" className="p-2"></div>
+            <NewBooks />
+
+            <div id="about" className="p-2"></div>
             <About />
         </div>
     );
