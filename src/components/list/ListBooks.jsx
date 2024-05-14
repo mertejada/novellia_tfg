@@ -15,6 +15,8 @@ const ListBooks = () => {
     const location = useLocation();
     const path = location.pathname;
     let listName = path.split("/")[2];
+    //quitar el camelCase, poner espacio y mayúscula la primera letra de cada palabra
+    const listNameTitle = listName.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
 
     const [books, setBooks] = useState([]);
     const [booksId, setBooksId] = useState([]);
@@ -69,7 +71,7 @@ const ListBooks = () => {
                 </Link>
 
             </div>
-            <h1 className="text-3xl font-bold text-center mt-10">{listName}</h1>
+            <h1 className="text-3xl font-bold text-center mt-10">{listNameTitle}</h1>
 
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
                 {books.map((book, index) => (

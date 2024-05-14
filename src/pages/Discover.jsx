@@ -35,7 +35,6 @@ const Discover = () => {
             </div>
 
             <Books />
-
             {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false" />}
 
         </>
