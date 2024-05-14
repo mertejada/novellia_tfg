@@ -27,12 +27,9 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         publisher: '',
         rating: '',
         insertDate: new Date().toISOString(),
-        adminVerified: adminVerified,
+        adminVerified: Boolean(adminVerified),
 
     });
-
-    console.log(adminVerified);
-
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -115,6 +112,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             coverUrl = await getDownloadURL(storageRef);
 
             bookInfo.cover = coverUrl;
+
 
 
             await addDoc(collection(db, "books"), bookInfo);

@@ -80,7 +80,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
                 <div className=" w-full flex items-center justify-evenly gap-10 relative ">
                     <div className="w-2/3">
                         <h3 className="text-lg font-semibold overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                            {bookInfo.adminVerified === true && <VerifiedBook fontSize="small" />}
+                            {bookInfo.adminVerified  && <VerifiedBook fontSize="small" />}
                             {bookInfo.title}</h3>
 
                         <p className="text-sm text-crayola overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.author}</p>

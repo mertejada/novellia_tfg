@@ -86,6 +86,8 @@ const AdminBook = () => {
     }, [bookId]);
 
 
+    console.log(book.adminVerified);
+
     return (
         <div className="content mx-auto  p-8">
             <div className="flex items-center mb-8">
@@ -101,7 +103,7 @@ const AdminBook = () => {
 
             <form onSubmit={handleSubmit} >
         
-                {!book.adminVerified ? <Alert severity="warning" className="mb-4">This book has not been verified by an admin yet.</Alert>
+                { !book.adminVerified ? <Alert severity="warning" className="mb-4">This book has not been verified by an admin yet.</Alert>
                     :
                     <div className=" rounded-md my-2 mb-10">
                         <VerifiedIcon className="m-2" color="success" />
