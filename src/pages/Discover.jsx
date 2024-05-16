@@ -8,6 +8,7 @@ import SearchBar from "../components/discover/SearchBar";
 import AddBook from "../components/discover/AddBook";
 import Books from "../components/discover/Books";
 
+
 const Discover = () => {
     const [showAddBook, setShowAddBook] = useState(false);
 
@@ -36,7 +37,6 @@ const Discover = () => {
 
             <Books />
             {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false"/>}
-
         </>
 
     );

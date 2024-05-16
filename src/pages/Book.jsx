@@ -22,7 +22,6 @@ import ibanCode from '../assets/img/book-info-icons/barcode-scan.png';
 
 import AddToList from "../components/common/AddToList";
 import VerifiedBook from '../components/common/VerifiedBook';
-import { set } from 'firebase/database';
 
 
 
@@ -164,7 +163,7 @@ const Book = () => {
                     <div className="w-full  sm:w-3/5 md:w-4/5">
                         <div>
                             <div className="flex items-center gap-2">
-                                <h1 className="text-5xl font-bold font-playfair mb-4">
+                                <h1 className="title mb-4">
                                     {book.adminVerified !== "false" && <VerifiedBook fontSize="large" />}
                                     {book.title}
                                     <span className="text-2xl font-normal text-gray-500">({book.published})</span>

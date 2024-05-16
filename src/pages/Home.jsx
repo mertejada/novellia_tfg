@@ -8,6 +8,7 @@ import HomeIntro from "../components/home/HomeIntro";
 import NewBooks from "../components/home/NewBooks";
 import UserRegister from "../components/userRegister/UserRegister";
 
+
 const Home = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [showForm, setShowForm] = useState(false);
@@ -41,16 +42,20 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <>
+        <main>
             {showForm && <UserRegister handleClose={handleClose} />}
 
-            <HomeIntro id="about-info" />
+            <HomeIntro id="about-info"/>
             <div id="new-books" className="p-2"></div>
             <NewBooks />
 
             <div id="about" className="p-2"></div>
             <About />
-        </div>
+        </main>
+
+
+        </>
     );
 };
 

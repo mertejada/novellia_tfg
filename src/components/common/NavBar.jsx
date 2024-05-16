@@ -9,22 +9,24 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import { set } from "firebase/database";
+import PlayCircle from "@mui/icons-material/PlayCircle";
 
 
 
-const NavBar = () => {
+
+
+const NavBar = ({ setShowSessionTimer }) => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isLinksMenuOpen, setIsLinksMenuOpen] = useState(false);
     const profileMenuRef = useRef(null);
     const linksMenuRef = useRef(null);
 
-    const  img = logoImg;
+    const img = logoImg;
 
     const navigate = useNavigate();
 
     const { user, isAdmin, logout } = useAuth();
-    const { isMobile } = useMediaQueries();
+    const { isMobile, isDesktop } = useMediaQueries();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -45,6 +47,7 @@ const NavBar = () => {
 
     const toggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen);
+        console.log(isUserMenuOpen);
     };
 
     const toggleLinksMenu = () => {
@@ -67,33 +70,51 @@ const NavBar = () => {
         { name: "Genres", path: "/admin/genres" },
     ];
 
+    const renderUserImg = () => {
+        return user.photoURL ? (
+            <img
+                src={user.photoURL}
+                className="h-8 w-8 rounded-full cursor-pointer "
+                alt="User"
+                onClick={toggleUserMenu}
+            />
+
+        ) : (
+            <AccountCircleIcon className=" cursor-pointer " onClick={toggleUserMenu} />
+        );  
+    };
+
     const renderLinks = (links) => {
         return isMobile ? (
             <>
                 <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
                 {isLinksMenuOpen && (
-                    <div className="absolute top-0 right-0 left-0 z-10 text-center bg-white border border-gray-200 rounded p-5" ref={linksMenuRef}>
+                    <div className="absolute top-0 right-0 left-0 z-30 bg-white border border-gray-200 rounded p-5 text-center" ref={linksMenuRef}>
                         <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
-                        
+
                         <ul className="py-2 px-4 text-center m-2">
 
                             {links.map((link) => (
-                                <li key={link.name} className="hover:bg-gray-100 cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
+                                <li key={link.name} className="hover:bg-gray-100  cursor-pointer rounded" onClick={() => setIsLinksMenuOpen(false)}>
                                     <Link to={link.path} className="block p-2">{link.name}</Link>
                                 </li>
                             ))}
+                            <img src={img} alt="Logo" className="my-4 h-4 mx-auto" />
                         </ul>
-                        <img src={img} alt="Logo" className="my-4 h-4 mx-auto" />
-                        
                     </div>
                 )}
             </>
         ) : (
-            links.map((link) => (
-                <Link key={link.name} to={link.path} className="mx-8">
-                    {link.name}
-                </Link>
-            ))
+            <div className="cursor-pointer">
+                {links.map((link) => (
+
+                    <Link key={link.name} to={link.path} className="mx-5 font-normal text-gray-500 hover:text-black hover:font-semibold  transition-all duration-75 ease-in-out">
+                        {link.name}
+                    </Link>
+
+                ))}
+                <span className="mx-2 font-normal text-gray-500">|</span>
+            </div>
         );
     };
 
@@ -106,25 +127,26 @@ const NavBar = () => {
     );
 
     const renderUserNav = () => (
-        <div className="flex items-center text-gray-800 cursor-pointer">
-            <div className="flex gap-5 mr-10">
+        <div className="flex gap-2 sm:gap-5 items-center text-gray-800 cursor-pointer">
 
 
-            {renderLinks(userLinks)}</div>
-            <div ref={profileMenuRef} className="relative">
-                {user.photoURL ? (
-                    <img
-                        src={user.photoURL}
-                        className="h-8 w-8 rounded-full cursor-pointer"
-                        alt="User"
-                        onClick={toggleUserMenu}
-                    />
-                ) : (
-                    <AccountCircleIcon className="cursor-pointer" onClick={toggleUserMenu} />
-                )}
+            {renderLinks(userLinks)}
+
+
+
+            <button className="flex gap-1 font-normal  px-2 py-1 items-center  transition-all duration-150 ease-in-out  hover:bg-black hover:text-white hover:border-black  rounded-full  border-black text-black" onClick={setShowSessionTimer}>
+                <PlayCircle /> {isDesktop && "Start session"}
+            </button>
+            
+             {renderUserImg()}
+
                 {isUserMenuOpen && (
-                    <div className="absolute top-full right-0 bg-white rounded shadow w-40">
+                    <div className="absolute top-5 right-0 z-30 bg-white border border-gray-200 rounded py-10 text-center" ref={profileMenuRef}>
+                        <div className="flex justify-center items-center gap-2">
+                        {renderUserImg()}
                         
+                        </div>
+
                         <ul className="m-6 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
                                 <SettingsIcon className="mr-2" />
@@ -137,12 +159,11 @@ const NavBar = () => {
                         </ul>
                     </div>
                 )}
-            </div>
         </div>
     );
 
     return (
-        <nav className="bg-white sticky top-0 border-b border-gray-200 z-20">
+        <nav className="bg-white  top-0 border-b border-gray-200 z-20">
             <div className="shadow-lg flex justify-between items-center p-4 md:p-6 font-semibold">
                 <Link to="/" className="flex items-center space-x-2">
                     <img src={img} alt="Logo" className="h-8" />

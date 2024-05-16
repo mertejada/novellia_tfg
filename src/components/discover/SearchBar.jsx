@@ -79,7 +79,7 @@ const SearchBar = ({isAdmin}) => {
                 onChange={handleInputChange}
             />
             {suggestions.length > 0 && (
-                <ul className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-md my-3">
+                <ul className="absolute w-full bg-white border border-gray-300 rounded-lg shadow-md my-3 z-0 overflow-y-scroll max-h-60">
                     {suggestions.map((book, index) => (
                         <li key={index} className="px-4 py-5 cursor-pointer hover:bg-gray-100" onClick={handleRedirection(book.id)}>
                             <div className='flex items-center' >
