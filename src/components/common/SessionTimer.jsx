@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
 import CloseIcon from '@mui/icons-material/Close';
+import TimerRoundedIcon from '@mui/icons-material/TimerRounded';
 import Alert from '@mui/material/Alert';
 
 
@@ -99,9 +100,14 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                     <CloseIcon className="cursor-pointer" onClick={() => setShowSessionTimer(false)} fontSize="small" />
 
                 </div>
-                <div className="flex flex-col gap-4 text-center p-6">
+                <div className="flex flex-col gap-2 text-center p-6">
+                    <div className="flex flex-col items-center gap-1">
+                    <TimerRoundedIcon />
+                    <h2 className="text-2xl">Reading session</h2>
                     <p className="text-gradient gradient text-sm">{today.toDateString()}</p>
-                    <p className=" text-6xl font-light">{formatTime(time)}</p>
+                    </div>
+                    
+                    <p className=" text-6xl font-light font-poppins">{formatTime(time)}</p>
 
 
                     <div className="flex justify-center items-center mt-5 ">
