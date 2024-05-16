@@ -100,14 +100,14 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                     <CloseIcon className="cursor-pointer" onClick={() => setShowSessionTimer(false)} fontSize="small" />
 
                 </div>
-                <div className="flex flex-col gap-2 text-center p-6">
+                <div className="flex flex-col justify-center items-center gap-2 text-center p-6">
                     <div className="flex flex-col items-center gap-1">
                     <TimerRoundedIcon />
-                    <h2 className="text-2xl">Reading session</h2>
+                    <h2 className="text-xl">Reading session</h2>
                     <p className="text-gradient gradient text-sm">{today.toDateString()}</p>
                     </div>
                     
-                    <p className=" text-6xl font-light font-poppins">{formatTime(time)}</p>
+                    <p className=" text-6xl font-extralight font-poppins">{formatTime(time)}</p>
 
 
                     <div className="flex justify-center items-center mt-5 ">
@@ -133,8 +133,11 @@ const SessionTimer = ({ setShowSessionTimer }) => {
 
                     </div>
 
-                    {message.type === "success" && 
+                    
+                    {message.type === "success" ?
                         <Alert severity="success" className="mt-2">{message.content}</Alert>
+                        :
+                        <p className="text-xs bg-slate-100 text-slate-600 w-48 mt-5 p-3 rounded-xl">Always save your session before closing the window</p>
                     }
                 </div>
             </div>
