@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, setDoc } from "firebase/firestore";
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
