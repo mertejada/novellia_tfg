@@ -25,7 +25,7 @@ import VerifiedBook from '../components/common/VerifiedBook';
 
 
 
-const Book = () => {
+const Book = ({setShowSessionTimer}) => {
     const { userLists, user, userRatedBooks } = useAuth();
 
     const [book, setBook] = useState(null);
@@ -144,20 +144,20 @@ const Book = () => {
                 <div className="flex flex-col sm:flex-row gap-10">
                     <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 relative ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
-                        <div className='relative w-full'>
+                        <button className='relative w-full'>
                             <div className="flex items-center p-3 cursor-pointer  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
                                 <p className="text-white mr-2">Add to list</p>
                                 <PlaylistAddIcon className="  text-white" onClick={toggleAddToList} />
                             </div>
                             {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="w-52 h-auto  shadow p-5 rounded-lg z-10 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
-                        </div>
+                        </button>
 
-                        <div className="flex items-center  p-3 relative bg-black gap-4 justify-between w-full rounded-md" >
+                        <button className="flex items-center  p-3 relative bg-black gap-4 justify-between w-full rounded-md" onClick={() => setShowSessionTimer(true)}>
                             <p className="text-white  cursor-default mr-2">Start session</p>
 
                             <PlayCircleIcon className="cursor-pointer text-white" />
 
-                        </div>
+                        </button>
 
                     </div>
                     <div className="w-full  sm:w-3/5 md:w-4/5">
