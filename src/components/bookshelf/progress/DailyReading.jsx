@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 
-const DailyReading = ({userInfo, goals}) => {
-    const [readingSessions, setReadingSessions] = useState([])
-    const [todaysReading, setTodaysReading] = useState(0)
+const DailyReading = ({ userInfo }) => {
+    const [goals, setGoals] = useState([]);
+    const [readingSessions, setReadingSessions] = useState([]);
+    const [todaysReading, setTodaysReading] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getTodaysReading()
-    },[readingSessions])
+        setReadingSessions(userInfo.readingSessions);
+        setGoals(userInfo.readingGoals)
+
+    }, [userInfo])
+
+    useEffect(() => {
+        getTodaysReading();
+        setLoading(false);
+    }, [readingSessions, goals])
 
     const getTodaysReading = () => {
-
-        setReadingSessions(userInfo.readingSessions)
         let todaysReading = 0;
 
-        readingSessions.filter(session => {
-            const sessionDate = new Date(session.date);
-            const todaysSessions = sessionDate.toDateString() === new Date().toDateString();
+        if (readingSessions) {
+            readingSessions.filter(session => {
+                const sessionDate = new Date(session.date);
+                const todaysSessions = sessionDate.toDateString() === new Date().toDateString();
 
-            if (todaysSessions) {
-                todaysReading += session.time;
-            }
-
-        });
+                if (todaysSessions) {
+                    todaysReading += session.time;
+                }
+            });
+        }
 
         setTodaysReading(Math.floor(todaysReading / 60));
-
     }
 
+
+
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-start justify-center border shadow rounded-md w-fit p-10  ">
             <h1 className="text-xl font-bold mb-4">Today's Reading</h1>
-            <div className="flex items-center mb-4">
-                <p className="mr-2 text-gray-600">You've read:</p>
-                <p className="font-bold">{todaysReading} minutes</p>
+            <div className="flex items-end gap-5 justify-center mb-4">
+                <CircularProgress
+                    variant="determinate"
+                    sx={{ color: 'green' }}
+                    size={50}
+                    thickness={2}
+                    //quiero que muestre l que falta para llegar al reading goal
+                    value={Math.min(Math.floor((todaysReading / goals.dailyReading) * 100), 100)}
+                    className='bg-gray-100 rounded-full'
+                />
+                <div className="">
+                    <p> <span className="font-light text-5xl">{todaysReading}</span>  / {goals.dailyReading} min.</p>
+                </div>
             </div>
-            <div className="flex items-center mb-8">
-                <p className="mr-2 text-gray-600">Goal for today:</p>
-                <p className="font-bold">{goals.dailyReading} minutes</p>
-            </div>
-            <CircularProgress
-                variant="determinate"
-                value={todaysReading / goals.dailyReading * 100}
-                size={50}
-                thickness={5}
-            />
         </div>
     )
 }

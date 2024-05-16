@@ -42,6 +42,7 @@ const AddToList = ({ toggleAddToList, bookId }) => {
             const userDocRef = doc(db, 'users', user.uid);
     
             await updateDoc(userDocRef, { lists: updatedLists });
+
             setMessage({ type: "success", content: "Book added to list" });
         } catch (error) {
             console.error("Error adding book to list: ", error);
