@@ -35,9 +35,9 @@ const Login = () => {
                 finishedBooks: []
             },
             readingGoals: {
-                dailyReading: [0, 30],
-                booksPerYear: [0, 10],
-                diffGenres: [0, 3],
+                dailyReading: 30,
+                booksPerYear: 10,
+                diffGenres: 3,
             },
             readingSessions: []
         }

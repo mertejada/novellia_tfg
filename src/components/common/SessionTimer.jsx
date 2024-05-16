@@ -46,26 +46,25 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         }
 
         const userDocRef = doc(db, 'users', user.uid);
-
-        const session = {
-            //que se guarde la fecha y la hora en date
-            date: today,
-            time: time
-        }
-
         const docSnap = await getDoc(userDocRef);
 
         if (docSnap.exists()) {
             const userDoc = docSnap.data();
-            const sessions = userDoc.sessions ? userDoc.sessions : [];
+            const sessions = userDoc.readingSessions || [];
+            const session = {
+                date: new Date().toISOString(),
+                time: time
+            };
+
             sessions.push(session);
 
             await updateDoc(userDocRef, {
-                sessions: sessions
+                readingSessions: sessions
             });
+
         } else {
             await setDoc(userDocRef, {
-                sessions: [session]
+                readingSessions: [session]
             });
         }
 

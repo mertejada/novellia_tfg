@@ -44,9 +44,6 @@ function StepsInterest({ formData, setFormData }) {
   }, [selectedGenres, setFormData]);
 
 
-  console.log("se:",selectedGenres);
-  console.log(formData.genres);
-
   return (
     <div className="grid gap-10 my-8 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
       <h2 className="text-2xl text-center mt-10 text-gray-300">Choose 3 genres you are interested in!</h2>    <div className=" flex flex-wrap justify-center py-10 px-3 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>

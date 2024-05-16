@@ -5,15 +5,14 @@ const StepsGoals = ({ formData, setFormData }) => {
     const { isMobile } = useMediaQueries();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        const [progress, goal] = formData.readingGoals[name];
-        setFormData(prevState => ({
-            ...prevState,
+        setFormData({
+            ...formData,
             readingGoals: {
-                ...prevState.readingGoals,
-                [name]: [ progress, parseInt(value)]
+                ...formData.readingGoals,
+                [e.target.name]: e.target.value
             }
-        }));
+        });
+
     };
 
     return (
@@ -30,7 +29,7 @@ const StepsGoals = ({ formData, setFormData }) => {
                         placeholder="10 minutes"
                         name="dailyReading"
                         className="h-12 p-4 rounded-3xl  border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
-                        value={formData.readingGoals.dailyReading[1]}
+                        value={formData.readingGoals.dailyReading}
                         onChange={handleChange}
                     />
                 </div>
@@ -44,7 +43,7 @@ const StepsGoals = ({ formData, setFormData }) => {
                         placeholder="10 books"
                         name="booksPerYear"
                         className="h-12 p-4 rounded-3xl  border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
-                        value={formData.readingGoals.booksPerYear[1]}
+                        value={formData.readingGoals.booksPerYear}
                         onChange={handleChange}
                     />
                 </div>
@@ -58,7 +57,7 @@ const StepsGoals = ({ formData, setFormData }) => {
                         placeholder="5 different genres"
                         name="diffGenres"
                         className="h-12 p-4 rounded-3xl  border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
-                        value={formData.readingGoals.diffGenres[1]}
+                        value={formData.readingGoals.diffGenres}
                         onChange={handleChange}
                     />
                 </div>

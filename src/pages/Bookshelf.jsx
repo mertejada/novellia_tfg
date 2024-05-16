@@ -1,10 +1,10 @@
 import React from "react";
 import Lists from "../components/bookshelf/Lists";
+import Progress from "../components/bookshelf/Progress";
 import progress from "../assets/img/bookshelf/work-in-progress (1).png";
 import bookshelf from "../assets/img/bookshelf/bookshelf.png";
 
 const Bookshelf = () => {
-
     const handleGoTo = (elementId) => {
         const element = document.getElementById(elementId);
         element.scrollIntoView({ behavior: 'smooth' });
@@ -31,9 +31,11 @@ const Bookshelf = () => {
                     </div>
                 </div>
             </div>
+            <div id="progress"></div>
+            <Progress/>
             <div id="lists" className="p-1"></div>
             <Lists/>
-            <div id="progress"></div>
+            
         </main>
     );
 };
