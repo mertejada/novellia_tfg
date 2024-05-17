@@ -82,7 +82,7 @@ const Progress = () => {
 
             {loading ? <p>Loading...</p> :
 
-                <div className="flex  items-center justify-center  gap-10  ">
+                <div className="flex  items-center justify-center  gap-10 m-10 ">
                     <DailyReading userInfo={userInfo} title="Today's Reading"/>
                     <DifferentGenres userInfo={userInfo} genres={finishedBooksGenres} />
                     <DailyReading userInfo={userInfo} title="Read books this year" type="dailyReading" />

@@ -40,7 +40,7 @@ const DailyReading = ({ userInfo, title }) => {
 
 
     return (
-        <div className="flex flex-col items-start justify-center border shadow rounded-md w-fit p-10  ">
+        <div className="flex flex-col items-start justify-center border shadow rounded-md w-full p-10  ">
             <h1 className="text-xl font-bold mb-4">{title}</h1>
             <div className="flex items-end gap-5 justify-center mb-4">
                 <CircularProgress
@@ -50,7 +50,7 @@ const DailyReading = ({ userInfo, title }) => {
                     thickness={2}
                     //quiero que muestre l que falta para llegar al reading goal
                     value={Math.min(Math.floor((todaysReading / goals.dailyReading) * 100), 100)}
-                    className='bg-gray-100 rounded-full'
+                    
                 />
                 <div className="">
                     <p> <span className="font-light text-5xl">{todaysReading}</span>  / {goals.dailyReading} min.</p>
