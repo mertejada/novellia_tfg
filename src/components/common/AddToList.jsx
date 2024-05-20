@@ -48,9 +48,8 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
                 const finishedBooksInfo = userData.finishedBooksInfo || {};
 
                 finishedBooksInfo[bookId] = {
+                    id: bookId,
                     finishedDate: new Date().toISOString(),
-                    genre: bookGenre,
-                    pages: bookPages
                 };
 
                 await updateDoc(userDocRef, { finishedBooksInfo });
