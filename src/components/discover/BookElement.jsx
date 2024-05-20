@@ -16,7 +16,7 @@ import Alert from '@mui/material/Alert';
 import VerifiedBook from '../common/VerifiedBook';
 
 
-const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }) => {
+const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, getBooks }) => {
     const { user, userLists } = useAuth();
 
     const [showAddToList, setShowAddToList] = useState(false);
@@ -56,10 +56,10 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
         }
     }
 
-    const adminDeleteBook = async () => {
+    const deleteBook = async () => {
         try {
             await deleteDoc(doc(db, "books", bookId));
-            fetchBooks();
+            getBooks();
         } catch (error) {
             console.error("Error deleting book:", error);
         }
@@ -92,12 +92,12 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, fetchBooks }
 
                     {isAdmin ?
                         <div className=" w-1/3 flex justify-end gap-5">
-                            <DeleteIcon className="cursor-pointer text-red-500" onClick={adminDeleteBook} />
+                            <DeleteIcon className="cursor-pointer text-red-500" onClick={deleteBook} />
 
                         </div> :
                         <div className=" w-1/3 flex justify-end gap-5">
                             <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
-                            {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" />}
+                            {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" bookPages={bookInfo.pages} bookGenre={bookInfo.genre} />}
                         </div>
                     }
 

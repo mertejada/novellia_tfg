@@ -14,7 +14,6 @@ const AddList = ({ handleClose, currentUserLists }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        window.scrollTo(0, 0, { behavior: 'smooth' });
         // Bloquear el scroll al montar el componente
         document.body.style.overflow = 'hidden';
 
@@ -24,6 +23,13 @@ const AddList = ({ handleClose, currentUserLists }) => {
             document.body.style.overflow = 'auto';
         };
     }, []);
+
+    //que al hacer click fuera del modal, se cierre
+    const handleClickOutside = (e) => {
+        if (e.target.classList.contains('fixed')) {
+            handleClose();
+        }
+    }
 
     const addNewList = async () => {
         const listName = document.querySelector('input').value;
@@ -65,11 +71,11 @@ const AddList = ({ handleClose, currentUserLists }) => {
 
 
     return (
-        <div className="absolute inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white border shadow p-10  py-12 rounded-2xl w-1/4">
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50" onClick={handleClickOutside}>
+            <div className="bg-white border shadow p-10  py-12 rounded-2xl " >
 
                 <h2 className="text-2xl font-semibold mb-10">Add a new list</h2>
-                
+
                 <input type="text" placeholder="List name" className="w-full border border-gray-300 p-2 rounded-lg mb-5" />
 
                 <div className="flex justify-between gap-5">

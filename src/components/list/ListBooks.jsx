@@ -18,8 +18,8 @@ const ListBooks = () => {
     //quitar el camelCase, poner espacio y mayúscula la primera letra de cada palabra
     const listNameTitle = listName.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
 
-    const [books, setBooks] = useState([]);
-    const [booksId, setBooksId] = useState([]);
+    const [listBooks, setListBooks] = useState([]);
+    const [listBooksId, setListBooksId] = useState([]);
     const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
 
@@ -30,7 +30,7 @@ const ListBooks = () => {
     }, [userLists, listName]);
 
     useEffect(() => {
-        const fetchBooks = async () => {
+        const getListBooks = async () => {
             try {
 
                 const promises = list.map(async (bookId) => {
@@ -44,8 +44,9 @@ const ListBooks = () => {
                     }
                 });
                 const booksData = await Promise.all(promises);
-                setBooks(booksData.filter(book => book !== null));
-                setBooksId(list);
+
+                setListBooks(booksData.filter(book => book !== null)); 
+                setListBooksId(list);
             } catch (error) {
                 console.error('Error al obtener los libros:', error);
             } finally {
@@ -55,7 +56,7 @@ const ListBooks = () => {
             }
         };
 
-        fetchBooks();
+        getListBooks();
     }, [list]);
 
 
@@ -74,8 +75,8 @@ const ListBooks = () => {
             <h1 className="text-3xl font-bold text-center mt-10">{listNameTitle}</h1>
 
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
-                {books.map((book, index) => (
-                    <BookElement key={booksId[index]} bookInfo={book} bookId={booksId[index]} isList={true} listName={listName} />
+                {listBooks.map((book, index) => (
+                    <BookElement key={listBooksId[index]} bookInfo={book} bookId={listBooksId[index]} isList={true} listName={listName} />
                 ))}
             </div>
 

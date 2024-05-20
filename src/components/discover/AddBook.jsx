@@ -46,7 +46,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         setBookInfo(prev => ({ ...prev, [name]: value }));
     }
 
-    const handleSubmit = async (e) => {
+    const addBook = async (e) => {
         e.preventDefault();
 
         const imageInputElement = document.getElementById("cover");
@@ -112,6 +112,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             coverUrl = await getDownloadURL(storageRef);
 
             bookInfo.cover = coverUrl;
+            bookInfo.pages = parseInt(bookInfo.pages);
 
 
 
@@ -131,7 +132,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white p-8 rounded-xl w-2/3">
                 <h2 className="text-2xl font-semibold mb-5">Add a new book</h2>
-                <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
+                <form className="grid grid-cols-1 gap-4" onSubmit={addBook}>
                     <div className="grid grid-cols-2 items-center gap-2">
                         <input type="text" placeholder="Title" name="title" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.title} onChange={handleChange} />
                         <input type="text" placeholder="Author" name="author" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.author} onChange={handleChange} />

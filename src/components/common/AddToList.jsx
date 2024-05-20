@@ -6,7 +6,7 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 
-const AddToList = ({ toggleAddToList, bookId }) => {
+const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
     const { user, userLists } = useAuth();
     const addToListRef = useRef(null);
 
@@ -40,8 +40,12 @@ const AddToList = ({ toggleAddToList, bookId }) => {
             };
     
             const userDocRef = doc(db, 'users', user.uid);
-    
             await updateDoc(userDocRef, { lists: updatedLists });
+
+            if(listName === "finishedBooks") {
+                await updateDoc(userDocRef, { finishedBooksInfo: { [bookId]: { pages: bookPages, genre: bookGenre, finishedDate: new Date().toISOString() } } });
+            }
+                
 
             setMessage({ type: "success", content: "Book added to list" });
         } catch (error) {
