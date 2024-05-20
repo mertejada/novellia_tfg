@@ -45,6 +45,12 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, getBooks }) 
                     // Actualizar el documento del usuario con el nuevo objeto de "lists"
                     await updateDoc(userRef, { lists });
 
+                    if(listName === "finishedBooks"){
+                        const finishedBooksInfo = userData.finishedBooksInfo || {};
+                        delete finishedBooksInfo[bookId];
+                        await updateDoc(userRef, { finishedBooksInfo });
+                    }
+
                 } else {
                     console.error("User document not found!");
                 }

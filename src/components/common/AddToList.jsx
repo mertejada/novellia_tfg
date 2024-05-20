@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/firebase';
-import { doc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import Alert from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
@@ -43,7 +43,18 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
             await updateDoc(userDocRef, { lists: updatedLists });
 
             if(listName === "finishedBooks") {
-                await updateDoc(userDocRef, { finishedBooksInfo: { [bookId]: { pages: bookPages, genre: bookGenre, finishedDate: new Date().toISOString() } } });
+                const userDoc = await getDoc(userDocRef);
+                const userData = userDoc.data();
+                const finishedBooksInfo = userData.finishedBooksInfo || {};
+
+                finishedBooksInfo[bookId] = {
+                    finishedDate: new Date().toISOString(),
+                    genre: bookGenre,
+                    pages: bookPages
+                };
+
+                await updateDoc(userDocRef, { finishedBooksInfo });
+
             }
                 
 
