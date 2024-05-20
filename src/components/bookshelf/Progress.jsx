@@ -154,7 +154,7 @@ const Progress = () => {
 
                 <div className="flex flex-wrap  items-center justify-center border shadow rounded-xl  gap-10 m-10 ">
                     <ProgressItem userInfo={userGoals} title="Today's Reading" content='min' min={userGoals.dailyReading} value={todaysReading} />
-                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Finished Books`} content='books' min={userGoals.finishedBooks} value={thisYearFinishedBooks} />
+                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Finished Books`} content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} />
                     <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Different Genres`} content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} />
                 </div>
 
