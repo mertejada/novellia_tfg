@@ -7,7 +7,7 @@ const ProgressItem = ({ userGoals, title, content, min, value }) => {
 
 
     return (
-        <div className="flex flex-col items-start justify-center border shadow rounded-xl w-full p-10  ">
+        <div className="flex flex-col items-center justify-center  w-72 h-64 p-10  ">
             <h1 className="text-xl font-bold mb-4">{title}</h1>
             <div className="flex items-end gap-5 justify-center mb-4">
                 <CircularProgress

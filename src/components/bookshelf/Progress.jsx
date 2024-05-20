@@ -13,9 +13,11 @@ const Progress = () => {
     const { user } = useAuth();
     const [loading, setLoading] = useState(true);
     const [userGoals, setUserGoals] = useState([]);
-    const [userReadingSessions , setUserReadingSessions] = useState([]);
+    const [userReadingSessions, setUserReadingSessions] = useState([]);
     const [userFinishedBooks, setUserFinishedBooks] = useState(0);
 
+    const [yearOptions, setYearOptions ] = useState([]);   
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
     const [thisYearFinishedBooks, setThisYearFinishedBooks] = useState(0);
     const [thisYearDiffGenres, setThisYearDiffGenres] = useState(0);
@@ -33,25 +35,28 @@ const Progress = () => {
             setUserGoals(userDoc.readingGoals);
             setUserReadingSessions(userDoc.readingSessions);
             setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
-
-            /*el objeto userDoc.finishedBooksInfo tiene la siguiente estructura:
-            finishedBooksInfo {
-                bookId: {
-                    finishedDate: date,
-                    genre: genre,
-                    pages: pages
-
-                }
-            }
-            */
-            
-            
-
-
         }
         setLoading(false);
     }
-    
+
+    //conseguir los años en los que el usuario tiene registros de sesiones o libros terminados
+    const getYears = () => {
+        let years = [];
+
+        if (userFinishedBooks) {
+            Object.values(userFinishedBooks).forEach(book => {
+                const bookDate = new Date(book.finishedDate);
+                years.push(bookDate.getFullYear());
+            });
+
+        }
+
+        const uniqueYears = [...new Set(years)];
+        setYearOptions(uniqueYears);
+        console.log(uniqueYears)
+    }
+
+
     const getTodaysReading = async () => {
 
         let todaysReading = 0;
@@ -75,7 +80,7 @@ const Progress = () => {
 
         Object.values(userFinishedBooks).forEach(book => {
             const bookDate = new Date(book.finishedDate);
-            if (bookDate.getFullYear() === new Date().getFullYear()) {
+            if (bookDate.getFullYear() === selectedYear) {
                 finishedBooks++;
             }
         });
@@ -85,12 +90,11 @@ const Progress = () => {
 
     const getThisYearDiffGenres = async () => {
         let genres = [];
-        const currentYear = new Date().getFullYear();
-        
+
         const promises = Object.values(userFinishedBooks).map(async (book) => {
             const bookDate = new Date(book.finishedDate);
 
-            if (bookDate.getFullYear() === currentYear) {
+            if (bookDate.getFullYear() === selectedYear) {
                 const bookRef = doc(db, 'books', book.id); // Asegúrate de que 'bookId' es la clave correcta
                 const bookDoc = await getDoc(bookRef);
                 if (bookDoc.exists()) {
@@ -110,9 +114,12 @@ const Progress = () => {
         setThisYearDiffGenresNum(uniqueGenres.length);
     };
 
+    const handleYearChange = (e) => {
+        setSelectedYear(parseInt(e.target.value));
+    }
+
     useEffect(() => {
         getUserInfo();
-
     }, []);
 
     useEffect(() => {
@@ -124,18 +131,31 @@ const Progress = () => {
         getThisYearFinishedBooks();
         getThisYearDiffGenres();
     }
-    , [userFinishedBooks]);
+        , [userFinishedBooks, selectedYear]);
+
+    useEffect(() => {
+        getYears();
+    }, [userReadingSessions, userFinishedBooks]);
 
 
     return (
         <div>
 
+            <form className="flex flex-col items-center justify-center gap-5 m-10" onChange={handleYearChange}>
+                <h1 className="text-3xl font-bold">Year</h1>
+                <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
+                    {yearOptions.map((year, index) => (
+                        <option key={index} value={year}>{year}</option>
+                    ))}
+                </select>
+            </form>
+
             {loading ? <p>Loading...</p> :
 
-                <div className="flex  items-center justify-center  gap-10 m-10 ">
-                    <ProgressItem userInfo={userGoals} title="Today's Reading" content='min'  min={userGoals.dailyReading} value={todaysReading} />
-                    <ProgressItem userInfo={userGoals} title="This Year's Finished Books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} />
-                    <ProgressItem userInfo={userGoals} title="This Year's Different Genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} />
+                <div className="flex flex-wrap  items-center justify-center border shadow rounded-xl  gap-10 m-10 ">
+                    <ProgressItem userInfo={userGoals} title="Today's Reading" content='min' min={userGoals.dailyReading} value={todaysReading} />
+                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Finished Books`} content='books' min={userGoals.finishedBooks} value={thisYearFinishedBooks} />
+                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Different Genres`} content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} />
                 </div>
 
             }
