@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { db } from "../../services/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 import BookElement from "../discover/BookElement";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ListBooks = () => {
     const { user, userLists } = useAuth();
     const location = useLocation();
+    const navigate = useNavigate();
+
     const path = location.pathname;
-    let listName = path.split("/")[2];
+    const listName = path.split("/")[2];
     //quitar el camelCase, poner espacio y mayúscula la primera letra de cada palabra
     const listNameTitle = listName.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
 
@@ -45,7 +46,7 @@ const ListBooks = () => {
                 });
                 const booksData = await Promise.all(promises);
 
-                setListBooks(booksData.filter(book => book !== null)); 
+                setListBooks(booksData.filter(book => book !== null));
                 setListBooksId(list);
             } catch (error) {
                 console.error('Error al obtener los libros:', error);
@@ -58,6 +59,27 @@ const ListBooks = () => {
 
         getListBooks();
     }, [list]);
+
+    const deleteList = async () => {
+        try {
+            const userRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userRef);
+
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const updatedLists = { ...userData.lists };
+                delete updatedLists[listName];
+
+                await updateDoc(userRef, { lists: updatedLists });
+            }
+
+            navigate('/bookshelf');
+        } catch (error) {
+            console.error("Error deleting list:", error);
+        }
+    }
+
+    const defaultLists = ['currentlyReading', 'wishList', 'favourites', 'finishedBooks'];
 
 
     return (
@@ -72,7 +94,16 @@ const ListBooks = () => {
                 </Link>
 
             </div>
-            <h1 className="text-3xl font-bold text-center mt-10">{listNameTitle}</h1>
+            <div className="flex items-end justify-center mb-8 gap-1">
+                <h2 className="text-3xl title font-semibold">{listNameTitle}</h2>
+                {!defaultLists.includes(listName) &&
+                    <button onClick={deleteList} className="m-2 text-red-500 hover:scale-125 transform transition duration-300 ease-in-out">
+                        <DeleteIcon fontSize="small" />
+                    </button>
+                }
+            </div>
+
+
 
             <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
                 {listBooks.map((book, index) => (
@@ -80,7 +111,7 @@ const ListBooks = () => {
                 ))}
             </div>
 
-            
+
         </main>
     );
 };
