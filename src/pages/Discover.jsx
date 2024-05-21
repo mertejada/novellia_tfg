@@ -28,7 +28,7 @@ const Discover = () => {
                 <div className="content flex flex-col xs:flex-row justify-center items-center w-full gap-5">
                     <SearchBar />
                     <button className="border-2 p-2 rounded-lg flex gap-2 text-white w-3/4 xs:w-auto" onClick={toggleAddBook}>
-                        <AddIcon    />
+                        <AddIcon    adminVerified="false" />
                         Add book
                     </button>
                     
@@ -36,7 +36,7 @@ const Discover = () => {
             </div>
 
             <Books />
-            {showAddBook && <AddBook toggleAddBook={toggleAddBook} adminVerified="false"/>}
+            {showAddBook && <AddBook toggleAddBook={toggleAddBook}/>}
         </>
 
     );

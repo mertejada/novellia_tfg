@@ -164,7 +164,7 @@ const Book = ({setShowSessionTimer}) => {
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="title mb-4">
-                                    {book.adminVerified !== "false" && <VerifiedBook fontSize="large" />}
+                                    {book.adminVerified !== false && <VerifiedBook fontSize="large" />}
                                     {book.title}
                                     <span className="text-2xl font-normal text-gray-500">({book.published})</span>
                                 </h1>
@@ -194,7 +194,7 @@ const Book = ({setShowSessionTimer}) => {
 
                             <div>
                                 <h3 className="text-lg font-normal mb-2">Sipnosis</h3>
-                                <p className="text-gray-500">{book.sipnosis}</p>
+                                <p className="text-gray-500 overflow-x-scroll">{book.sipnosis}</p>
                             </div>
 
                             <div className="flex flex-col sm:flex-row justify-between mx-16 gap-16 mt-16">

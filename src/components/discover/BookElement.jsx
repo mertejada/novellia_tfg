@@ -16,7 +16,7 @@ import Alert from '@mui/material/Alert';
 import VerifiedBook from '../common/VerifiedBook';
 
 
-const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, getBooks }) => {
+const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks }) => {
     const { user, userLists } = useAuth();
 
     const [showAddToList, setShowAddToList] = useState(false);
@@ -65,7 +65,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, getBooks }) 
     const deleteBook = async () => {
         try {
             await deleteDoc(doc(db, "books", bookId));
-            getBooks();
+            updateBooks();
         } catch (error) {
             console.error("Error deleting book:", error);
         }
@@ -87,7 +87,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, getBooks }) 
                 <div className=" w-full flex items-center justify-evenly gap-10 relative ">
                     <div className="w-2/3">
                         <h3 className="text-lg font-semibold overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                            {bookInfo.adminVerified !== "false" && <VerifiedBook fontSize="small" />}
+                            {bookInfo.adminVerified !== false && <VerifiedBook fontSize="small" />}
                             {bookInfo.title}</h3>
 
                         <p className="text-sm text-crayola overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.author}</p>

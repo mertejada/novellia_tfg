@@ -33,8 +33,13 @@ const AdminGenres = () => {
             // Revisar que no haya libros con ese género
             const querySnapshot = await getDocs(query(collection(db, "books"), where("genre", "==", genreId)));
             if (!querySnapshot.empty) {
-                setGenreMessage({ type: "error", content: "Can't delete genre with books associated" });
-                return;
+
+                //que esos libros cambien su genreId por unknown
+                querySnapshot.forEach(async (doc) => {
+                    await updateDoc(doc.ref, {
+                        genre: "unknown"
+                    });
+                });
             }
             await deleteDoc(doc(db, "genres", genreId));
             setGenreMessage({ type: "success", content: "Genre deleted successfully" });

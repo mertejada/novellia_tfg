@@ -8,13 +8,14 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { languages } from "../../data";
 
 import Alert from '@mui/material/Alert';
-import { CleaningServicesOutlined } from "@mui/icons-material";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 const AddBook = ({ toggleAddBook, adminVerified }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState({ type: null, content: null });
-    const [genres, setGenres] = useState([]);    
+    const [genres, setGenres] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [bookInfo, setBookInfo] = useState({
         title: '',
@@ -27,7 +28,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         publisher: '',
         rating: '',
         insertDate: new Date().toISOString(),
-        adminVerified: adminVerified,
+        adminVerified: (adminVerified === "true") ? true : false
 
     });
 
@@ -49,10 +50,12 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     const addBook = async (e) => {
         e.preventDefault();
 
+        setIsSubmitting(true);
+
         const imageInputElement = document.getElementById("cover");
         const imageFile = imageInputElement.files[0];
 
-        if (!bookInfo.title || !bookInfo.author || !bookInfo.sipnosis || !bookInfo.pages || !bookInfo.published || !bookInfo.isbn || !bookInfo.genre || !bookInfo.publisher ) {
+        if (!bookInfo.title || !bookInfo.author || !bookInfo.sipnosis || !bookInfo.pages || !bookInfo.published || !bookInfo.isbn || !bookInfo.genre || !bookInfo.publisher) {
             setMessage({ type: "error", content: "All fields are required" });
             return;
         }
@@ -63,9 +66,9 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             return;
         }
 
-        //si el isbn no es un numero con 10 digitos o 13 digitos
-        if (!/^\d{10}|\d{13}$/.test(bookInfo.isbn)) {
-            setMessage({ type: "error", content: "ISBN must be a 10 or 13 digit number" });
+        //si el isbn no tiene la estructura correcta
+        if (!/^\d{3}-\d{10}$/.test(bookInfo.isbn)) {
+            setMessage({ type: "error", content: "ISBN must have the format 000-0000000000" });
             return;
         }
 
@@ -120,6 +123,12 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
             setMessage({ type: "success", content: "Book added successfully" });
 
+            setTimeout(() => {
+                setMessage({ type: null, content: null });
+                setIsSubmitting(false);
+                toggleAddBook();
+            }, 3000);
+
         } catch (err) {
             console.error('Error adding book:', err);
             setMessage({ type: "error", content: "Failed to add book. Please try again later." });
@@ -130,13 +139,17 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-xl w-2/3">
-                <h2 className="text-2xl font-semibold mb-5">Add a new book</h2>
-                <form className="grid grid-cols-1 gap-4" onSubmit={addBook}>
-                    <div className="grid grid-cols-2 items-center gap-2">
+            <div className=" bg-white p-4 py-6 sm:p-8 rounded-xl m-20">
+                <div className="flex justify-between items-center mb-5">
+                <h2 className="text-2xl font-normal"><span className="gradient text-gradient font-light ">Add a</span>  new book</h2>
+                <CancelIcon className="cursor-pointer text-gray-300" onClick={toggleAddBook} />
+                </div>
+
+                <form className="grid grid-cols-1 gap-4 sm:p-1 overflow-scroll" onSubmit={addBook} style={{ maxHeight: "60vh" }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" placeholder="Title" name="title" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.title} onChange={handleChange} />
                         <input type="text" placeholder="Author" name="author" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.author} onChange={handleChange} />
-                        <textarea placeholder="Sipnosis" name="sipnosis" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.sipnosis} onChange={handleChange}></textarea>
+                        <textarea placeholder="Sipnosis" name="sipnosis" className="border border-gray-300 p-2 rounded-lg h-max" value={bookInfo.sipnosis} onChange={handleChange}></textarea>
                         <input type="text" placeholder="Pages" name="pages" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.pages} onChange={handleChange} />
                         <input type="text" placeholder="Published" name="published" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.published} onChange={handleChange} />
                         <input type="text" placeholder="ISBN" name="isbn" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.isbn} onChange={handleChange} />
@@ -159,15 +172,14 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                         <input type="file" accept="image/*" id="cover" name="cover" onChange={(e) => setBookInfo(prev => ({ ...prev, cover: e.target.files[0] }))} />
 
                     </div>
-                    <div className="flex justify-between gap-5">
-                        <button type="submit" className="bg-crayola text-white px-4 py-2 rounded-lg" >Add book</button>
-                        <button type="button" onClick={toggleAddBook}>Cancel</button>
-                    </div>
+                        <button type="submit" className="bg-crayola text-white px-4 py-2 rounded-lg w-fit" >Add book</button>
+
                 </form>
                 {message.type === "success" && <Alert severity="success" className="mt-2">{message.content}</Alert>}
                 {message.type === "error" && <Alert severity="error" className="mt-2">{message.content}</Alert>}
 
             </div>
+
         </div>
     );
 }
