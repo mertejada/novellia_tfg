@@ -26,7 +26,7 @@ const Books = ({ isAdmin }) => {
             if (genre) {
                 q = query(collection(db, "books"), where("genre", "==", genre));
             } else {
-                q = query(collection(db, "books"));
+                q = query(collection(db, "books"), orderBy(orderParam, order));
             }
             const querySnapshot = await getDocs(q);
             const bookData = querySnapshot.docs.map(doc => ({
@@ -113,6 +113,9 @@ const Books = ({ isAdmin }) => {
                             <BookElement bookInfo={book} key={book.id} bookId={book.id} isAdmin={isAdmin} />
                         ))}
                     </div>
+                    <Stack spacing={2} className="flex justify-center mt-5">
+                        <Pagination count={Math.ceil(booksLength / 8)} color="primary" />
+                    </Stack>
                 </> :
                 <div className="flex justify-center items-center h-96">
                     <h2 className="text-2xl">No hay libros disponibles</h2>
