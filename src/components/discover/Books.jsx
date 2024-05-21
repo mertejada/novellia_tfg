@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from '../../services/firebase';
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy, limit, startAfter } from "firebase/firestore";
 import ToggleButton from '@mui/material/ToggleButton';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import Pagination from '@mui/material/Pagination';
@@ -14,12 +14,14 @@ const Books = ({ isAdmin }) => {
     const [adminVerifiedBooks, setAdminVerifiedBooks] = useState(false);
     const [orderParam, setOrderParam] = useState('insertDate'); // ['asc', 'desc']
     const [order, setOrder] = useState('asc');
-    const [booksLength, setBooksLength] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [booksPerPage] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     let verifiedColor = adminVerifiedBooks ? 'text-green-500' : 'text-gray-300';
 
-    const getBooksFiltered = async (genre = '') => {
+    const getBooksFiltered = async (genre = '', page = 1) => {
+        setCurrentPage(page);
         setGenreFilter(genre);
         try {
             let q;
@@ -39,8 +41,15 @@ const Books = ({ isAdmin }) => {
                 filteredBooks = bookData.filter(book => book.adminVerified === true);
             }
 
-            setBooks(filteredBooks);
-            setBooksLength(filteredBooks.length);
+            const totalBooks = filteredBooks.length;
+            const totalPages = Math.ceil(totalBooks / booksPerPage);
+            setTotalPages(totalPages);
+
+            const startIndex = (page - 1) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+            const booksToShow = filteredBooks.slice(startIndex, endIndex);
+
+            setBooks(booksToShow);
         } catch (error) {
             console.error('Error al obtener los libros:', error);
         }
@@ -50,6 +59,10 @@ const Books = ({ isAdmin }) => {
         const [param, order] = e.target.value.split('-');
         setOrderParam(param);
         setOrder(order);
+    };
+
+    const handlePageChange = (event, value) => {
+        getBooksFiltered(genreFilter, value);
     };
 
     const getGenres = async () => {
@@ -113,9 +126,11 @@ const Books = ({ isAdmin }) => {
                             <BookElement bookInfo={book} key={book.id} bookId={book.id} isAdmin={isAdmin} />
                         ))}
                     </div>
+                    <div className="flex justify-center items-center gap-5 mt-5">
                     <Stack spacing={2} className="flex justify-center mt-5">
-                        <Pagination count={Math.ceil(booksLength / 8)} color="primary" />
+                        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} color="primary" />
                     </Stack>
+                    </div>
                 </> :
                 <div className="flex justify-center items-center h-96">
                     <h2 className="text-2xl">No hay libros disponibles</h2>
