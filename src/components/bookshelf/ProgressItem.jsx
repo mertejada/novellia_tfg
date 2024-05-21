@@ -1,0 +1,32 @@
+import React, { useState, useEffect } from 'react'
+import { doc, getDoc } from "firebase/firestore";
+
+import CircularProgress from '@mui/material/CircularProgress';
+
+const ProgressItem = ({ userGoals, title, content, min, value, reach }) => {
+
+    let color = reach ? 'green' : 'orange';
+
+    return (
+        <div className="flex flex-col items-center justify-center  border shadow rounded-xl p-10  ">
+            <h1 className="text-xl font-bold mb-4">{title}</h1>
+            <div className="flex items-end gap-5 justify-center mb-4">
+                {reach && <CircularProgress
+                    variant="determinate"
+                    sx={{ color: color }}
+                    size={50}
+                    thickness={2}
+                    value={Math.min(Math.floor((value / min) * 100), 100)}
+                />}
+                <div className="">
+                    <p> <span className="font-light text-5xl">{value}</span> {reach && "/"} {min} {content}</p>
+                </div>
+            </div>
+            {reach ? <p className="text-sm text-gray-400 text-center">You've reached {Math.floor((value / min) * 100)}% of your goal</p>
+                : <p className="text-sm text-gray-400 text-center">What a great progress! Keep going!</p>
+            }
+        </div>
+    )
+}
+
+export default ProgressItem;

@@ -3,8 +3,9 @@ import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 
-import ProgressItem from "./progress/ProgressItem";
+import ProgressItem from "./ProgressItem";
 import { get } from "firebase/database";
 
 
@@ -16,12 +17,13 @@ const Progress = () => {
     const [userReadingSessions, setUserReadingSessions] = useState([]);
     const [userFinishedBooks, setUserFinishedBooks] = useState(0);
 
-    const [yearOptions, setYearOptions ] = useState([]);   
+    const [yearOptions, setYearOptions] = useState([]);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
     const [thisYearFinishedBooks, setThisYearFinishedBooks] = useState(0);
     const [thisYearDiffGenres, setThisYearDiffGenres] = useState(0);
     const [thisYearDiffGenresNum, setThisYearDiffGenresNum] = useState(0);
+    const [thisYearTotalHours, setThisYearTotalHours] = useState(0);
 
     const [todaysReading, setTodaysReading] = useState(0);
 
@@ -36,7 +38,9 @@ const Progress = () => {
             setUserReadingSessions(userDoc.readingSessions);
             setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
         }
+
         setLoading(false);
+
     }
 
     //conseguir los años en los que el usuario tiene registros de sesiones o libros terminados
@@ -53,7 +57,6 @@ const Progress = () => {
 
         const uniqueYears = [...new Set(years)];
         setYearOptions(uniqueYears);
-        console.log(uniqueYears)
     }
 
 
@@ -64,6 +67,7 @@ const Progress = () => {
         if (userReadingSessions) {
             userReadingSessions.filter(session => {
                 const sessionDate = new Date(session.date);
+                console.log(sessionDate.toDateString(), new Date().toDateString());
                 const todaysSessions = sessionDate.toDateString() === new Date().toDateString();
 
                 if (todaysSessions) {
@@ -73,6 +77,22 @@ const Progress = () => {
         }
 
         setTodaysReading(Math.floor(todaysReading / 60));
+    }
+
+    const getThisYearTotalHours = () => {
+        let totalHours = 0;
+
+        if (userReadingSessions) {
+            userReadingSessions.forEach(session => {
+                const sessionDate = new Date(session.date);
+                if (sessionDate.getFullYear() === selectedYear) {
+                    totalHours += session.time;
+                }
+            }
+            );
+        }
+
+        setThisYearTotalHours(Math.floor(totalHours / 3600));
     }
 
     const getThisYearFinishedBooks = () => {
@@ -95,7 +115,7 @@ const Progress = () => {
             const bookDate = new Date(book.finishedDate);
 
             if (bookDate.getFullYear() === selectedYear) {
-                const bookRef = doc(db, 'books', book.id); // Asegúrate de que 'bookId' es la clave correcta
+                const bookRef = doc(db, 'books', book.id);
                 const bookDoc = await getDoc(bookRef);
                 if (bookDoc.exists()) {
                     const bookData = bookDoc.data();
@@ -122,14 +142,16 @@ const Progress = () => {
         getUserInfo();
     }, []);
 
+
     useEffect(() => {
         getTodaysReading();
-
-    }, [userReadingSessions]);
+    }
+        , [userReadingSessions]);
 
     useEffect(() => {
         getThisYearFinishedBooks();
         getThisYearDiffGenres();
+        getThisYearTotalHours();
     }
         , [userFinishedBooks, selectedYear]);
 
@@ -139,25 +161,30 @@ const Progress = () => {
 
 
     return (
-        <div>
-
-            <form className="flex flex-col items-center justify-center gap-5 m-10" onChange={handleYearChange}>
-                <h1 className="text-3xl font-bold">Year</h1>
-                <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
-                    {yearOptions.map((year, index) => (
-                        <option key={index} value={year}>{year}</option>
-                    ))}
-                </select>
-            </form>
-
+        <div className="content content-element">
             {loading ? <p>Loading...</p> :
+            <>
 
-                <div className="flex flex-wrap  items-center justify-center border shadow rounded-xl  gap-10 m-10 ">
-                    <ProgressItem userInfo={userGoals} title="Today's Reading" content='min' min={userGoals.dailyReading} value={todaysReading} />
-                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Finished Books`} content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} />
-                    <ProgressItem userInfo={userGoals} title={`${selectedYear}'s Different Genres`} content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} />
-                </div>
+            <div className="flex items-center justify-between gap-5 my-5">
+                <h2 className="subtitle self-center">Your <span className="text-gradient gradient">{selectedYear} progress</span></h2>
+                <form className="flex flex-col items-center justify-center gap-5" onChange={handleYearChange}>
+                    <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
+                        {yearOptions.map((year, index) => (
+                            <option key={index} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </form>
 
+            </div>
+
+            
+
+                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
+                        <ProgressItem userInfo={userGoals} title="Finished books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} reach={true} />
+                        <ProgressItem userInfo={userGoals} title="Different genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} reach={true} />
+                        <ProgressItem userInfo={userGoals} title="Reading total hours" content='hours' min={userGoals.totalHours} value={thisYearTotalHours} />
+                    </div>
+                    </>
             }
         </div>
     );

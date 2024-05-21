@@ -27,6 +27,7 @@ const Lists = () => {
 
     return (
         <div className="content">
+            <h2 className="subtitle text-center  sm:text-start my-5">Your lists</h2>
             {userLists ? (
                 <>
                     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

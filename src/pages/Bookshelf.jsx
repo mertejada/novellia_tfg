@@ -31,10 +31,11 @@ const Bookshelf = () => {
                     </div>
                 </div>
             </div>
-            <div id="progress"></div>
-            <Progress/>
             <div id="lists" className="p-1"></div>
             <Lists/>
+            <div id="progress" ></div>
+            <Progress/>
+            
             
         </main>
     );
