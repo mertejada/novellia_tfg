@@ -5,11 +5,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
-import PlayCircle from "@mui/icons-material/PlayCircle";
+/*
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
+import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';*/
+
+import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon } from '@mui/icons-material';
+
 
 
 
@@ -80,17 +84,17 @@ const NavBar = ({ setShowSessionTimer }) => {
             />
 
         ) : (
-            <AccountCircleIcon className=" cursor-pointer " onClick={toggleUserMenu} />
+            <PersonRoundedIcon className=" cursor-pointer " onClick={toggleUserMenu} />
         );  
     };
 
     const renderLinks = (links) => {
         return isMobile ? (
             <>
-                <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
+                <MenuRoundedIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
                 {isLinksMenuOpen && (
                     <div className="absolute top-0 right-0 left-0 z-30 bg-white border border-gray-200 rounded p-5 text-center" ref={linksMenuRef}>
-                        <MenuIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
+                        <MenuRoundedIcon onClick={toggleLinksMenu} className="cursor-pointer ml-auto" />
 
                         <ul className="py-2 px-4 text-center m-2">
 
@@ -122,7 +126,7 @@ const NavBar = ({ setShowSessionTimer }) => {
         <div className="flex items-center gap-2  text-gray-800 cursor-pointer">
             {renderLinks(adminLinks)}
             <span onClick={handleLogout}>Log out</span>
-            <LogoutIcon />
+            <ExitToAppRoundedIcon />
         </div>
     );
 
@@ -135,7 +139,7 @@ const NavBar = ({ setShowSessionTimer }) => {
 
 
             <button className="flex gap-1 font-normal  px-2 py-1 items-center  transition-all duration-150 ease-in-out  hover:bg-black hover:text-white hover:border-black  rounded-full  border-black text-black" onClick={setShowSessionTimer}>
-                <PlayCircle /> {isDesktop && "Start session"}
+                <PlayCircleRoundedIcon /> {isDesktop && "Start session"}
             </button>
             
              {renderUserImg()}
@@ -149,11 +153,11 @@ const NavBar = ({ setShowSessionTimer }) => {
 
                         <ul className="m-6 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
-                                <SettingsIcon className="mr-2" />
-                                <Link to="/profile">Settings</Link>
+                                <FlagRoundedIcon className="mr-2" />
+                                <Link to="/profile">Goals</Link>
                             </li>
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
-                                <LogoutIcon className="mr-2" />
+                                <ExitToAppRoundedIcon className="mr-2" />
                                 Log out
                             </li>
                         </ul>

@@ -6,14 +6,16 @@ import { db } from '../services/firebase';
 import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import { PlayCircleRounded } from '@mui/icons-material';
+import { PlaylistAddRounded } from '@mui/icons-material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+
 
 
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 import bookIconImg from '../assets/img/book-info-icons/files.png';
 import languageIconImg from '../assets/img/book-info-icons/language.png';
@@ -147,7 +149,7 @@ const Book = ({setShowSessionTimer}) => {
                         <button className='relative w-full'>
                             <div className="flex items-center p-3 cursor-pointer  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
                                 <p className="text-white mr-2">Add to list</p>
-                                <PlaylistAddIcon className="  text-white" onClick={toggleAddToList} />
+                                <PlaylistAddRounded className="  text-white" onClick={toggleAddToList} />
                             </div>
                             {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="w-52 h-auto  shadow p-5 rounded-lg z-10 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
                         </button>
@@ -155,7 +157,7 @@ const Book = ({setShowSessionTimer}) => {
                         <button className="flex items-center  p-3 relative bg-black gap-4 justify-between w-full rounded-md" onClick={() => setShowSessionTimer(true)}>
                             <p className="text-white  cursor-default mr-2">Start session</p>
 
-                            <PlayCircleIcon className="cursor-pointer text-white" />
+                            <PlayCircleRounded className="cursor-pointer text-white" />
 
                         </button>
 

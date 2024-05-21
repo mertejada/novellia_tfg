@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { useMediaQueries } from "../../contexts/MediaQueries";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
+import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 
 
 const NewBooks = () => {
@@ -97,8 +96,8 @@ const NewBooks = () => {
             {(isMobile ) &&
                 <div className="flex justify-center gap-5">
 
-                    {currentPage > 0 && <ArrowBackIcon className="cursor-pointer text-5xl text-crayola" onClick={handlePrevPage} />}
-                    {currentPage < books.length - 1 && <ArrowForwardIcon className="cursor-pointer text-5xl text-crayola" onClick={handleNextPage} />}
+                    {currentPage > 0 && <KeyboardArrowLeftRoundedIcon className="cursor-pointer text-5xl text-crayola" onClick={handlePrevPage} />}
+                    {currentPage < books.length - 1 && <KeyboardArrowRightRoundedIcon className="cursor-pointer text-5xl text-crayola" onClick={handleNextPage} />}
                 </div>
             }
         </>

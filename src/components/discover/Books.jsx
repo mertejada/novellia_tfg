@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from '../../services/firebase';
 import { collection, getDocs, query, where, orderBy, onSnapshot } from 'firebase/firestore';
-import ToggleButton from '@mui/material/ToggleButton';
+
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
+
+import ToggleButton from '@mui/material/ToggleButton';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+
 import BookElement from "./BookElement";
 
 import noDataImg from '../../assets/errors/no-books.png';

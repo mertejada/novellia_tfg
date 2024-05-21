@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+
 import Alert from '@mui/material/Alert';
-import CloseIcon from '@mui/icons-material/Close';
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
     const { user, userLists } = useAuth();
@@ -69,7 +70,7 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
         <div ref={addToListRef} className="bg-white w-52 h-auto  shadow p-5 rounded-lg z-10 absolute -top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div className="flex justify-between items-center text-crayola p-2">
                 <h3 className="text-lg">Add to list</h3>
-                <CloseIcon className="cursor-pointer" onClick={toggleAddToList} />
+                <CloseRoundedIcon className="cursor-pointer" onClick={toggleAddToList} />
             </div>
             <ul className="p-1 overflow-y-auto max-h-60 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ maxHeight: "150px" }}>
                 {userLists && Object.keys(userLists).map(listName => (

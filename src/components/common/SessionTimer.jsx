@@ -4,9 +4,10 @@ import { db } from "../../services/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
-import CloseIcon from '@mui/icons-material/Close';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import TimerRoundedIcon from '@mui/icons-material/TimerRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
+
 import Alert from '@mui/material/Alert';
 import { set } from "firebase/database";
 
@@ -117,7 +118,7 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white xs:p-2 sm:p-4 rounded-lg">
                 <div className="flex justify-end items-center gap-1 text-gray-300 hover:text-gray-500 transition-all duration-150 ease-in-out">
-                    <CloseIcon className="cursor-pointer m-2" onClick={() => setShowSessionTimer(false)} fontSize="small" />
+                    <CloseRoundedIcon className="cursor-pointer m-2" onClick={() => setShowSessionTimer(false)} fontSize="small" />
 
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2 text-center p-6">

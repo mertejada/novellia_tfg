@@ -3,8 +3,7 @@ import { db } from "../../services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 function StepsInterest({ formData, setFormData }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -58,7 +57,7 @@ function StepsInterest({ formData, setFormData }) {
                 toggleGenre(genre);
               }}
             >
-              {selectedGenres.includes(genre) && <CheckCircleIcon className="mr-2" />}
+              {selectedGenres.includes(genre) && <CheckCircleRoundedIcon className="mr-2" />}
               {genresData[index].name}
             </button>
           )

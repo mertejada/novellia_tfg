@@ -4,10 +4,11 @@ import { db } from '../../services/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 import ListElement from "./ListElement";
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddList from "./AddList";
 
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import CircularProgress from '@mui/material/CircularProgress';
+
 import Box from '@mui/material/Box';
 
 const Lists = () => {

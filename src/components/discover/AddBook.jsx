@@ -8,7 +8,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { languages } from "../../data";
 
 import Alert from '@mui/material/Alert';
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelRoundedIcon from '@mui/icons-material/Cancel';
 
 
 const AddBook = ({ toggleAddBook, adminVerified }) => {
@@ -142,7 +142,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             <div className=" bg-white p-4 py-6 sm:p-8 rounded-xl m-20">
                 <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-normal"><span className="gradient text-gradient font-light ">Add a</span>  new book</h2>
-                <CancelIcon className="cursor-pointer text-gray-300" onClick={toggleAddBook} />
+                <CancelRoundedIcon className="cursor-pointer text-gray-300" onClick={toggleAddBook} />
                 </div>
 
                 <form className="grid grid-cols-1 gap-4 sm:p-1 overflow-scroll" onSubmit={addBook} style={{ maxHeight: "60vh" }}>

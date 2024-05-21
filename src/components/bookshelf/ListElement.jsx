@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import BeenhereIcon from '@mui/icons-material/Beenhere';
-import BookIcon from '@mui/icons-material/Book';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
-
-import List from "../../pages/List";
+import { BeenhereRounded, BookRounded, FavoriteRounded, ShoppingBasketRounded, DashboardRounded, KeyboardArrowRightRounded } from '@mui/icons-material';
 
 
 const ListElement = ({ name }) => {
@@ -22,10 +14,10 @@ const ListElement = ({ name }) => {
         .replace(/\b\w/g, c => c.toUpperCase());
 
     const icons = {
-        "favourites": <FavoriteIcon className="text-red-500" />, // "favourites" is the key, <FavoriteIcon /> is the value
-        "wishList": <ShoppingBasketIcon className="text-lavender" />, // "wishList" is the key, <ShoppingBasketIcon /> is the value
-        "currentlyReading": <BookIcon className="text-crayola" />,
-        "finishedBooks": <BeenhereIcon className="text-green-800" />,
+        "favourites": <FavoriteRounded className="text-red-500" />, // "favourites" is the key, <FavoriteIcon /> is the value
+        "wishList": <ShoppingBasketRounded className="text-lavender" />, // "wishList" is the key, <ShoppingBasketIcon /> is the value
+        "currentlyReading": <BookRounded className="text-crayola" />,
+        "finishedBooks": <BeenhereRounded className="text-green-800" />,
     };
 
     const handleListRedirection = () => {
@@ -37,14 +29,14 @@ const ListElement = ({ name }) => {
     return (
         <li className=" flex items-center justify-between shadow-md shadow-zinc-400 border h-28 m-2 px-10 bg-white rounded-xl cursor-pointer" onClick={handleListRedirection}>
             <div className="flex gap-4">
-                {icons[name] || <DashboardRoundedIcon  className="text-gray-500" />}
+                {icons[name] || <DashboardRounded  className="text-gray-500" />}
                 <h2 className="truncate overflow-hidden whitespace-nowrap" style={{ maxWidth: "9rem" }}>
                     {displayedName}
                 </h2>
 
             </div>
 
-            <KeyboardArrowRightRoundedIcon />
+            <KeyboardArrowRightRounded />
 
 
         </li>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import VerifiedIcon from '@mui/icons-material/Verified';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import Popover from '@mui/material/Popover';
 
 
@@ -21,7 +21,7 @@ const VerifiedBook = ({fontSize}) => {
 
     return (
         <>
-            <VerifiedIcon className="text-green-500 mr-3" 
+            <VerifiedRoundedIcon className="text-green-500 mr-3" 
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
                 fontSize={fontSize}

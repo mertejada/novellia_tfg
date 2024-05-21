@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { doc, getDoc } from "firebase/firestore";
+import React from 'react'
 
 import CircularProgress from '@mui/material/CircularProgress';
 

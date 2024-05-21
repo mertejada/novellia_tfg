@@ -5,7 +5,7 @@ import { useLocation, Link } from "react-router-dom";
 import { languages } from "../data";
 
 import { Alert } from "@mui/material"
-import VerifiedIcon from '@mui/icons-material/Verified';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
@@ -106,7 +106,7 @@ const AdminBook = () => {
                 { !book.adminVerified ? <Alert severity="warning" className="mb-4">This book has not been verified by an admin yet.</Alert>
                     :
                     <div className=" rounded-md my-2 mb-10">
-                        <VerifiedIcon className="m-2" color="success" />
+                        <VerifiedRoundedIcon className="m-2" color="success" />
                         This book info has been already verified by an admin.
                     </div>
                 }

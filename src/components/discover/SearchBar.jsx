@@ -3,7 +3,7 @@ import { db } from '../../services/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-import SearchIcon from '@mui/icons-material/Search';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 const SearchBar = ({isAdmin}) => {
     const [books, setBooks] = useState(null);
@@ -69,7 +69,7 @@ const SearchBar = ({isAdmin}) => {
     return (
         <div className="relative w-3/4 xs:w-1/2 ">
             <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }}>
-                <SearchIcon style={{ color: 'black' }} />
+                <SearchRoundedIcon style={{ color: 'black' }} />
             </div>
             <input
                 className='w-full bg-white rounded-lg px-10 py-2 border-2 border-white shadow-md'

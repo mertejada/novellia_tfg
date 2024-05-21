@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { collection, getDocs, deleteDoc, doc, setDoc, where, query, updateDoc } from "firebase/firestore";
 
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import Alert from '@mui/material/Alert';
 
@@ -145,7 +145,7 @@ const AdminGenres = () => {
                                         <input type="color" id="genreColor" defaultValue={genreInfo[index].color} className=" rounded-md w-full " />
                                     </div>
                                     <div className="flex items-center justify-between gap-3 w-full px-4">
-                                    <button onClick={() => deleteGenre(genre)} className="text-red-500 py-3"><DeleteIcon />Delete genre</button>
+                                    <button onClick={() => deleteGenre(genre)} className="text-red-500 py-3"><DeleteRoundedIcon />Delete genre</button>
 
                                         <button className=" bg-gray-100 text-crayola px-3 py-1 my-3 rounded-md">Edit genre</button>
 

@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
+
 
 import ProgressItem from "./ProgressItem";
-import { get } from "firebase/database";
 
 
 

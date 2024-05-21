@@ -1,17 +1,13 @@
 import React from "react";
 
-import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FindInPageIcon from '@mui/icons-material/FindInPage';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import { LocalLibraryRounded, TimelineRounded, FindInPageRounded, BookmarkAddRounded } from '@mui/icons-material';
 
 const InfoCard = ({ color, title, text, icon }) => {
     let icons = [
-        <LocalLibraryIcon style={{ color: color }} fontSize="large" />,
-        <TimelineIcon style={{ color: color }} fontSize="large" />,
-        <FindInPageIcon style={{ color: color }} fontSize="large" />,
-        <BookmarkAddIcon style={{ color: color }} fontSize="large" />
+        <LocalLibraryRounded style={{ color: color }} fontSize="large" />,
+        <TimelineRounded style={{ color: color }} fontSize="large" />,
+        <FindInPageRounded style={{ color: color }} fontSize="large" />,
+        <BookmarkAddRounded style={{ color: color }} fontSize="large" />
 
 
     ];

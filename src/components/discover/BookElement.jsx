@@ -5,13 +5,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
 import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 
-
-
-
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddToList from "../common/AddToList";
-import DeleteIcon from '@mui/icons-material/Delete';
-import Alert from '@mui/material/Alert';
+
+
+
+import PlaylistAddRoundedIcon from '@mui/icons-material/PlaylistAddRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import VerifiedBook from '../common/VerifiedBook';
 
@@ -98,11 +97,11 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
 
                     {isAdmin ?
                         <div className=" w-1/3 flex justify-end gap-5">
-                            <DeleteIcon className="cursor-pointer text-red-500" onClick={deleteBook} />
+                            <DeleteRoundedIcon className="cursor-pointer text-red-500" onClick={deleteBook} />
 
                         </div> :
                         <div className=" w-1/3 flex justify-end gap-5">
-                            <PlaylistAddIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
+                            <PlaylistAddRoundedIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
                             {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" bookPages={bookInfo.pages} bookGenre={bookInfo.genre} />}
                         </div>
                     }
@@ -135,7 +134,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                     isList && <button
                         className=" text-gray-400 mt-4 w-full text-sm " onClick={deleteBookFromList}
                     >
-                        <DeleteIcon className="text-red-500 mr-1" />
+                        <DeleteRoundedIcon className="text-red-500 mr-1" />
                         <span>Remove from list</span>
                     </button>
                 }

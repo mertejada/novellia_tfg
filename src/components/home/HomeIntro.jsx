@@ -6,7 +6,7 @@ import videoBgMobile from "../../assets/video-mobile.mp4";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 import { Link } from "react-router-dom";
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 
@@ -41,11 +41,11 @@ const HomeIntro = () => {
                 <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     <div className=" text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>
                         New
-                        <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
+                        <KeyboardArrowDownRoundedIcon className="text-white text-5xl m-1" fontSize="medium" />
                     </div>
                     <div className="text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>
                         About
-                        <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
+                        <KeyboardArrowDownRoundedIcon className="text-white text-5xl m-1" fontSize="medium" />
                     </div>
                 </div>
             )}
@@ -54,11 +54,11 @@ const HomeIntro = () => {
                 {isMobile && (
                     <ul className="flex items-center gap-4 justify-center ">
                         <li className="text-white  cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>New
-                            <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
+                            <KeyboardArrowDownRoundedIcon className="text-white text-5xl m-1" fontSize="medium" />
 
                         </li>
                         <li className="text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>About
-                            <KeyboardArrowDownIcon className="text-white text-5xl m-1" fontSize="medium" />
+                            <KeyboardArrowDownRoundedIcon className="text-white text-5xl m-1" fontSize="medium" />
                         </li>
 
                     </ul>

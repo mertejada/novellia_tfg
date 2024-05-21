@@ -12,7 +12,8 @@ import StepsInterests from "./StepsInterests";
 import { db } from '../../services/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InterestsIcon from '@mui/icons-material/Interests';
 import BookIcon from '@mui/icons-material/Book';
@@ -178,7 +179,7 @@ const UserRegister = ({ handleClose }) => {
                 <div className="flex justify-between h-50">
                     <button onClick={handleClose} className="p-2 text-gray-300 mt-4">
                         <p className="flex items-center gap-2 ">
-                            <CancelIcon />
+                            <CancelRoundedIcon />
                             {isMobile ?
                                 "Exit" : "Continue later"
                             }
