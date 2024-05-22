@@ -40,7 +40,7 @@ const Login = () => {
                 diffGenres: 3,
             },
             readingSessions: [],
-            finishedBooksInfo: []
+            finishedBooksInfo: {}
         }
 
         return userData;

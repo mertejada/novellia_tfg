@@ -2,12 +2,13 @@ import React from 'react'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-const ProgressItem = ({ userGoals, title, content, min, value, reach }) => {
+const ProgressItem = ({ userGoals, title, content, min, value, reach, greyBg }) => {
 
     let color = reach ? 'green' : 'orange';
+    let bg = greyBg ? 'bg-gray-100' : 'bg-white';
 
     return (
-        <div className="flex flex-col items-center justify-center  border shadow rounded-xl p-10  ">
+        <div className={`flex flex-col items-center justify-center  border shadow rounded-xl p-10 ${bg}`}>
             <h1 className="text-xl font-bold mb-4">{title}</h1>
             <div className="flex items-end gap-5 justify-center mb-4">
                 {reach && <CircularProgress

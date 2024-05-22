@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
-
+import CircularProgress from '@mui/material/CircularProgress';
 import ProgressItem from "./ProgressItem";
 
 
@@ -26,21 +26,21 @@ const Progress = () => {
     const [todaysReading, setTodaysReading] = useState(0);
 
 
-    const getUserInfo = async () => {
+    const getUserInfo = () => {
         const userDocRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(userDocRef);
-
-        if (docSnap.exists()) {
-            const userDoc = docSnap.data();
-
-            
-            setUserGoals(userDoc.readingGoals);
-            setUserReadingSessions(userDoc.readingSessions);
-            setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
-        }
-
-        setLoading(false);
-
+    
+        // Usar onSnapshot para escuchar cambios en tiempo real
+        onSnapshot(userDocRef, (docSnap) => {
+            if (docSnap.exists()) {
+                const userDoc = docSnap.data();
+    
+                setUserGoals(userDoc.readingGoals);
+                setUserReadingSessions(userDoc.readingSessions);
+                setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
+            }
+    
+            setLoading(false);
+        });
     }
 
     //conseguir los años en los que el usuario tiene registros de sesiones o libros terminados
@@ -153,7 +153,7 @@ const Progress = () => {
         getThisYearDiffGenres();
         getThisYearTotalHours();
     }
-        , [userFinishedBooks, selectedYear]);
+        , [userFinishedBooks, userReadingSessions, selectedYear]);
 
     useEffect(() => {
         getYears();
@@ -163,33 +163,35 @@ const Progress = () => {
     return (
         <div className="content content-element">
             {loading ? <p>Loading...</p> :
-            <>
+                <>
 
-            <div className="flex items-center justify-between gap-5 my-5">
-                <h2 className="subtitle self-center">Today's reading</h2>
-                <p className="text-lg">You've read <span className="text-gradient gradient">{todaysReading} hours</span> today</p>
-            </div>
+                    <div className="flex flex-col justify-between gap-5 my-5">
+                        <h1 className="subtitle"><span className="text-gradient gradient">Today's</span>  progress</h1>
+                        <ProgressItem userInfo={userGoals} title="Today's reading" content='minutes' min={userGoals.dailyReading} value={todaysReading} reach={true} greyBg={true} />
 
-            <div className="flex items-center justify-between gap-5 my-5">
-                <h2 className="subtitle self-center">Your <span className="text-gradient gradient">{selectedYear} progress</span></h2>
-                <form className="flex flex-col items-center justify-center gap-5" onChange={handleYearChange}>
-                    <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
-                        {yearOptions.map((year, index) => (
-                            <option key={index} value={year}>{year}</option>
-                        ))}
-                    </select>
-                </form>
+                    </div>
 
-            </div>
 
-            
+                    <div className="flex items-center justify-between gap-5 my-5">
+                        <h1 className="subtitle"><span className="text-gradient gradient">Your {selectedYear}</span>  progress</h1>
+                        <form className="flex flex-col items-center justify-center gap-5" onChange={handleYearChange}>
+                            <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
+                                {yearOptions.map((year, index) => (
+                                    <option key={index} value={year}>{year}</option>
+                                ))}
+                            </select>
+                        </form>
+
+                    </div>
+
+
 
                     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
                         <ProgressItem userInfo={userGoals} title="Finished books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} reach={true} />
                         <ProgressItem userInfo={userGoals} title="Different genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} reach={true} />
                         <ProgressItem userInfo={userGoals} title="Reading total hours" content='hours' min={userGoals.totalHours} value={thisYearTotalHours} />
                     </div>
-                    </>
+                </>
             }
         </div>
     );

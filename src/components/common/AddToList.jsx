@@ -43,7 +43,7 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
             const userDocRef = doc(db, 'users', user.uid);
             await updateDoc(userDocRef, { lists: updatedLists });
 
-            if(listName === "finishedBooks") {
+            if(listName == "finishedBooks") {
                 const userDoc = await getDoc(userDocRef);
                 const userData = userDoc.data();
                 const finishedBooksInfo = userData.finishedBooksInfo || {};
@@ -54,6 +54,8 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
                 };
 
                 await updateDoc(userDocRef, { finishedBooksInfo });
+
+                console.log("Book added to finishedBooks list")
 
             }
                 
