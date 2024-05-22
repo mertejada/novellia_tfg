@@ -18,9 +18,9 @@ const StepPersonal = ({ formData, setFormData }) => {
     const { isMobile } = useMediaQueries();
  
     return (
-        <div className=" grid gap-10 m-5 overflow-y-auto h-fit md:px-10" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
+        <div className=" grid gap-10 p-5 sm:p-5 overflow-y-auto overflow-x-scroll h-fit md:px-10" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none"}}>
             <div className="flex flex-col md:flex-row md:gap-10">
-                <div className="flex flex-col w-full md:w-1/2 gap-2">
+                <div className="flex flex-col gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Name</label>
                     <input
                         type="text"
@@ -86,7 +86,7 @@ const StepPersonal = ({ formData, setFormData }) => {
 
                 <div className="flex flex-col w-full  md:w-1/2 gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Gender</label>
-                    <select className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
+                    <select className="h-12  rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
                     value={formData.personalInfo.gender}
                     name="gender"
                     onChange={handleChange}

@@ -32,12 +32,7 @@ const Lists = () => {
             {userLists ? (
                 <>
                     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <li className="flex items-center justify-between h-28 m-2 px-10 bg-gray-100 rounded-xl cursor-pointer" onClick={handleListCreation}>
-                            <div className="flex gap-4">
-                                <AddBoxIcon />
-                                <h2 className="text-gray-800">Create a new list</h2>
-                            </div>
-                        </li>
+
                         {Object.keys(userLists)
                             .filter(listName => defaultLists.includes(listName))
                             .sort()
@@ -46,18 +41,25 @@ const Lists = () => {
                             ))}
 
                         {Object.keys(userLists)
-                            .filter(listName => !defaultLists.includes(listName)) 
+                            .filter(listName => !defaultLists.includes(listName))
                             .sort()
                             .map(listName => (
                                 <ListElement key={listName} name={listName} />
                             ))}
 
-                        
+                        <li className="flex items-center justify-between h-28 m-2 px-10 bg-gray-100 rounded-xl cursor-pointer" onClick={handleListCreation}>
+                            <div className="flex gap-4">
+                                <AddBoxIcon />
+                                <h2 className="text-gray-800">Create a new list</h2>
+                            </div>
+                        </li>
+
+
                     </ul>
                     {showAddList && <AddList handleClose={handleClose} currentUserLists={userLists} />}
                 </>
             ) : (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CircularProgress /></Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><CircularProgress /></Box>
             )}
         </div>
     );

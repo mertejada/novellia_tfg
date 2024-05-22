@@ -95,7 +95,13 @@ const ListBooks = () => {
 
             </div>
             <div className="flex items-end justify-center mb-8 gap-1">
-                <h2 className="text-3xl title font-semibold">{listNameTitle}</h2>
+                <div className="flex flex-col items-center gap-2 p-4">
+                    <h2 className="title">{listNameTitle}</h2>
+                    <h3 className="text-gray-400">{listBooks.length} books</h3>
+
+                </div>
+
+
                 {!defaultLists.includes(listName) &&
                     <button onClick={deleteList} className="m-2 text-red-500 hover:scale-125 transform transition duration-300 ease-in-out">
                         <DeleteIcon fontSize="small" />

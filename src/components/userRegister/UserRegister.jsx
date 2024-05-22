@@ -148,7 +148,7 @@ const UserRegister = ({ handleClose }) => {
 
     return (
         <div id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8 w-fit xl:w-2/3  ">
+            <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8  ">
                 <div className="flex flex-col">
                     <h1 className="  mb-10 mt-5 self-center text-xl text-center md:text-left md:text-2xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
                     <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">

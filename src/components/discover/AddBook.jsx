@@ -17,6 +17,21 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     const [genres, setGenres] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const handleClickOutside = (e) => {
+        if (e.target.classList.contains('fixed')) {
+            toggleAddBook();
+        }
+    }
+    //que si esta el componente montado no haya scroll y al hacer click fuera del modal se cierre
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        //que al hacer click fuera del modal, se cierre
+        
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
@@ -138,7 +153,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center" onClick={handleClickOutside}>
             <div className=" bg-white p-4 py-6 sm:p-8 rounded-xl m-20">
                 <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-normal"><span className="gradient text-gradient font-light ">Add a</span>  new book</h2>

@@ -172,7 +172,7 @@ const Progress = () => {
                     </div>
 
 
-                    <div className="flex items-center justify-between gap-5 my-5">
+                    <div className="content-element flex items-center justify-between gap-5 my-5">
                         <h1 className="subtitle"><span className="text-gradient gradient">Your {selectedYear}</span>  progress</h1>
                         <form className="flex flex-col items-center justify-center gap-5" onChange={handleYearChange}>
                             <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
@@ -186,7 +186,7 @@ const Progress = () => {
 
 
 
-                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div className=" grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
                         <ProgressItem userInfo={userGoals} title="Finished books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} reach={true} />
                         <ProgressItem userInfo={userGoals} title="Different genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} reach={true} />
                         <ProgressItem userInfo={userGoals} title="Reading total hours" content='hours' min={userGoals.totalHours} value={thisYearTotalHours} />
