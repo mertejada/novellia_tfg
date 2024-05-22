@@ -32,6 +32,8 @@ const Progress = () => {
 
         if (docSnap.exists()) {
             const userDoc = docSnap.data();
+
+            
             setUserGoals(userDoc.readingGoals);
             setUserReadingSessions(userDoc.readingSessions);
             setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
@@ -162,6 +164,11 @@ const Progress = () => {
         <div className="content content-element">
             {loading ? <p>Loading...</p> :
             <>
+
+            <div className="flex items-center justify-between gap-5 my-5">
+                <h2 className="subtitle self-center">Today's reading</h2>
+                <p className="text-lg">You've read <span className="text-gradient gradient">{todaysReading} hours</span> today</p>
+            </div>
 
             <div className="flex items-center justify-between gap-5 my-5">
                 <h2 className="subtitle self-center">Your <span className="text-gradient gradient">{selectedYear} progress</span></h2>

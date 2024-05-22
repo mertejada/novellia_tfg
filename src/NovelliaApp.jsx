@@ -9,7 +9,6 @@ import ProfileSettings from './pages/ProfileSettings';
 import Login from './pages/Login';
 import Bookshelf from './pages/Bookshelf';
 import List from './pages/List';
-import Tracker from './pages/Tracker';
 import Discover from './pages/Discover';
 import Book from './pages/Book';
 import AdminBooks from './pages/AdminBooks';
@@ -57,7 +56,6 @@ function App() {
                             <Route path="/profile" element={<ProfileSettings />} />
                             <Route path="/bookshelf" element={<Bookshelf />} />
                             <Route path="/bookshelf/*" element={<List />} />
-                            <Route path="/tracker" element={<Tracker />} />
                             <Route path="/discover" element={<Discover />} />
                             <Route path="/book/*" element={<Book setShowSessionTimer={setShowSessionTimer} />} />
 

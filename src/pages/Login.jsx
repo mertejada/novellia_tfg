@@ -39,7 +39,8 @@ const Login = () => {
                 booksPerYear: 10,
                 diffGenres: 3,
             },
-            readingSessions: []
+            readingSessions: [],
+            finishedBooksInfo: []
         }
 
         return userData;

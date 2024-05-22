@@ -21,6 +21,9 @@ const SessionTimer = ({ setShowSessionTimer }) => {
 
     const [message, setMessage] = useState({ type: null, content: null });
 
+    let saveColor = time == 0 ? "text-gray-300" : "text-crayola hover:bg-gray-100";
+    let restartColor = time == 0 ? "text-gray-300" : "text-red-500 hover:bg-gray-100";
+
     const handlePlay = () => {
         if (!timerId) {
             const id = setInterval(() => {
@@ -133,10 +136,10 @@ const SessionTimer = ({ setShowSessionTimer }) => {
 
                     <div className="flex  items-center xs:pl-1 sm:pl-3 mt-5 gap-1   ">
                         
-                    <button className="flex font-normal px-2 py-1 items-center justify-center  transition-all duration-150 ease-in-out text-gray-300  hover:text-crayola hover:bg-gray-100 hover:border-gray-100  rounded-full  border-gray-300" onClick={() => handleRestart()}>
+                    <button className={`flex gap-1 font-normal px-2 py-1 items-center justify-center  transition-all duration-150 ease-in-out    hover:bg-gray-100 hover:border-gray-100  rounded-full  border-gray-300 ${saveColor}`} onClick={handleRestart}>
                             <RestartAltRoundedIcon />
                         </button>
-                        <button className="flex gap-1 font-normal px-2 py-1 items-center justify-center  transition-all duration-150 ease-in-out text-gray-300  hover:text-red-600 hover:bg-gray-100 hover:border-gray-100  rounded-full  border-gray-300" onClick={handleStop}>
+                        <button className={`flex gap-1 font-normal px-2 py-1 items-center justify-center  transition-all duration-150 ease-in-out    hover:bg-gray-100 hover:border-gray-100  rounded-full  border-gray-300 ${restartColor}`} onClick={handleStop}>
                             <StopCircle /> Save
                         </button>
                         {!timerId ?
