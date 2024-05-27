@@ -18,8 +18,8 @@ const Books = ({ isAdmin }) => {
     const [genreFilter, setGenreFilter] = useState('');
     const [adminVerifiedBooks, setAdminVerifiedBooks] = useState(false);
     const [adminNonVerifiedBooks, setAdminNonVerifiedBooks] = useState(false);
-    const [orderParam, setOrderParam] = useState('insertDate'); // ['asc', 'desc']
-    const [order, setOrder] = useState('asc');
+    const [orderParam, setOrderParam] = useState('insertDate');
+    const [order, setOrder] = useState('desc');
     const [booksPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -118,6 +118,7 @@ const Books = ({ isAdmin }) => {
                         <form className="flex justify-start items-center ">
                             <select className="px-2 py-1 border border-gray-300 rounded-md" onChange={handleOrderChange}>
                                 <option value="insertDate-desc">Recents</option>
+                                <option value="insertDate-asc">Oldest</option>
                                 <option value="title-asc">Title</option>
                                 <option value="author-asc">Author</option>
                             </select>

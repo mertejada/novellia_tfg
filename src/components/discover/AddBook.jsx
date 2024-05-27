@@ -62,6 +62,54 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         setBookInfo(prev => ({ ...prev, [name]: value }));
     }
 
+    const validateFormData = () => {
+        //segun el tipo de dato que se espera, se valida
+        if (typeof bookInfo.author !== "string" || typeof bookInfo.title !== "string") {
+            setMessage({ type: "error", content: "Author and title must be strings" });
+            return false;
+        }
+
+        
+
+        //el author y el publisher deben tener al menos 3 caracteres
+        if (bookInfo.author.length < 3 || bookInfo.publisher.length < 3) {
+            setMessage({ type: "error", content: "Author and publisher must be at least 3 characters long" });
+            return false;
+        }
+
+        //la sipnosis debe tener al menos 50 caracteres
+        if (bookInfo.sipnosis.length < 50) {
+            setMessage({ type: "error", content: "Sipnosis must be at least 50 characters long" });
+            return false;
+        }
+
+        //el author solo puede contener caracteres alfabeticos y espacios
+        if (!/^[a-zA-Z\s]*$/.test(bookInfo.author)) {
+            setMessage({ type: "error", content: "Author must contain only alphabetic characters and spaces" });
+            return false;
+        }
+
+        //el publisher solo puede contener caracteres alfabeticos y espacios
+        if (!/^[a-zA-Z\s]*$/.test(bookInfo.publisher)) {
+            setMessage({ type: "error", content: "Publisher must contain only alphabetic characters and spaces" });
+            return false;
+        }
+
+        if(bookInfo.pages < 1){
+            setMessage({ type: "error", content: "Pages must be a valid number" });
+            return false;
+        }
+
+        //el isbn puede ser ISbN-13 o ISbN-10 con el guion opcional
+        if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(bookInfo.isbn)) {
+            setMessage({ type: "error", content: "ISBN must be a valid ISBN-13 or ISBN-10" });
+            return false;
+        }
+
+        return true;
+    }
+
+
     const addBook = async (e) => {
         e.preventDefault();
 
@@ -70,39 +118,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         const imageInputElement = document.getElementById("cover");
         const imageFile = imageInputElement.files[0];
 
-        if (!bookInfo.title || !bookInfo.author || !bookInfo.sipnosis || !bookInfo.pages || !bookInfo.published || !bookInfo.isbn || !bookInfo.genre || !bookInfo.publisher) {
-            setMessage({ type: "error", content: "All fields are required" });
-            return;
-        }
-
-        //si author o title no es un string
-        if (typeof bookInfo.author !== "string" || typeof bookInfo.title !== "string") {
-            setMessage({ type: "error", content: "Author and title must be strings" });
-            return;
-        }
-
-        //si el isbn no tiene la estructura correcta
-        if (!/^\d{3}-\d{10}$/.test(bookInfo.isbn)) {
-            setMessage({ type: "error", content: "ISBN must have the format 000-0000000000" });
-            return;
-        }
-
-        //el autor el publisher y el genero deben tener al menos 3 caracteres
-        if (bookInfo.author.length < 3 || bookInfo.publisher.length < 3 || bookInfo.genre.length < 3) {
-            setMessage({ type: "error", content: "Author, publisher and genre must be at least 3 characters long" });
-            return;
-
-        }
-
-        //la sipnosis debe tener al menos 50 caracteres
-        if (bookInfo.sipnosis.length < 50) {
-            setMessage({ type: "error", content: "Sipnosis must be at least 50 characters long" });
-            return;
-        }
-
-        //el publisher y el author deben contener solo caracteres alfabeticos y espacios
-        if (!/^[a-zA-Z\s]*$/.test(bookInfo.author) || !/^[a-zA-Z\s]*$/.test(bookInfo.publisher)) {
-            setMessage({ type: "error", content: "Author and publisher must contain only alphabetic characters and spaces" });
+        if (!validateFormData()) {
+            setIsSubmitting(false);
             return;
         }
 
@@ -110,6 +127,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
 
         try {
+
+            //si no añade una imagen, añadir una por defecto
 
             if (!imageFile.type.includes("image/")) {
                 setMessage({ type: "error", content: "File must be an image" });
@@ -120,7 +139,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                 setMessage({ type: "error", content: "File must be smaller than 1MB" });
                 return;
             }
-
+            
+            
 
 
             let coverUrl = null;
@@ -165,7 +185,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                         <input type="text" placeholder="Title" name="title" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.title} onChange={handleChange} />
                         <input type="text" placeholder="Author" name="author" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.author} onChange={handleChange} />
                         <textarea placeholder="Sipnosis" name="sipnosis" className="border border-gray-300 p-2 rounded-lg h-max" value={bookInfo.sipnosis} onChange={handleChange}></textarea>
-                        <input type="text" placeholder="Pages" name="pages" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.pages} onChange={handleChange} />
+                        <input type="number" placeholder="Pages" name="pages" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.pages} onChange={handleChange}  min="1"/>
                         <input type="text" placeholder="Published" name="published" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.published} onChange={handleChange} />
                         <input type="text" placeholder="ISBN" name="isbn" className="border border-gray-300 p-2 rounded-lg" value={bookInfo.isbn} onChange={handleChange} />
 
