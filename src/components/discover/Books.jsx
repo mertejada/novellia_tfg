@@ -20,7 +20,7 @@ const Books = ({ isAdmin }) => {
     const [adminNonVerifiedBooks, setAdminNonVerifiedBooks] = useState(false);
     const [orderParam, setOrderParam] = useState('insertDate');
     const [order, setOrder] = useState('desc');
-    const [booksPerPage] = useState(8);
+    const [booksPerPage] = useState(12);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 

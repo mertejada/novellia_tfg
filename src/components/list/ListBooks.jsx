@@ -5,9 +5,15 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
+import { BeenhereRounded, BookRounded, FavoriteRounded, ShoppingBasketRounded, DashboardRounded, KeyboardArrowRightRounded } from '@mui/icons-material';
+
+
 import BookElement from "../discover/BookElement";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const ListBooks = () => {
     const { user, userLists } = useAuth();
@@ -16,13 +22,22 @@ const ListBooks = () => {
 
     const path = location.pathname;
     const listName = path.split("/")[2];
-    //quitar el camelCase, poner espacio y mayúscula la primera letra de cada palabra
     const listNameTitle = listName.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
 
     const [listBooks, setListBooks] = useState([]);
     const [listBooksId, setListBooksId] = useState([]);
     const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const booksPerPage = 8;
+
+    const icons = {
+        "favourites": <FavoriteRounded className="text-red-500" />,
+        "wishList": <ShoppingBasketRounded className="text-lavender" />,
+        "currentlyReading": <BookRounded className="text-crayola" />,
+        "finishedBooks": <BeenhereRounded className="text-green-800" />,
+    };
 
     useEffect(() => {
         if (userLists) {
@@ -33,7 +48,6 @@ const ListBooks = () => {
     useEffect(() => {
         const getListBooks = async () => {
             try {
-
                 const promises = list.map(async (bookId) => {
                     const docRef = doc(db, "books", bookId);
                     const docSnap = await getDoc(docRef);
@@ -81,11 +95,17 @@ const ListBooks = () => {
 
     const defaultLists = ['currentlyReading', 'wishList', 'favourites', 'finishedBooks'];
 
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = listBooks.slice(indexOfFirstBook, indexOfLastBook);
 
     return (
-
         <main className="content p-5">
-            <div className="flex items-center mb-8">
+            <div className="flex items-center justify-between mb-8">
                 <Link to="/bookshelf" className="text-zinc-200">
                     <div className="flex items-center gap-2">
                         <ArrowBackIosIcon />
@@ -93,31 +113,40 @@ const ListBooks = () => {
                     </div>
                 </Link>
 
-            </div>
-            <div className="flex items-end justify-center mb-8 gap-1">
-                <div className="flex flex-col items-center gap-2 p-4">
-                    <h2 className="title">{listNameTitle}</h2>
-                    <h3 className="text-gray-400">{listBooks.length} books</h3>
-
-                </div>
-
-
-                {!defaultLists.includes(listName) &&
-                    <button onClick={deleteList} className="m-2 text-red-500 hover:scale-125 transform transition duration-300 ease-in-out">
-                        <DeleteIcon fontSize="small" />
+            {!defaultLists.includes(listName) &&
+                    <button onClick={deleteList} className="m-2 text-red-500 hover:scale-105 transform transition duration-300 ease-in-out">
+                        <DeleteIcon fontSize="small" /> Delete list
                     </button>
                 }
             </div>
-
-
-
-            <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
-                {listBooks.map((book, index) => (
-                    <BookElement key={listBooksId[index]} bookInfo={book} bookId={listBooksId[index]} isList={true} listName={listName} />
-                ))}
+            <div className="flex items-end justify-center mb-8 gap-1">
+                <div className="flex flex-col items-center gap-2 p-4 m-5">
+                    <div className="flex items-center gap-2">
+                        {icons[listName] || <DashboardRounded className="text-gray-500" />}
+                        <h1 className="text-3xl font-semibold">{listNameTitle}</h1>
+                    </div>
+                    <h3 className="text-gray-400">{listBooks.length} books</h3>
+                </div>
+                
             </div>
+            <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
+                {
+                    loading ?
+                    <p className="text-gray-400 text-center">Loading...</p> :
 
-
+                        currentBooks.map(book => (
+                            <BookElement bookInfo={book} key={book.id} bookId={book.id} />
+                        ))
+                }
+            </div>
+            <Stack spacing={2} className="flex  items-center mt-8">
+                <Pagination 
+                    count={Math.ceil(listBooks.length / booksPerPage)} 
+                    page={currentPage} 
+                    onChange={handlePageChange} 
+                    color="primary" 
+                />
+            </Stack>
         </main>
     );
 };
