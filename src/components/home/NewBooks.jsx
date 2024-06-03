@@ -74,8 +74,8 @@ const NewBooks = () => {
             <div className="content flex justify-center gap-10">
                 {(isDesktop || isTablet) &&
                     books && books.map((book, index) => (
-                        <div key={book.id} className={`grid grid-rows-1 items-center gap-5 ${index === Math.floor(books.length / 2) ? 'text-lg' : ''}`} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-                            <img src={book.cover} alt={book.title} className="rounded-xl h-80 w-auto" />
+                        <div key={book.id} className={`grid grid-rows-1 items-center gap-5  ${index === Math.floor(books.length / 2) ? 'text-lg' : ''}`} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+                            <img src={book.cover} alt={book.title} className="rounded-xl shadow border h-80 w-auto" />
                             <Link to={`/book/${book.id}`} className="bg-gray-300 text-center button hover:bg-crayola transition-all duration-500 ease-in-out text-white p-2 rounded-lg" onClick={handleScrollTop}>View details</Link>
                         </div>
                     ))}

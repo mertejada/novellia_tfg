@@ -106,9 +106,9 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
-        //if name or last name are not letters
-        if (!/^[a-zA-Z]*$/.test(name) || !/^[a-zA-Z]*$/.test(lastName)) {
-            setFormErrorMsg("Name and last name must contain only letters");
+        //name and last name must be letters,spaces and hyphens
+        if (!/^[a-zA-Z\s-]*$/.test(name) || !/^[a-zA-Z\s-]*$/.test(lastName)) {
+            setFormErrorMsg("Name and last name must contain only letters, spaces and hyphens");
             return false;
         }
 

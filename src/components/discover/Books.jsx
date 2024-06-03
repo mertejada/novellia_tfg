@@ -155,7 +155,7 @@ const Books = ({ isAdmin }) => {
                     </div>
                     :
                     <button className="flex items-center px-3 py-2 bg-gray-100 w-fit text-gray-500 rounded-md text-sm" onClick={() => setAdminVerifiedBooks(!adminVerifiedBooks)}>
-                        <VerifiedRoundedIcon className={`${verifiedColor} mr-1`} fontSize="small" />
+                        <VerifiedRoundedIcon className={`${verifiedColor} mr-2`} fontSize="small" />
                         {adminVerifiedBooks ? 'Verified books' : 'All books'}
                     </button>
                 }

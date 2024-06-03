@@ -32,6 +32,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             document.body.style.overflow = 'auto';
         };
     }, []);
+
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
@@ -194,8 +195,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                             {genres.map((genre) => (
                                 <option key={genre} value={genre}>{genre}</option>
                             ))}
-
-                            <option value="genre">Genre</option>
+                            
                         </select>
                         <select name="language" className="border border-gray-300 p-2 rounded-lg" onChange={handleChange}>
                             <option value="">Select a language</option>

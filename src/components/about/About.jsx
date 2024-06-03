@@ -5,7 +5,7 @@ import InfoCard from './InfoCard';
 
 const About = () => {
     return (
-        <div className='content' >
+        <div className="content" >
                 <Intro className="mt-10" />
                 <div className="content-element mx-12 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8">
                     <InfoCard

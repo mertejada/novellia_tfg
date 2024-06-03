@@ -144,7 +144,7 @@ const Book = ({setShowSessionTimer}) => {
 
             {loading ? <p>Loading...</p> : (
                 <div className="flex flex-col sm:flex-row gap-10">
-                    <div className="w-full sm:w-2/5 md:w-1/5 flex flex-col items-center gap-3 relative ">
+                    <div className="w-full sm:w-2/5 md:1/6  flex flex-col items-center gap-3 relative ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
                         <button className='relative w-full'>
                             <div className="flex items-center p-3 cursor-pointer  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
@@ -162,7 +162,7 @@ const Book = ({setShowSessionTimer}) => {
                         </button>
 
                     </div>
-                    <div className="w-full  sm:w-3/5 md:w-4/5">
+                    <div className="w-full sm:w-3/5 md:5/6 ">
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="title mb-4">
@@ -199,7 +199,7 @@ const Book = ({setShowSessionTimer}) => {
                                 <p className="text-gray-500 overflow-x-scroll">{book.sipnosis}</p>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row justify-between mx-16 gap-16 mt-16">
+                            <div className=" justify-between mx-16 gap-16 mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
                                 <div className="flex flex-col items-center gap-2">
                                     <img src={bookIconImg} alt="Files" className='w-12' />
                                     <div className=" text-center">
