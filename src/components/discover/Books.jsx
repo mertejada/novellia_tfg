@@ -99,7 +99,7 @@ const Books = ({ isAdmin }) => {
     }, [adminVerifiedBooks, genreFilter, orderParam, order, adminNonVerifiedBooks]);
 
     return (
-        <main className="content px-5 sm:px-10">
+        <main className="sm:content my-5 px-5 sm:px-10">
             <div className="flex justify-start sm:justify-between items-end gap-5 flex-wrap bg-gray-50 p-5 shadow rounded-xl">
                 <div className="flex items-center gap-2">
                     <p className="">Filter by genre:  </p>
