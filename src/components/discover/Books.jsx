@@ -20,7 +20,7 @@ const Books = ({ isAdmin }) => {
     const [adminNonVerifiedBooks, setAdminNonVerifiedBooks] = useState(false);
     const [orderParam, setOrderParam] = useState('insertDate');
     const [order, setOrder] = useState('desc');
-    const [booksPerPage] = useState(12);
+    const [booksPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -99,7 +99,7 @@ const Books = ({ isAdmin }) => {
     }, [adminVerifiedBooks, genreFilter, orderParam, order, adminNonVerifiedBooks]);
 
     return (
-        <main className="sm:content my-5 px-5 sm:px-10">
+        <main className="md:content my-5 px-5 lg:px-10">
             <div className="flex justify-start sm:justify-between items-end gap-5 flex-wrap bg-gray-50 p-5 shadow rounded-xl">
                 <div className="flex items-center gap-2">
                     <p className="">Filter by genre:  </p>

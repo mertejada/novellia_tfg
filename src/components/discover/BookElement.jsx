@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -6,7 +5,6 @@ import { db } from "../../services/firebase";
 import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 
 import AddToList from "../common/AddToList";
-
 
 
 import PlaylistAddRoundedIcon from '@mui/icons-material/PlaylistAddRounded';
@@ -78,6 +76,8 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                 src={bookInfo.cover}
                 alt={bookInfo.title}
                 className="w-46 h-72 object-cover rounded-lg img-shadow"
+                width={190}
+                height={200}
             />
             <div className="w-2/3 mt-10 ">
                 <div className=" w-full flex items-center justify-evenly gap-10 relative ">

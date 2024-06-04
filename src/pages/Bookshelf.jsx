@@ -11,8 +11,8 @@ const Bookshelf = () => {
     }
  
     return (
-        <main className="content">
-            <div className="flex flex-col justify-between items-center my-16">
+        <main className="md:content">
+            <div className="content-element flex flex-col justify-between items-center">
                 <div className="w-1/2 text-center ">
                     <h1 className="title font-bold font-playfair">Bookshelf</h1>
                     <p className="subtitle  mt-3 text-gradient gradient ">You are such an adventurous reader! </p>
@@ -21,17 +21,18 @@ const Bookshelf = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 justify-between sm:gap-3">
 
                     <div className="bg-white border rounded-2xl p-5 mt-7 flex items-center h-fit w-52 gap-4 transform transition-transform hover:scale-105 cursor-pointer" onClick={() => handleGoTo('lists')}>
-                        <img src={bookshelf} alt="bookshelf" className="w-10" />
+                        <img src={bookshelf} alt="bookshelf" className="w-10" width={50} height={50} />
                         <p>See your collections</p>
                     </div>
 
                     <div className="bg-white border rounded-2xl p-5 mt-7 flex items-center h-fit w-52 gap-4 transform transition-transform hover:scale-105 cursor-pointer" onClick={() => handleGoTo('progress')}>
-                        <img src={progress} alt="progress" className="w-10" />
+                        <img src={progress} alt="progress" className="w-10" width={50} height={50} />
                         <p> See your progress</p>
                     </div>
                 </div>
             </div>
-            <div id="lists" className="p-1"></div>
+            <hr className="w-1/2 mx-auto my-20" />
+            <div id="lists"></div>
             <Lists/>
             <div id="progress" ></div>
             <Progress/>
