@@ -13,6 +13,8 @@ import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 const HomeIntro = () => {
     const { isTablet, isMobile } = useMediaQueries();
     const [videoSrc, setVideoSrc] = useState(videoBg);
+    const height = isMobile ? 500 : isTablet ? 600 : 800;
+    const width = isMobile ? 300 : isTablet ? 400 : 600;
 
     useEffect(() => {
         const video = isMobile ? videoBgMobile : isTablet ? videoBgTablet : videoBg;
@@ -35,7 +37,7 @@ const HomeIntro = () => {
 
     return (
         <div className="bg-black relative">
-            <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-15"></video>
+            <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-15" width={width} height={height}></video>
 
             {!isMobile && (
                 <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out">

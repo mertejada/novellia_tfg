@@ -72,7 +72,7 @@ const RecommendedBook = ({ userGenres }) => {
                 </div>
                 
             </div>
-            <img src={recommendedBook.cover} alt={recommendedBook.title} className="w-52 rounded-xl border" />
+            <img src={recommendedBook.cover} alt={recommendedBook.title} className=" rounded-xl border" width={200} height={300} />
         </div>
     );
 
