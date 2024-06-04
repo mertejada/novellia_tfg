@@ -152,8 +152,7 @@ const NavBar = ({ setShowSessionTimer }) => {
 
                         <ul className="m-6 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
-                                <FlagRoundedIcon className="mr-2" />
-                                <Link to="/profile">Goals</Link>
+                                <Link to="/profile"><FlagRoundedIcon className="mr-2" />Goals</Link>
                             </li>
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                                 <ExitToAppRoundedIcon className="mr-2" />

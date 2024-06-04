@@ -128,11 +128,11 @@ const Login = () => {
     return (
         <>
             <section style={{ backgroundImage: `url(${bkImg})` }} className='p-20 bg-cover font-poppins font-light h-fit flex justify-center items-center lg:justify-start'>
-                <div className="flex flex-col items-center justify-center lg:items-start">
+                <div className="flex flex-col items-center justify-center lg:justify-start lg:items-start ">
                     <h1 className="text-4xl text-center mb-4 ">Start your</h1>
                     <h2 className="text-6xl font-extrabold font-playfair text-center mb-12 text-gradient gradient">literature adventure<span className='text-black'>.</span></h2>
 
-                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 max-w-md w-full">
+                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 ">
                         <form className='flex flex-col gap-4' onSubmit={authentication}>
                             <input id="email" type="email" placeholder="Your mail" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                             <input id="password" type="password" placeholder="Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />

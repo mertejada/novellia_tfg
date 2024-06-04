@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 import About from "../components/about/About";
 import HomeIntro from "../components/home/HomeIntro";

@@ -6,7 +6,6 @@ import videoBgMobile from "../../assets/video-mobile.mp4";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 import { Link } from "react-router-dom";
 
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 
