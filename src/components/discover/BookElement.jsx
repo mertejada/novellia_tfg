@@ -70,9 +70,6 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
         }
     }
 
-    const handleScrollTop = () => {
-        window.scrollTo(0, 0);
-    }
 
 
     return (
@@ -114,7 +111,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                         <div className="flex items-center gap-5">
                             <Link
                                 className=" bg-gray-300 text-center text-white p-2 rounded-lg mt-4 w-full " to={`/admin/books/${bookId}`}
-                                onClick={handleScrollTop}>
+                                >
                                 <span>Edit book</span>
                             </Link>
                         </div>
@@ -123,7 +120,6 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                             <Link
                                 className="bg-gray-300 text-white text-center p-2 rounded-lg mt-4 w-full "
                                 to={`/book/${bookId}`}
-                                onClick={handleScrollTop}
                             >
                                 See more
                             </Link>

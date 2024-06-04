@@ -6,7 +6,7 @@ const Footer = () => {
 
 
     return (
-        <footer className="bg-white rounded-2xl shadow shadow-zinc-400 dark:bg-gray-900 m-4 mt-20">
+        <footer className="bg-white rounded-2xl shadow shadow-zinc-400 dark:bg-gray-900 m-4 mt-20 static bottom-0">
             <div className="w-full max-w-screen-xl mx-auto p-8 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">

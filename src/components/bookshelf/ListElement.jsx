@@ -20,14 +20,9 @@ const ListElement = ({ name }) => {
         "finishedBooks": <BeenhereRounded className="text-green-800" />,
     };
 
-    const handleListRedirection = () => {
-        window.scrollTo(0, 0);
-        navigate(`/bookshelf/${name}`);
-    }
-
 
     return (
-        <li className=" flex  xs:flex-row items-center  justify-center xs:justify-between shadow-md shadow-zinc-400 border h-28 xs:m-2 px-2 xs:px-10 bg-white rounded-xl cursor-pointer  transform transition-all duration-150 ease-in-out hover:scale-105" onClick={handleListRedirection}>
+        <li className=" flex  xs:flex-row items-center  justify-center xs:justify-between shadow-md shadow-zinc-400 border h-28 xs:m-2 px-2 xs:px-10 bg-white rounded-xl cursor-pointer  transform transition-all duration-150 ease-in-out hover:scale-105" onClick={() => navigate(`/bookshelf/${name}`)}>
             <div className="flex gap-2 sm:gap-4">
                 {icons[name] || <DashboardRounded  className="text-gray-500" />}
                 <h2 className="truncate overflow-hidden whitespace-nowrap" style={{ maxWidth: "9rem" }}>

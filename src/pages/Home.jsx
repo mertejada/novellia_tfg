@@ -46,12 +46,12 @@ const Home = () => {
             {showForm && <UserRegister handleClose={handleClose} />}
 
             <HomeIntro id="about-info"/>
-            <div id="new-books" className="p-2"></div>
+            <div id="new-books"></div>
             <NewBooks />
             <RecommendedBook userGenres={userGenres} />
 
 
-            <div id="about" className="p-2"></div>
+            <div id="about"></div>
             <About />
 
         </main>

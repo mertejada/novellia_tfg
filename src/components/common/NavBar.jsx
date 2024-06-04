@@ -51,7 +51,6 @@ const NavBar = ({ setShowSessionTimer }) => {
 
     const toggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen);
-        console.log(isUserMenuOpen);
     };
 
     const toggleLinksMenu = () => {
@@ -167,7 +166,7 @@ const NavBar = ({ setShowSessionTimer }) => {
     );
 
     return (
-        <nav className="bg-white  top-0 border-b border-gray-200 z-20">
+        <nav className="bg-white top-0 border-b border-gray-200 z-20">
             <div className="shadow-lg flex justify-between items-center p-4 md:p-6 font-semibold">
                 <Link to="/" className="flex items-center space-x-2">
                     <img src={img} alt="Logo" className="h-8" />

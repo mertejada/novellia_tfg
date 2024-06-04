@@ -67,7 +67,6 @@ const Progress = () => {
         if (userReadingSessions) {
             userReadingSessions.filter(session => {
                 const sessionDate = new Date(session.date);
-                console.log(sessionDate.toDateString(), new Date().toDateString());
                 const todaysSessions = sessionDate.toDateString() === new Date().toDateString();
 
                 if (todaysSessions) {

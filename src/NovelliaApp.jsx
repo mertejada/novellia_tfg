@@ -14,6 +14,7 @@ import Book from './pages/Book';
 import AdminBooks from './pages/AdminBooks';
 import AdminBook from './pages/AdminBook';
 import AdminGenres from './pages/AdminGenres';
+import ScrollToTop from "./components/common/ScrollToTop";
 
 
 import { AuthContext } from './contexts/AuthContext';
@@ -40,6 +41,7 @@ function App() {
     return (
         <Router>
             <NavBar setShowSessionTimer={setShowSessionTimer} />
+            <ScrollToTop />
             <Routes>
                 {user ? (
                     isAdmin ? (

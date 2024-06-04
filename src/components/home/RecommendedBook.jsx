@@ -66,9 +66,9 @@ const RecommendedBook = ({ userGenres }) => {
                         </p>
                         <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent z-20"></div>
                     </div>
-                    <Link to={`/book/${recommendedBook.id}`} className="button text-white bg-gray-300 rounded-md text-center w-full md:w-fit hover:bg-crayola duration-200 ease-in-out">
+                    <Link to={`/book/${recommendedBook.id}`} name="Read More" className="button text-white bg-gray-300 rounded-md text-center w-full md:w-fit hover:bg-crayola duration-200 ease-in-out">
                     Read more
-                </Link>
+                    </Link>
                 </div>
                 
             </div>

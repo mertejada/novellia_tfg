@@ -84,8 +84,8 @@ const NewBooks = () => {
 
                     books.slice(currentPage, currentPage + 1).map(book => (
                         <div key={book.id} className="flex flex-col items-center self-center gap-5">
-                            <img src={book.cover} alt={book.title} className="rounded-xl h-80 w-auto" />
-                            <Link to={`/book/${book.id}`} className=" button bg-crayola  text-white p-2 rounded-lg" onClick={handleScrollTop}>View details</Link>
+                            <img src={book.cover} alt={book.title} className="rounded-xl h-62 w-52" />
+                            <Link to={`/book/${book.id}`} name="View Details" className=" button bg-crayola  text-white p-2 rounded-lg" onClick={handleScrollTop}>View details</Link>
                         </div>
                     ))
                 }
