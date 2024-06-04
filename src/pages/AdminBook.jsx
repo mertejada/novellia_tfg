@@ -144,7 +144,7 @@ const AdminBook = () => {
                     </div>
                     <div>
                         <label className="block mb-1">Description:</label>
-                        <textarea name="description" value={formData.sipnosis || ""} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2"></textarea>
+                        <textarea name="sipnosis" value={formData.sipnosis || ""} onChange={handleChange} className="w-full border border-gray-300 rounded-md p-2"></textarea>
                     </div>
                     <div>
                         <label className="block mb-1">Publisher:</label>

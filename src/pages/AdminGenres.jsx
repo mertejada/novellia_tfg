@@ -4,6 +4,8 @@ import { db } from "../services/firebase";
 import { collection, getDocs, deleteDoc, doc, setDoc, where, query, updateDoc } from "firebase/firestore";
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 import Alert from '@mui/material/Alert';
 
@@ -126,7 +128,11 @@ const AdminGenres = () => {
             {genreMessage.type === "error" && <Alert severity="error" className="mt-10">{genreMessage.content}</Alert>}
 
 
-            {loading ? <p>Loading...</p> :
+            {loading ? 
+                <div className="flex justify-center items-center h-96">
+                    <CircularProgress />
+                </div>
+            :
                 <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
 

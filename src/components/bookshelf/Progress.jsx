@@ -28,17 +28,17 @@ const Progress = () => {
 
     const getUserInfo = () => {
         const userDocRef = doc(db, 'users', user.uid);
-    
+
         // Usar onSnapshot para escuchar cambios en tiempo real
         onSnapshot(userDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const userDoc = docSnap.data();
-    
+
                 setUserGoals(userDoc.readingGoals);
                 setUserReadingSessions(userDoc.readingSessions);
                 setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
             }
-    
+
             setLoading(false);
         });
     }
@@ -162,7 +162,11 @@ const Progress = () => {
 
     return (
         <div className="content content-element">
-            {loading ? <p>Loading...</p> :
+            {loading ?
+                <div className="flex items-center justify-center">
+                    <CircularProgress />
+                </div>
+                :
                 <>
 
                     <div className="flex flex-col justify-between gap-5 my-5">

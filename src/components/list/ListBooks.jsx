@@ -11,6 +11,7 @@ import { BeenhereRounded, BookRounded, FavoriteRounded, ShoppingBasketRounded, D
 import BookElement from "../discover/BookElement";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -25,7 +26,6 @@ const ListBooks = () => {
     const listNameTitle = listName.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) { return str.toUpperCase(); });
 
     const [listBooks, setListBooks] = useState([]);
-    const [listBooksId, setListBooksId] = useState([]);
     const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
 
@@ -58,10 +58,15 @@ const ListBooks = () => {
                         return null;
                     }
                 });
+
                 const booksData = await Promise.all(promises);
 
                 setListBooks(booksData.filter(book => book !== null));
-                setListBooksId(list);
+
+                setListBooks(booksData.map((book, index) => {
+                    return { ...book, id: list[index] };
+                }));
+
             } catch (error) {
                 console.error('Error al obtener los libros:', error);
             } finally {
@@ -113,7 +118,7 @@ const ListBooks = () => {
                     </div>
                 </Link>
 
-            {!defaultLists.includes(listName) &&
+                {!defaultLists.includes(listName) &&
                     <button onClick={deleteList} className="m-2 text-red-500 hover:scale-105 transform transition duration-300 ease-in-out">
                         <DeleteIcon fontSize="small" /> Delete list
                     </button>
@@ -127,26 +132,45 @@ const ListBooks = () => {
                     </div>
                     <h3 className="text-gray-400">{listBooks.length} books</h3>
                 </div>
-                
-            </div>
-            <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-5 sm:px-10">
-                {
-                    loading ?
-                    <p className="text-gray-400 text-center">Loading...</p> :
 
-                        currentBooks.map(book => (
-                            <BookElement bookInfo={book} key={book.id} bookId={book.id} />
-                        ))
-                }
             </div>
-            <Stack spacing={2} className="flex  items-center mt-8">
-                <Pagination 
-                    count={Math.ceil(listBooks.length / booksPerPage)} 
-                    page={currentPage} 
-                    onChange={handlePageChange} 
-                    color="primary" 
-                />
-            </Stack>
+
+            {
+                loading ?
+
+                    <div className="flex flex-col justify-center items-center w-full">
+                        <CircularProgress />
+                    </div>
+                    :
+                    //si hay libros en la lista
+
+                    listBooks.length > 0 ?
+                    <>
+                        <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
+                            
+                            {currentBooks.map(book => (
+                                <BookElement bookInfo={book} key={book.id} bookId={book.id} isAdmin={false} isList={true} listName={listName} />
+                            ))}
+                        </div>
+                        <Stack spacing={2} className="flex  items-center mt-8">
+                        <Pagination
+                            count={Math.ceil(listBooks.length / booksPerPage)}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="primary"
+                        />
+                    </Stack>
+                    </>
+                        :
+                        <div className="content flex flex-col justify-center items-center gap-2 px-20 text-center">
+                            <div className="flex flex-col items-center gap-1">
+                                <h2 className="text-2xl text-gray-400">This list is empty</h2>
+                                <Link to="/discover" className="button text-gradient gradient p-2 rounded-lg hover:scale-105 transform transition duration-300 ease-in-out">Click here to discover!</Link>
+                            </div>
+                        </div>
+            }
+
+            
         </main>
     );
 };

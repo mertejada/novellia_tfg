@@ -16,6 +16,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import bookIconImg from '../assets/img/book-info-icons/files.png';
 import languageIconImg from '../assets/img/book-info-icons/language.png';
@@ -142,10 +143,15 @@ const Book = ({setShowSessionTimer}) => {
 
             </div>
 
-            {loading ? <p>Loading...</p> : (
+            {loading ? 
+            <div className="flex justify-center items-center h-96">
+                <CircularProgress />
+            </div>
+            
+            : (
                 <div className="flex flex-col sm:flex-row gap-10">
-                    <div className="w-full sm:w-2/5 md:1/6  flex flex-col items-center gap-3 relative ">
-                        <img src={book.cover} alt={book.title} className="rounded-lg  w-full h-auto" />
+                    <div className="w-full sm:w-80 flex flex-col items-center gap-3 relative ">
+                        <img src={book.cover} alt={book.title} className="rounded-lg  " />
                         <button className='relative w-full'>
                             <div className="flex items-center p-3 cursor-pointer  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
                                 <p className="text-white mr-2">Add to list</p>
@@ -162,7 +168,7 @@ const Book = ({setShowSessionTimer}) => {
                         </button>
 
                     </div>
-                    <div className="w-full sm:w-3/5 md:5/6 ">
+                    <div className="w-full  md:w-full ">
                         <div>
                             <div className="flex items-center gap-2">
                                 <h1 className="title mb-4">
@@ -196,7 +202,7 @@ const Book = ({setShowSessionTimer}) => {
 
                             <div>
                                 <h3 className="text-lg font-normal mb-2">Sipnosis</h3>
-                                <p className="text-gray-500 overflow-x-scroll">{book.sipnosis}</p>
+                                <p className="text-gray-500 overflow-x-scroll text-justify">{book.sipnosis}</p>
                             </div>
 
                             <div className=" justify-between mx-16 gap-16 mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
