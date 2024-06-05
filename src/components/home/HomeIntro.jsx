@@ -39,11 +39,11 @@ const HomeIntro = () => {
             <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-15" width={width} height={height}></video>
 
             {!isMobile && (
-                <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                    <div className=" text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>
+                <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity ">
+                    <div className=" text-white cursor-pointer opacity" onClick={leadToNewBooks}>
                         New
                     </div>
-                    <div className="text-white cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToAbout}>
+                    <div className="text-white cursor-pointer opacity" onClick={leadToAbout}>
                         About
                     </div>
                 </div>
@@ -61,20 +61,20 @@ const HomeIntro = () => {
                     </ul>
                 )}
 
-                <div className="flex flex-col items-center transition-all duration-300 ease-in-out">
-                    <h1 className="title text-white font-bold mb-4 font-playfair">Welcome to Novellia</h1>
+                <div className="flex flex-col items-center">
+                    <h1 className="title text-white ">Welcome to Novellia</h1>
                     <p className="w-2/3 subtitle text-white gradient text-gradient">
                         We're happy to see you here! Continue with your reading journey.</p>
                 </div>
 
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 ">
-                    <Link className="cursor-pointer button border-white border text-white hover:transition-transform hover:transform hover:scale-110 duration-400 ease-in-out transition-transform duration-400"
+                    <Link className="cursor-pointer button border-white border text-white scale duration-400"
                         to="/discover"
                     >
                         Discover
                     </Link>
-                    <Link className="cursor-pointer flex items-center button bg-white text-black hover:transition-transform hover:transform hover:scale-110 duration-400 ease-in-out transition-transform duration-400"
+                    <Link className="cursor-pointer flex items-center button bg-white text-black scale duration-400"
                         to="/bookshelf"
                     >
                         <LocalLibraryIcon className="text-black mr-2" />

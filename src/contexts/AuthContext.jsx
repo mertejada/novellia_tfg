@@ -15,20 +15,23 @@ export const AuthProvider = ({ children }) => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [userLists, setUserLists] = useState(null);
     const [userRatedBooks, setUserRatedBooks] = useState(null);
+    const [loading, setLoading] = useState(true); // Estado de carga
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+            setLoading(true); // Comienza a cargar
             if (user) {
                 setUser(user);
-                const docRef = doc(db, 'users', user.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (user.email == "admin@novellia.com") {
+                if (user.email === "admin@novellia.com") {
                     setIsAdmin(true);
-                    return;
-                }else{
+                } else {
                     setIsAdmin(false);
                 }
+
+
+
+                const docRef = doc(db, 'users', user.uid);
+                const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
                     setUserLists(docSnap.data().lists);
@@ -36,6 +39,7 @@ export const AuthProvider = ({ children }) => {
                 } else {
                     console.log("No such document!");
                 }
+
                 const userDocUnsubscribe = onSnapshot(docRef, (doc) => {
                     if (doc.exists()) {
                         setUserLists(doc.data().lists);
@@ -43,9 +47,20 @@ export const AuthProvider = ({ children }) => {
                     }
                 });
 
+                setTimeout(() => {
+                    setLoading(false); // Termina de cargar
+                }
+                , 1000);
+
                 return () => {
                     userDocUnsubscribe();
                 };
+            } else {
+                setUser(null);
+                setIsAdmin(false);
+                setUserLists(null);
+                setUserRatedBooks(null);
+                setLoading(false); // Termina de cargar incluso si no hay usuario
             }
         });
 
@@ -66,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         });
     };
 
-    const value = { user, isAdmin, auth, logout, userLists, userRatedBooks };
+    const value = { user, isAdmin, auth, logout, userLists, userRatedBooks, loading };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

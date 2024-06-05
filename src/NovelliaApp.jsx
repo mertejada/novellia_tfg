@@ -16,16 +16,21 @@ import AdminBook from './pages/AdminBook';
 import AdminGenres from './pages/AdminGenres';
 import ScrollToTop from "./components/common/ScrollToTop";
 
-
 import { AuthContext } from './contexts/AuthContext';
+
+import loadingGif from './assets/loadingAnimation.gif';
+
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import './App.css';
 
 function App() {
-    const { user, isAdmin } = useContext(AuthContext);
+    const { user, isAdmin, loading } = useContext(AuthContext);
     const [showSessionTimer, setShowSessionTimer] = useState(false);
+    const [minLoading, setMinLoading] = useState(true);
 
-    //cuando esta el SessionTimer activo, se desactiva el scroll y el click
+    
 
     useEffect(() => {
         if (showSessionTimer) {
@@ -33,10 +38,27 @@ function App() {
         } else {
             document.body.style.overflow = 'auto';
         }
+    }, [showSessionTimer]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMinLoading(false);
+        }, 2000); 
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading || minLoading) {
+        return (
+            <div className="bg-white flex flex-col gap-5 justify-center items-center h-screen w-screen" >
+                <img src={loadingGif
+                } alt="Loading" className="w-32" width={50} color="inherit" />
+                <Stack sx={{ color: 'black' }} >
+                <CircularProgress size={30} color="inherit" />
+                </Stack>
+            </div>
+        );
     }
-        , [showSessionTimer]);
-
-
 
     return (
         <Router>
@@ -47,9 +69,11 @@ function App() {
                     isAdmin ? (
                         <>
                             <Route path="/" element={<AdminBooks />} />
-                            <Route path="/admin" element={<AdminBooks />} />
-                            <Route path="/admin/books/*" element={<AdminBook />} />
+                            <Route path="/admin/books" element={<AdminBooks />} />
+                            <Route path="/admin/book/*" element={<AdminBook />} />
                             <Route path="/admin/genres" element={<AdminGenres />} />
+                            <Route path="*" element={<Navigate to="/" />} />
+
                         </>
                     ) : (
                         <>
@@ -60,15 +84,15 @@ function App() {
                             <Route path="/bookshelf/*" element={<List />} />
                             <Route path="/discover" element={<Discover />} />
                             <Route path="/book/*" element={<Book setShowSessionTimer={setShowSessionTimer} />} />
-
+                            <Route path="*" element={<Navigate to="/" />} />
                         </>
-
-
                     )
                 ) : (
+                    <>
                     <Route path="/" element={<Login />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                    </>
                 )}
-
             </Routes>
             <Footer />
 
@@ -78,7 +102,6 @@ function App() {
                     {showSessionTimer && <SessionTimer setShowSessionTimer={setShowSessionTimer} />}
                 </>
             )}
-
         </Router>
     );
 }

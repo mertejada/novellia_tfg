@@ -40,6 +40,14 @@
     @apply text-transparent bg-clip-text p-1;
   }
 
+  .scale {
+    @apply hover:transition-transform hover:transform hover:scale-110  ease-in-out transition-transform ;
+  }
+
+  .opacity {
+    @apply opacity-60 hover:opacity-100 transition-opacity  ease-in-out;
+  }
+
   
 }
 

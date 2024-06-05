@@ -110,7 +110,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                     isAdmin ?
                         <div className="flex items-center gap-5">
                             <Link
-                                className=" bg-gray-300 text-center text-white p-2 rounded-lg mt-4 w-full " to={`/admin/books/${bookId}`}
+                                className=" bg-gray-300 text-center text-white p-2 rounded-lg mt-4 w-full " to={`/admin/book/${bookId}`}
                                 >
                                 <span>Edit book</span>
                             </Link>

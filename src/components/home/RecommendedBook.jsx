@@ -39,10 +39,14 @@ const RecommendedBook = ({ userGenres }) => {
             } catch (error) {
                 console.error("Error getting recommended book:", error);
             }
+
         };
 
         if (userGenres) {
             getRecommendedBook();
+        }else{
+            setLoading(false);
+
         }
     }, [userGenres]);
 
@@ -83,7 +87,10 @@ const RecommendedBook = ({ userGenres }) => {
                     <CircularProgress />
                 </div>
                 :
-                renderRecommendedBook()}
+                (userGenres &&
+                    renderRecommendedBook()
+                )
+                }
         </div>
     );
 };

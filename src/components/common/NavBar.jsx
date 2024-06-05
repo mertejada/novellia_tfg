@@ -69,7 +69,7 @@ const NavBar = ({ setShowSessionTimer }) => {
     ];
 
     const adminLinks = [
-        { name: "Books", path: "/admin" },
+        { name: "Books", path: "/admin/books" },
         { name: "Genres", path: "/admin/genres" },
     ];
 

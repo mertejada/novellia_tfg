@@ -20,7 +20,7 @@ const Login = () => {
     const [showErrorMsg, setShowErrorMsg] = useState(null);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
 
-    const { user, isAdmin, auth } = useAuth(); // Destructure user and isAdmin from context
+    const { auth } = useAuth(); // Destructure user and isAdmin from context
     const navigate = useNavigate();
 
 
@@ -151,7 +151,7 @@ const Login = () => {
                                 </>
                             )}
                             {showError && (
-                                <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4">
+                                <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4 w-fit">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-10 h-6 ml-2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                                     </svg>
