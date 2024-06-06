@@ -87,7 +87,7 @@ const RecommendedBook = ({ userGenres }) => {
                     <CircularProgress />
                 </div>
                 :
-                (userGenres &&
+                (userGenres && recommendedBook &&
                     renderRecommendedBook()
                 )
                 }

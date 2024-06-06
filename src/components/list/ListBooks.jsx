@@ -138,7 +138,7 @@ const ListBooks = () => {
             {
                 loading ?
 
-                    <div className="flex flex-col justify-center items-center w-full">
+                    <div className="content flex flex-col justify-center items-center w-full h-screen">
                         <CircularProgress />
                     </div>
                     :

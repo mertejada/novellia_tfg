@@ -18,15 +18,15 @@ const StepPersonal = ({ formData, setFormData }) => {
     const { isMobile } = useMediaQueries();
  
     return (
-        <div className=" grid gap-10 p-5 sm:p-5 overflow-y-auto overflow-x-scroll h-fit md:px-10" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none"}}>
-            <div className="flex flex-col md:flex-row md:gap-10">
-                <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2 p-5 sm:p-5 overflow-y-auto overflow-x-scroll md:gap-5 w-full" style={{ maxHeight: isMobile ? "calc(60vh - 100px)" : "none" }}>
+            <div className="w-full flex flex-col md:items-center justify-center md:justify-between md:flex-row gap-4 ">
+                <div className="flex flex-col gap-2 ">
                     <label className="text-gray-600 dark:text-gray-400">Name</label>
                     <input
                         type="text"
                         name="name"
                         placeholder="Name"
-                        className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300"
+                        className="h-12 p-4 rounded-3xl border-gray-300 bg-gray-50 focus:outline-none font-light placeholder-slate-300 "
                         value={formData.personalInfo.name}
                         onChange={handleChange}
                         required
@@ -35,7 +35,7 @@ const StepPersonal = ({ formData, setFormData }) => {
                     />
                 </div>
 
-                <div className="flex flex-col w-full md:w-1/2 gap-2">
+                <div className="w-full flex flex-col w-full md:w-1/2 gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Last name</label>
                     <input
                         type="text"
@@ -54,7 +54,7 @@ const StepPersonal = ({ formData, setFormData }) => {
 
             </div>
 
-            <div className="flex flex-col gap-4 md:flex-row md:gap-8">
+            <div className=" w-full flex flex-col gap-4 md:flex-row md:gap-8">
                 <div className="flex flex-col w-full md:w-1/2 gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Phone Number</label>
                     <input
@@ -81,6 +81,7 @@ const StepPersonal = ({ formData, setFormData }) => {
                         onChange={handleChange}
                         required
                         min= "1900-01-01"
+                        max= {new Date().toISOString().split("T")[0]}
                     />
                 </div>
 
@@ -90,9 +91,10 @@ const StepPersonal = ({ formData, setFormData }) => {
                     value={formData.personalInfo.gender}
                     name="gender"
                     onChange={handleChange}
+                    placeholder="Gender"
                     >
-                        <option value="feminine">Feminine</option>
-                        <option value="masculine">Masculine</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
                         <option value="other">Other</option>
                     </select>
                 </div>

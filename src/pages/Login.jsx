@@ -109,7 +109,7 @@ const Login = () => {
                 errorMessage = "Wrong email or password. Please try again.";
                 break;
             case "auth/weak-password":
-                errorMessage = "Weak password. Please try again.";
+                errorMessage = "Password must be at least 6 characters long and contain at least 3 numbers.";
                 break;
             case "auth/email-already-in-use":
                 errorMessage = "Email is already in use. Try another one or log in.";
@@ -132,7 +132,7 @@ const Login = () => {
                     <h1 className="text-4xl text-center mb-4 ">Start your</h1>
                     <h2 className="text-6xl font-extrabold font-playfair text-center mb-12 text-gradient gradient">literature adventure<span className='text-black'>.</span></h2>
 
-                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 ">
+                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 sm:w-3/4 ">
                         <form className='flex flex-col gap-4' onSubmit={authentication}>
                             <input id="email" type="email" placeholder="Your mail" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                             <input id="password" type="password" placeholder="Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
@@ -151,7 +151,7 @@ const Login = () => {
                                 </>
                             )}
                             {showError && (
-                                <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4 w-fit">
+                                <p className="text-red-600 bg-red-50 rounded-md gap-4 flex flex-col xs:flex-row text-center items-center justify-center p-4 w-fit">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-10 h-6 ml-2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                                     </svg>

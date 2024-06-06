@@ -111,7 +111,7 @@ const NavBar = ({ setShowSessionTimer }) => {
             <div className="cursor-pointer">
                 {links.map((link) => (
 
-                    <Link key={link.name} to={link.path} className="mx-5 font-normal text-gray-500 hover:text-black hover:font-semibold  transition-all duration-75 ease-in-out">
+                    <Link key={link.name} to={link.path} className="mx-5 font-normal text-gray-500 hover:text-black transition-all duration-75 ease-in-out">
                         {link.name}
                     </Link>
 

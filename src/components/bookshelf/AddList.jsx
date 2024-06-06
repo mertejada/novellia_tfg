@@ -83,7 +83,7 @@ const AddList = ({ handleClose, currentUserLists }) => {
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50" onClick={handleClickOutside}>
-            <div className="flex flex-col bg-white p-10 py-12 sm:p-8 gap-2 rounded-xl m-20">
+            <div className="flex flex-col bg-white p-10 py-12 sm:p-8 gap-2 rounded-xl m-10 md:m-20">
                 <div className="flex justify-between items-center gap-10 mb-5">
                     <h2 className="text-2xl font-normal "><span className="gradient text-gradient font-light ">Add a</span>  new list</h2>
                         <CloseRoundedIcon onClick={handleClose} className="cursor-pointer text-gray-300 hover:text-black" />

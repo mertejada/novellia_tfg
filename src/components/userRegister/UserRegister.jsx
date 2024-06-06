@@ -29,13 +29,12 @@ const UserRegister = ({ handleClose }) => {
     const [showFormError, setFormErrorMsg] = useState(null);
     const { isMobile } = useMediaQueries();
 
+    //PARAR EL SCROLL EN EL EJE X
     useEffect(() => {
-        window.scrollTo(0, 0, { behavior: 'smooth' });
-        document.body.style.overflow = 'hidden';
-
+        document.body.style.overflowY = "hidden";
         return () => {
-            document.body.style.overflow = 'auto';
-        };
+            document.body.style.overflow = "auto";
+        }
     }, []);
 
 
@@ -43,39 +42,26 @@ const UserRegister = ({ handleClose }) => {
         personalInfo: {
             name: "",
             lastName: "",
-            birthDate: "",
             phoneNumber: "",
-            gender: "feminine"
+            birthDate: "",
+            gender: "female"
         },
         readingGoals: {
-            dailyReading: [0, 30],
-            booksPerYear: [0, 10],
-            diffGenres: [0, 3],
+            dailyReading: 30,
+            booksPerYear: 10,
+            diffGenres: 3
         },
         genres: [],
+        userInfo: true 
     });
 
-    useEffect(() => {
-        setFormData({
-            personalInfo: {
-                name: "",
-                lastName: "",
-                birthDate: "",
-                phoneNumber: "",
-                gender: ""
-            },
-            readingGoals: {
-                dailyReading: [0, 30],
-                booksPerYear: [0, 10],
-                diffGenres: [0, 3],
-            },
-            genres: [],
-            userInfo: true
-        });
-    }, [user]);
 
     const nextStep = () => {
-        if (!validatePersonalInput()) {
+        if (step === 0 && !validatePersonalInput()) {
+            return;
+        }
+
+        if (step === 1 && !validateGoalsInput()) {
             return;
         }
         setStep(step + 1);
@@ -112,6 +98,27 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
+        //si no se ha seleccionado un género
+        if(formData.personalInfo.gender === ""){
+            setFormErrorMsg("You must choose a gender to continue");
+            return false;
+        }
+
+
+        setFormErrorMsg(null);
+        return true;
+    }
+
+    const validateGoalsInput = () => {
+        const { dailyReading, booksPerYear, diffGenres } = formData.readingGoals;
+
+        if (dailyReading < 1 || booksPerYear < 1 || diffGenres < 1) {
+            setFormErrorMsg("You must enter a valid number for each field");
+            return false;
+        }
+
+        
+
         setFormErrorMsg(null);
         return true;
     }
@@ -147,7 +154,7 @@ const UserRegister = ({ handleClose }) => {
 
     return (
         <div id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="form-container bg-white m-5 rounded-2xl shadow-lg p-4 md:p-8  ">
+            <div className="form-container bg-white m-5 rounded-2xl shadow-lg  p-4 md:p-8 h-fit" style={{ width: isMobile ? "90%" : "70%" }}>
                 <div className="flex flex-col">
                     <h1 className="  mb-10 mt-5 self-center text-xl text-center md:text-left md:text-2xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
                     <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
@@ -172,7 +179,7 @@ const UserRegister = ({ handleClose }) => {
 
                 {renderForm()}
                 {showFormError &&
-                    <div className="flex items-center justify-center gap-2 text-red-500 m-1">
+                    <div className="flex items-center justify-center gap-2 text-red-500 m-1 mt-4">
                         <ErrorIcon />
                         <p>{showFormError}</p></div>}
                 <div className="flex justify-between h-50">

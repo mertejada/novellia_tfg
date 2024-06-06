@@ -67,12 +67,12 @@ const SearchBar = ({isAdmin}) => {
     }, []);
 
     return (
-        <div className="relative w-3/4 xs:w-1/2 ">
+        <div className="relative w-3/4 sm:w-1/2 ">
             <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }}>
                 <SearchRoundedIcon style={{ color: 'black' }} />
             </div>
             <input
-                className='w-full bg-white rounded-lg px-10 py-2 border-gray-300 border shadow-md'
+                className='w-full bg-white rounded-full px-10 py-2 border-gray-300 border shadow-md'
                 type="text"
                 placeholder="Search for books by title, author or ISBN"
                 value={searchInput}

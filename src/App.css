@@ -21,7 +21,7 @@
   }
 
   .button {
-    @apply  h-fit rounded-full md:rounded-full px-2 py-1 text-xs xs:text-base xs:px-4 xs:py-3 ;
+    @apply  h-fit rounded-full md:rounded-full px-2 py-2 text-xs xs:text-base xs:px-4 xs:py-3 ;
   }
 
   .button-register {
@@ -46,6 +46,10 @@
 
   .opacity {
     @apply opacity-60 hover:opacity-100 transition-opacity  ease-in-out;
+  }
+
+  .input {
+    @apply border border-gray-300 p-2 rounded-xl bg-gray-50 ;
   }
 
   

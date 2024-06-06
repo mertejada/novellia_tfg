@@ -9,8 +9,6 @@ import TimerRoundedIcon from '@mui/icons-material/TimerRounded';
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 
 import Alert from '@mui/material/Alert';
-import { set } from "firebase/database";
-
 
 const SessionTimer = ({ setShowSessionTimer }) => {
     const [time, setTime] = useState(0);
@@ -79,6 +77,10 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                 readingSessions: sessions
             });
 
+            //REINICIAR A 0
+            setTime(0);
+
+
         } else {
             await setDoc(userDocRef, {
                 readingSessions: [session]
@@ -88,7 +90,7 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         setMessage({ type: "success", content: "Session saved" });
 
         setTimeout(() => {
-            setShowSessionTimer(false);
+            setMessage({ type: null, content: null });
         }, 3000);
 
         console.log("Session saved");
