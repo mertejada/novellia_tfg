@@ -5,7 +5,7 @@ import Footer from './components/common/Footer';
 import SessionButton from "./components/common/SessionButton";
 import SessionTimer from "./components/common/SessionTimer";
 import Home from './pages/Home';
-import ProfileSettings from './pages/ProfileSettings';
+import GoalsSettings from './pages/GoalsSettings';
 import Login from './pages/Login';
 import Bookshelf from './pages/Bookshelf';
 import List from './pages/List';
@@ -79,7 +79,7 @@ function App() {
                         <>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
-                            <Route path="/profile" element={<ProfileSettings />} />
+                            <Route path="/goals" element={<GoalsSettings />} />
                             <Route path="/bookshelf" element={<Bookshelf />} />
                             <Route path="/bookshelf/*" element={<List />} />
                             <Route path="/discover" element={<Discover />} />

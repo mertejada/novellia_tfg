@@ -9,7 +9,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 
 import Alert from "@mui/material/Alert";
 
-const ProfileSettings = () => {
+const GoalsSettings = () => {
     const { user } = useAuth();
 
     const [userGoals, setUserGoals] = useState({});
@@ -163,4 +163,4 @@ const ProfileSettings = () => {
     );
 };
 
-export default ProfileSettings;
+export default GoalsSettings;

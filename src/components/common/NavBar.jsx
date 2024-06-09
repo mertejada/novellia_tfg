@@ -5,13 +5,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
-/*
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
-import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';*/
-
 import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon, CancelRounded as CancelRoundedIcon } from '@mui/icons-material';
 
 
@@ -149,7 +142,7 @@ const NavBar = ({ setShowSessionTimer }) => {
 
                         <ul className="m-4 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
-                                <Link to="/profile"><FlagRoundedIcon className="mr-2 text-crayola" />Goals</Link>
+                                <Link to="/goals"><FlagRoundedIcon className="mr-2 text-crayola" />Goals</Link>
                             </li>
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
                                 <ExitToAppRoundedIcon className="mr-2 text-gray-200" />
