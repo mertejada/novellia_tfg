@@ -6,6 +6,8 @@ const ProgressItem = ({ userGoals, title, content, min, value, reach, greyBg }) 
     let progressColor = reach ? 'green' : 'orange';
     let bg = greyBg ? 'bg-gray-100' : 'bg-white';
 
+    let goalProgress = Math.floor((value / min) * 100);
+
     return (
         <div className={`flex flex-col items-center justify-center border shadow rounded-xl p-10 ${bg}`}>
             <h1 className="text-xl font-bold mb-4">{title}</h1>
@@ -42,7 +44,7 @@ const ProgressItem = ({ userGoals, title, content, min, value, reach, greyBg }) 
             </div>
             {reach ? (
                 <p className="text-sm text-gray-400 text-center">
-                    You've reached {Math.floor((value / min) * 100)}% of your goal
+                                        {goalProgress < 100 ? `You've reached ${goalProgress}% of your goal` : 'You\'ve reached your goal!'}
                 </p>
             ) : (
                 <p className="text-sm text-gray-400 text-center">What a great progress! Keep going!</p>

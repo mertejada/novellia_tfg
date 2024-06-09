@@ -73,6 +73,10 @@ const Books = ({ isAdmin }) => {
     };
 
     const handlePageChange = (event, value) => {
+        //llevar el scroll hacia arriba del elemento con id="books"
+        const element = document.getElementById('books');
+        element.scrollIntoView({ behavior: "smooth" });
+
         getBooksFiltered(genreFilter, value);
     };
 
@@ -99,7 +103,7 @@ const Books = ({ isAdmin }) => {
     }, [adminVerifiedBooks, genreFilter, orderParam, order, adminNonVerifiedBooks]);
 
     return (
-        <main className="md:content my-5 px-5 lg:px-10">
+        <main className="md:content my-5 px-5 lg:px-10" id="books">
             <div className="flex justify-start sm:justify-between items-end gap-5 flex-wrap bg-gray-50 p-5 shadow rounded-xl">
                 <div className="flex items-center gap-2">
                     <p className="">Filter by genre:  </p>
@@ -164,7 +168,7 @@ const Books = ({ isAdmin }) => {
 
             {books && books.length > 0 ?
                 <>
-                    <div className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
+                    <div  className="content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
                         {books.map(book => (
                             <BookElement bookInfo={book} key={book.id} bookId={book.id} isAdmin={isAdmin} updateBooks={getBooksFiltered} />
                         ))}

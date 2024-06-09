@@ -101,6 +101,9 @@ const ListBooks = () => {
     const defaultLists = ['currentlyReading', 'wishList', 'favourites', 'finishedBooks'];
 
     const handlePageChange = (event, value) => {
+        //llevar el scroll hacia arriba del elemento con id="book-list"
+        const element = document.getElementById('book-list');
+        element.scrollIntoView({ behavior: "smooth" });
         setCurrentPage(value);
     };
 
@@ -124,7 +127,7 @@ const ListBooks = () => {
                     </button>
                 }
             </div>
-            <div className="flex items-end justify-center mb-8 gap-1">
+            <div className="flex items-end justify-center mb-8 gap-1" id="book-list">
                 <div className="flex flex-col items-center gap-2 p-4 m-5">
                     <div className="flex items-center gap-2">
                         {icons[listName] || <DashboardRounded className="text-gray-500" />}
@@ -152,7 +155,7 @@ const ListBooks = () => {
                                 <BookElement bookInfo={book} key={book.id} bookId={book.id} isAdmin={false} isList={true} listName={listName} />
                             ))}
                         </div>
-                        <Stack spacing={2} className="flex  items-center mt-8">
+                        <Stack spacing={2} className="flex items-center mt-8">
                         <Pagination
                             count={Math.ceil(listBooks.length / booksPerPage)}
                             page={currentPage}

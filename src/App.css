@@ -21,7 +21,7 @@
   }
 
   .button {
-    @apply  h-fit rounded-full md:rounded-full px-2 py-2 text-xs xs:text-base xs:px-4 xs:py-3 ;
+    @apply  h-fit rounded-full md:rounded-full px-2 py-2 text-center xs:text-base xs:px-4 xs:py-3 ;
   }
 
   .button-register {

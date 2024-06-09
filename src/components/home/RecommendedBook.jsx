@@ -4,50 +4,53 @@ import { collection, query, where, getDoc, doc, getDocs } from 'firebase/firesto
 import { Link } from "react-router-dom";
 
 import CircularProgress from '@mui/material/CircularProgress';
+import { set } from "firebase/database";
 
 
 const RecommendedBook = ({ userGenres }) => {
     const [loading, setLoading] = useState(true);
 
-    const [recommendedBook, setRecommendedBook] = useState({});
+    const [recommendedBook, setRecommendedBook] = useState(null);
     const [recommendedBookGenre, setRecommendedBookGenre] = useState({});
 
+    
+    const getRecommendedBook = async () => {
+        if(!userGenres || userGenres.length === 0){
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const booksRef = collection(db, "books");
+            const q = query(booksRef, where("genre", "in", userGenres), where("adminVerified", "==", true));
+            const querySnapshot = await getDocs(q);
+            
+            
+
+            let books = [];
+            querySnapshot.forEach((doc) => {
+                books.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+
+            let randomBook = books[Math.floor(Math.random() * books.length)];
+            setRecommendedBook(randomBook);
+
+            let genreRef = doc(db, "genres", randomBook.genre);
+            const genreDoc = await getDoc(genreRef);
+            setRecommendedBookGenre(genreDoc.data());
+
+            setLoading(false);
+        } catch (error) {
+            console.error("Error getting recommended book:", error);
+        }
+
+    };
 
     useEffect(() => {
-        const getRecommendedBook = async () => {
-            try {
-                const booksRef = collection(db, "books");
-                const q = query(booksRef, where("genre", "in", userGenres), where("adminVerified", "==", true));
-                const querySnapshot = await getDocs(q);
-
-                let books = [];
-                querySnapshot.forEach((doc) => {
-                    books.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                });
-
-                let randomBook = books[Math.floor(Math.random() * books.length)];
-                setRecommendedBook(randomBook);
-
-                let genreRef = doc(db, "genres", randomBook.genre);
-                const genreDoc = await getDoc(genreRef);
-                setRecommendedBookGenre(genreDoc.data());
-
-                setLoading(false);
-            } catch (error) {
-                console.error("Error getting recommended book:", error);
-            }
-
-        };
-
-        if (userGenres) {
-            getRecommendedBook();
-        }else{
-            setLoading(false);
-
-        }
+        getRecommendedBook();
     }, [userGenres]);
 
 
@@ -87,10 +90,10 @@ const RecommendedBook = ({ userGenres }) => {
                     <CircularProgress />
                 </div>
                 :
-                (userGenres && recommendedBook &&
+                (recommendedBook  &&
                     renderRecommendedBook()
                 )
-                }
+            }
         </div>
     );
 };

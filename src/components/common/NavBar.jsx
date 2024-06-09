@@ -12,7 +12,7 @@ import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PlayCircleRoundedIcon from '@mui/icons-material/PlayCircleRounded';*/
 
-import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon } from '@mui/icons-material';
+import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon, CancelRounded as CancelRoundedIcon } from '@mui/icons-material';
 
 
 
@@ -144,18 +144,15 @@ const NavBar = ({ setShowSessionTimer }) => {
              {renderUserImg()}
 
                 {isUserMenuOpen && (
-                    <div className="absolute top-5 right-0 z-30 bg-white border border-gray-200 rounded py-10 text-center" ref={profileMenuRef}>
-                        <div className="flex justify-center items-center gap-2">
-                        {renderUserImg()}
-                        
-                        </div>
+                    <div className="absolute top-20 right-0 z-30 bg-white px-4 opacity-95 border  xs:opacity-100 rounded py-5 m-4 text-center w-full sm:w-fit" ref={profileMenuRef}>
+                        <CancelRoundedIcon onClick={toggleUserMenu} className="cursor-pointer text-gray-300" />
 
-                        <ul className="m-6 flex gap-2 flex-col">
+                        <ul className="m-4 flex gap-2 flex-col">
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={toggleUserMenu}>
-                                <Link to="/profile"><FlagRoundedIcon className="mr-2" />Goals</Link>
+                                <Link to="/profile"><FlagRoundedIcon className="mr-2 text-crayola" />Goals</Link>
                             </li>
                             <li className="hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
-                                <ExitToAppRoundedIcon className="mr-2" />
+                                <ExitToAppRoundedIcon className="mr-2 text-gray-200" />
                                 Log out
                             </li>
                         </ul>

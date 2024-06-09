@@ -12,16 +12,14 @@ import Alert from "@mui/material/Alert";
 const ProfileSettings = () => {
     const { user } = useAuth();
 
-    const [userGoals, setUserGoals] = useState({
-        dailyReading: 0,
-        booksPerYear: 0,
-        diffGenres: ""
-    });
+    const [userGoals, setUserGoals] = useState({});
+
     const [updatedGoals, setUpdatedGoals] = useState({
         dailyReading: 0,
         booksPerYear: 0,
         diffGenres: ""
     });
+
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState({ type: "", content: "" });
 
@@ -31,8 +29,8 @@ const ProfileSettings = () => {
             onSnapshot(userDocRef, (doc) => {
                 if (doc.exists()) {
                     const goals = doc.data().readingGoals;
-                    setUserGoals(goals || { dailyReading: 0, booksPerYear: 0, diffGenres: "" });
-                    setUpdatedGoals(goals || { dailyReading: 0, booksPerYear: 0, diffGenres: "" });
+                    setUserGoals(goals);
+                    setUpdatedGoals(goals);
                     setLoading(false);
                 }
             });
@@ -49,10 +47,27 @@ const ProfileSettings = () => {
         }));
 
 
+
     };
+
+    const validateGoals = () => {
+        if (updatedGoals.dailyReading < 1 || updatedGoals.booksPerYear < 1 || updatedGoals.diffGenres < 1) {
+            setMessage({ type: "error", content: "Please enter valid goals. Goals must be greater than 0." });
+            return false;
+        }
+
+        return true;
+    };
+
 
     const handleUpdateGoals = async (e) => {
         e.preventDefault();
+
+
+        if (!validateGoals()) {
+            return;
+        }
+
         const userDocRef = doc(db, 'users', user.uid);
         await updateDoc(userDocRef, { readingGoals: updatedGoals });
         setMessage({ type: "success", content: "Goals updated successfully!" });
@@ -61,6 +76,8 @@ const ProfileSettings = () => {
             setMessage({ type: "", content: "" });
         }
             , 2000);
+
+
     };
 
     return (
@@ -136,7 +153,7 @@ const ProfileSettings = () => {
                     )}
 
                     <div className="md:col-span-2 flex justify-center">
-                        <button type="submit" className="m-3 button bg-crayola text-white">
+                        <button type="submit" className="m-3 button bg-crayola text-white" onClick={handleUpdateGoals}>
                             Update Goals
                         </button>
                     </div>
