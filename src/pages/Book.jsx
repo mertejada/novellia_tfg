@@ -82,7 +82,6 @@ const Book = ({setShowSessionTimer}) => {
     const handleRatingChange = async (event) => {
         const rating = event.target.value;
 
-        //que si ya existe el libro en ratedBooks, se actualice el rating
         if (userRatedBooks && userRatedBooks[bookId]) {
             const ratedBooks = { ...userRatedBooks, [bookId]: rating };
             const userDocRef = doc(db, "users", user.uid);
@@ -97,19 +96,15 @@ const Book = ({setShowSessionTimer}) => {
             }, { merge: true });
         }
 
-        //que se actualice el rating del libro. el rating es un array con todos los ratings de los usuarios que han calificado el libro
         const bookDocRef = doc(db, "books", bookId);
         const bookDocSnap = await getDoc(bookDocRef);
         const bookData = bookDocSnap.data();
         const bookRating = bookData.rating;
         const newBookRatings = { ...bookData.rating, [user.uid]: rating };
 
-        //quiero que se guarde en el rating del libro el rating del usuario
         await updateDoc(bookDocRef, {
             rating: newBookRatings
         });
-
-        //quiero que se actualice el rating promedio del libro
 
         const ratingAverage = Object.values(newBookRatings).reduce((acc, rating) => acc + parseInt(rating), 0) / Object.keys(newBookRatings).length;
         setRatingAverage(ratingAverage);

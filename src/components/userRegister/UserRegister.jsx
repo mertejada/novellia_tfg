@@ -129,7 +129,7 @@ const UserRegister = ({ handleClose }) => {
     }
 
 
-    const handleSubmit = async () => {
+    const uploadUserData = async () => {
         try {
             const userDocRef = doc(db, "users", user.uid);
             await updateDoc(userDocRef, formData);
@@ -194,7 +194,7 @@ const UserRegister = ({ handleClose }) => {
                     </button>
                     <div className="flex items-end gap-2 font-light ">
                         {step > 0 && <button onClick={previousStep} className=" bg-gray-300 button-register">Previous</button>}
-                        {step < 2 ? <button onClick={nextStep} className=" bg-crayola button-register" >Continue</button> : <button className=" bg-crayola button button-register" onClick={handleSubmit}>Finish</button>}
+                        {step < 2 ? <button onClick={nextStep} className=" bg-crayola button-register" >Continue</button> : <button className=" bg-crayola button button-register" onClick={uploadUserData}>Finish</button>}
                     </div>
                 </div>
             </div>

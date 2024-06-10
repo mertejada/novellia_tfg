@@ -33,12 +33,12 @@ const SearchBar = ({isAdmin}) => {
         const input = event.target.value;
         setSearchInput(input);
         if (input.trim() !== '') { 
-            const filtered = books.filter(book => //filtrar libros por título, autor o ISBN
+            const filtered = books.filter(book =>
                 book.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(input.toLowerCase()) ||
                 book.author.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(input.toLowerCase()) ||
                 book.isbn.includes(input)
             );
-            setSuggestions(filtered); //las sugerencias son los libros filtrados
+            setSuggestions(filtered);
         } else {
             setSuggestions([]);
         }
@@ -55,7 +55,6 @@ const SearchBar = ({isAdmin}) => {
         setSearchInput('');
     };
 
-    //cerrar si se hace clic fuera de la barra de búsqueda
     useEffect(() => {
         const handleClick = (event) => {
             if (event.target.tagName !== 'INPUT') {

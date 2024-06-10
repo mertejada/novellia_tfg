@@ -15,7 +15,7 @@ const NewBooks = () => {
 
     const { isMobile, isTablet, isDesktop } = useMediaQueries();
 
-    const fetchBooks = async () => {
+    const getNewBooks = async () => {
         //los 3 primeros libros cuya fecha de adición sea la más reciente
         const q = query(collection(db, "books"), orderBy("insertDate", "desc"), limit(3));
         const querySnapshot = await getDocs(q);
@@ -27,7 +27,7 @@ const NewBooks = () => {
     }
 
     useEffect(() => {
-        fetchBooks();
+        getNewBooks();
     }, []);
 
     const handleHover = (e) => {

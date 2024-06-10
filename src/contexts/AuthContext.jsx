@@ -27,9 +27,6 @@ export const AuthProvider = ({ children }) => {
                 } else {
                     setIsAdmin(false);
                 }
-
-
-
                 const docRef = doc(db, 'users', user.uid);
                 const docSnap = await getDoc(docRef);
 

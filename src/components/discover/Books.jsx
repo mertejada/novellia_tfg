@@ -18,7 +18,7 @@ const Books = ({ isAdmin }) => {
     const [genreFilter, setGenreFilter] = useState('');
     const [adminVerifiedBooks, setAdminVerifiedBooks] = useState(false);
     const [adminNonVerifiedBooks, setAdminNonVerifiedBooks] = useState(false);
-    const [orderParam, setOrderParam] = useState('insertDate');
+    const [orderParam, setOrderParam] = useState('published');
     const [order, setOrder] = useState('desc');
     const [booksPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
@@ -73,14 +73,13 @@ const Books = ({ isAdmin }) => {
     };
 
     const handlePageChange = (event, value) => {
-        //llevar el scroll hacia arriba del elemento con id="books"
         const element = document.getElementById('books');
         element.scrollIntoView({ behavior: "smooth" });
 
         getBooksFiltered(genreFilter, value);
     };
 
-    const getGenres = async () => {
+    const fetchGenres = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, "genres"));
             const genreData = querySnapshot.docs.map(doc => ({
@@ -95,7 +94,7 @@ const Books = ({ isAdmin }) => {
 
     useEffect(() => {
         getBooksFiltered();
-        getGenres();
+        fetchGenres();
     }, []);
 
     useEffect(() => {
@@ -121,8 +120,9 @@ const Books = ({ isAdmin }) => {
                         <p className="">Order by:  </p>
                         <form className="flex justify-start items-center ">
                             <select className="px-2 py-1 border border-gray-300 rounded-md" onChange={handleOrderChange}>
-                                <option value="insertDate-desc">Recents</option>
-                                <option value="insertDate-asc">Oldest</option>
+                                <option value="published-desc">Recents</option>
+                                <option value="published-asc">Oldest</option>
+                                <option value="insertDate-desc">Recently added</option>
                                 <option value="title-asc">Title</option>
                                 <option value="author-asc">Author</option>
                             </select>

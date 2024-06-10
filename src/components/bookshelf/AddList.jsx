@@ -36,10 +36,6 @@ const AddList = ({ handleClose, currentUserLists }) => {
 
     const addNewList = async () => {
         const listName = document.querySelector('input').value;
-
-        
-
-        //expresion regular para solo digitos, letras y espacios entre palabras
         if (listName) {
             try {
                 const userDocRef = doc(db, 'users', user.uid);
@@ -51,9 +47,7 @@ const AddList = ({ handleClose, currentUserLists }) => {
                 }
 
                 const camelCaseListName = listName
-                    // Primero, asegúrate de que todo esté en minúsculas para comenzar uniformemente.
                     .toLowerCase()
-                    // Sustituye los espacios entre palabras con una expresión que capitaliza la primera letra de cada palabra siguiente.
                     .replace(/\s+(.)/g, function (match, group1) {
                         return group1.toUpperCase();
                     });

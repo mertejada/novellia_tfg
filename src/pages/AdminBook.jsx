@@ -63,11 +63,11 @@ const AdminBook = () => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-            setFormData({ ...formData, cover: reader.result }); // Actualiza el estado con la URL de la imagen
+            setFormData({ ...formData, cover: reader.result }); 
         };
 
         if (file) {
-            reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+            reader.readAsDataURL(file); 
         }
     };
 

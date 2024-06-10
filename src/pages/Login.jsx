@@ -10,6 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../services/firebase';
 
 import About from '../components/about/About';
+import Alert from '@mui/material/Alert';
 
 
 
@@ -18,9 +19,10 @@ const Login = () => {
     const [register, setRegister] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showErrorMsg, setShowErrorMsg] = useState(null);
+    const [message, setMessage] = useState({ type: null, content: null });
     const [passwordMatchError, setPasswordMatchError] = useState(false);
 
-    const { auth } = useAuth(); // Destructure user and isAdmin from context
+    const { auth } = useAuth(); 
     const navigate = useNavigate();
 
 
@@ -55,7 +57,7 @@ const Login = () => {
 
         if (register && event.target.password_repeat.value !== password) {
             setPasswordMatchError(true);
-            setShowError(false);
+            setMessage({ type: "error", content: "Passwords do not match." });
             return;
         }
 
@@ -68,11 +70,9 @@ const Login = () => {
                 await signInWithEmailAndPassword(auth, email, password);
             }
 
-            setShowError(false);
+            setMessage({ type: "success", content: "Authentication successful." });
         } catch (error) {
-            setShowError(true);
-            setPasswordMatchError(false);
-            setShowErrorMsg(errorType(error.code));
+            setMessage({ type: "error", content: errorType(error.code) });
         }
     };
 
@@ -80,7 +80,7 @@ const Login = () => {
         try {
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
-            setShowError(false);
+            setMessage({ type: "success", content: "Authentication successful." });
 
             const email = result.user.email;
 
@@ -97,8 +97,7 @@ const Login = () => {
             navigate("/");
             
         } catch (error) {
-            setShowError(true);
-            setShowErrorMsg("An error occurred while attempting to sign in with Google. Please try again.");
+            setMessage({ type: "error", content: errorType(error.code) });
         }
     };
 
@@ -109,7 +108,7 @@ const Login = () => {
                 errorMessage = "Wrong email or password. Please try again.";
                 break;
             case "auth/weak-password":
-                errorMessage = "Password must be at least 6 characters long and contain at least 3 numbers.";
+                errorMessage = "Password must be at least 6 characters long and contain 3 numbers.";
                 break;
             case "auth/email-already-in-use":
                 errorMessage = "Email is already in use. Try another one or log in.";
@@ -132,31 +131,21 @@ const Login = () => {
                     <h1 className="text-4xl text-center mb-4 ">Start your</h1>
                     <h2 className="text-6xl font-extrabold font-playfair text-center mb-12 text-gradient gradient">literature adventure<span className='text-black'>.</span></h2>
 
-                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 sm:w-3/4 ">
+                    <div className="bg-white shadow-gray-500 drop-shadow-md shadow-md rounded-3xl p-10 w-full sm:w-3/4 ">
                         <form className='flex flex-col gap-4' onSubmit={authentication}>
                             <input id="email" type="email" placeholder="Your mail" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                             <input id="password" type="password" placeholder="Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
                             {register && (
                                 <>
                                     <input id="password_repeat" type="password" placeholder="Repeat Password" className="h-12 p-4 rounded-xl bg-gray-100 text-gray-900 focus:outline-none border-gray-300" />
-                                    {passwordMatchError && (
-
-                                        <p className="text-red-600 bg-red-50 rounded-md gap-4 flex items-center justify-center p-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-10 h-6 ml-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                            </svg>
-                                            Passwords do not match.
-                                        </p>
-                                    )}
+                                    
                                 </>
                             )}
-                            {showError && (
-                                <p className="text-red-600 bg-red-50 rounded-md gap-4 flex flex-col xs:flex-row text-center items-center justify-center p-4 w-fit">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-10 h-6 ml-2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                    </svg>
-                                    {showErrorMsg}
-                                </p>
+                            
+                            {message.type && (
+                                <Alert severity={message.type} onClose={() => setMessage({ type: null, content: null })}>
+                                    {message.content}
+                                </Alert>
                             )}
 
                             <button type="submit" className="h-12 p-2 text-white button bg-zinc-700 rounded-3xl">{register ? "Sign up" : "Log in"}</button>

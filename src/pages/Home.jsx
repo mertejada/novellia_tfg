@@ -33,12 +33,12 @@ const Home = () => {
                 console.error('Failed to fetch user data:', error);
             });
 
-            return () => unsubscribe(); // Clean up the listener when the component unmounts or when user changes
+            return () => unsubscribe(); 
         }
     }, [user]);
 
     const handleClose = () => {
-        setShowForm(false); // Use React state to control visibility
+        setShowForm(false); 
     }
 
     return (

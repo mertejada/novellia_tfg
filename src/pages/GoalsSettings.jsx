@@ -60,24 +60,18 @@ const GoalsSettings = () => {
     };
 
 
-    const handleUpdateGoals = async (e) => {
+    const updateGoals = async (e) => {
         e.preventDefault();
-
-
         if (!validateGoals()) {
             return;
         }
-
         const userDocRef = doc(db, 'users', user.uid);
         await updateDoc(userDocRef, { readingGoals: updatedGoals });
         setMessage({ type: "success", content: "Goals updated successfully!" });
 
         setTimeout(() => {
             setMessage({ type: "", content: "" });
-        }
-            , 2000);
-
-
+        }, 2000);
     };
 
     return (
@@ -89,7 +83,7 @@ const GoalsSettings = () => {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <form onSubmit={handleUpdateGoals} className="grid grid-cols-1 gap-7 md:grid-cols-2 w-full mt-20">
+                <form onSubmit={updateGoals} className="grid grid-cols-1 gap-7 md:grid-cols-2 w-full mt-20">
                     <div className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
                         <div className="text-center mb-4 p-2 ">
                             <TimerIcon className="text-crayola my-2" />
@@ -153,7 +147,7 @@ const GoalsSettings = () => {
                     )}
 
                     <div className="md:col-span-2 flex justify-center">
-                        <button type="submit" className="m-3 button bg-crayola text-white" onClick={handleUpdateGoals}>
+                        <button type="submit" className="m-3 button bg-crayola text-white" onClick={updateGoals}>
                             Update Goals
                         </button>
                     </div>
