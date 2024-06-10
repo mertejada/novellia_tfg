@@ -70,12 +70,12 @@ const HomeIntro = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 ">
                     <Link className="cursor-pointer button border-white border text-white scale duration-400"
-                        to="/discover"
+                        to="/discover" name="discover"
                     >
                         Discover
                     </Link>
                     <Link className="cursor-pointer flex items-center button bg-white text-black scale duration-400"
-                        to="/bookshelf"
+                        to="/bookshelf" name="bookshelf"
                     >
                         <LocalLibraryIcon className="text-black mr-2" />
                         Your bookshelf

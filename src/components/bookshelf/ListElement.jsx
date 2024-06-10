@@ -15,8 +15,8 @@ const ListElement = ({ name }) => {
 
     const icons = {
         "favourites": <FavoriteRounded className="text-red-500" />, // "favourites" is the key, <FavoriteIcon /> is the value
-        "wishList": <ShoppingBasketRounded className="text-lavender" />, // "wishList" is the key, <ShoppingBasketIcon /> is the value
-        "currentlyReading": <BookRounded className="text-crayola" />,
+        "wishList": <ShoppingBasketRounded className="text-mariner" />, // "wishList" is the key, <ShoppingBasketIcon /> is the value
+        "currentlyReading": <BookRounded className="text-carrot" />,
         "finishedBooks": <BeenhereRounded className="text-green-800" />,
     };
 

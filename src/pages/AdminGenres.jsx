@@ -116,7 +116,7 @@ const AdminGenres = () => {
                             <label className="text-left">Color: </label>
                             <input type="color" id="genreColor" className=" rounded-md w-full " />
                         </div>
-                        <button className="bg-crayola text-white p-2 rounded-md mt-2">Add genre</button>
+                        <button className="bg-carrot text-white p-2 rounded-md mt-2">Add genre</button>
                     </form>
                     {message.type === "success" && <Alert severity="success" className="mt-2">{message.content}</Alert>}
 
@@ -153,7 +153,7 @@ const AdminGenres = () => {
                                     <div className="flex items-center justify-between gap-3 w-full px-4">
                                     <button onClick={() => deleteGenre(genre)} className="text-red-500 py-3"><DeleteRoundedIcon />Delete genre</button>
 
-                                        <button className=" bg-gray-100 text-crayola px-3 py-1 my-3 rounded-md">Edit genre</button>
+                                        <button className=" bg-gray-100 text-carrot px-3 py-1 my-3 rounded-md">Edit genre</button>
 
 
                                     </div>

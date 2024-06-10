@@ -86,12 +86,12 @@ const GoalsSettings = () => {
                 <form onSubmit={updateGoals} className="grid grid-cols-1 gap-7 md:grid-cols-2 w-full mt-20">
                     <div className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
                         <div className="text-center mb-4 p-2 ">
-                            <TimerIcon className="text-crayola my-2" />
+                            <TimerIcon className="text-carrot my-2" />
                             <h2 className="text-2xl font-semibold  text-gray-800">Daily Reading</h2>
                             <p className="text-gray-300">Set a daily reading goal in minutes</p>
                         </div>
                         <div className="p-2">
-                            <p className="text-lavender mb-2">Current goal: {userGoals.dailyReading} minutes</p>
+                            <p className="text-mariner mb-2">Current goal: {userGoals.dailyReading} minutes</p>
                             <input
                                 type="number"
                                 name="dailyReading"
@@ -104,12 +104,12 @@ const GoalsSettings = () => {
 
                     <div className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
                         <div className="text-center mb-4 p-2">
-                            <BookIcon className="text-lavender my-2" />
+                            <BookIcon className="text-mariner my-2" />
                             <h2 className="text-2xl font-semibold  text-gray-800">Books Per Year</h2>
                             <p className="text-gray-300">Set a goal for the number of books you want to read in a year</p>
                         </div>
                         <div className="p-2">
-                            <p className="text-lavender mb-2">Current goal is: {userGoals.booksPerYear} books</p>
+                            <p className="text-mariner mb-2">Current goal is: {userGoals.booksPerYear} books</p>
                             <input
                                 type="number"
                                 name="booksPerYear"
@@ -126,7 +126,7 @@ const GoalsSettings = () => {
                             <h2 className="text-2xl font-semibold  text-gray-800">Different Genres</h2>
                         </div>
                         <div>
-                            <p className="text-lavender mb-2">Current goal is: {userGoals.diffGenres}</p>
+                            <p className="text-mariner mb-2">Current goal is: {userGoals.diffGenres}</p>
                             <input
                                 type="text"
                                 name="diffGenres"
@@ -147,7 +147,7 @@ const GoalsSettings = () => {
                     )}
 
                     <div className="md:col-span-2 flex justify-center">
-                        <button type="submit" className="m-3 button bg-crayola text-white" onClick={updateGoals}>
+                        <button type="submit" className="m-3 button bg-carrot text-white" onClick={updateGoals}>
                             Update Goals
                         </button>
                     </div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import bkImg from '../assets/img/test.jpg';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -7,20 +6,25 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithP
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 import { useAuth } from '../contexts/AuthContext';
+import { useMediaQueries } from '../contexts/MediaQueries';
 import { db } from '../services/firebase';
 
 import About from '../components/about/About';
 import Alert from '@mui/material/Alert';
+
+import desktopImg from '../assets/img/login/login-2000.webp';
+import tabletImg from '../assets/img/login/login-1700.webp';
+import mobileImg from '../assets/img/login/login-1000.webp';
 
 
 
 
 const Login = () => {
     const [register, setRegister] = useState(false);
-    const [showError, setShowError] = useState(false);
-    const [showErrorMsg, setShowErrorMsg] = useState(null);
     const [message, setMessage] = useState({ type: null, content: null });
-    const [passwordMatchError, setPasswordMatchError] = useState(false);
+    const { isMobile, isTablet, isDesktop } = useMediaQueries();
+
+    const background = isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
 
     const { auth } = useAuth(); 
     const navigate = useNavigate();
@@ -126,7 +130,7 @@ const Login = () => {
 
     return (
         <>
-            <section style={{ backgroundImage: `url(${bkImg})` }} className='p-20 bg-cover font-poppins font-light h-fit flex justify-center items-center lg:justify-start'>
+            <section style={{ backgroundImage: `url(${background})`}} className='p-20 bg-cover font-poppins font-light h-fit flex justify-center items-center lg:justify-start bg-gray-100 shadow-inner'>
                 <div className="flex flex-col items-center justify-center lg:justify-start lg:items-start ">
                     <h1 className="text-4xl text-center mb-4 ">Start your</h1>
                     <h2 className="text-6xl font-extrabold font-playfair text-center mb-12 text-gradient gradient">literature adventure<span className='text-black'>.</span></h2>

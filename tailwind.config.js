@@ -8,9 +8,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        lavender: "#1F7AC5",
+        mariner: "#1F7AC5",
         salmon: "#F36057",
-        crayola: "#EE902D",
+        carrot: "#EE902D",
         white: "#FEFEFD",
         black: "#0B0A0B",
       },

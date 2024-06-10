@@ -148,7 +148,7 @@ const Book = ({setShowSessionTimer}) => {
                     <div className="w-full sm:w-80 flex flex-col items-center gap-3 relative ">
                         <img src={book.cover} alt={book.title} className="rounded-lg  " />
                         <button className='relative w-full'>
-                            <div className="flex items-center p-3 cursor-pointer  bg-crayola gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
+                            <div className="flex items-center p-3 cursor-pointer  bg-carrot gap-4 justify-between w-full rounded-md " onClick={toggleAddToList} >
                                 <p className="text-white mr-2">Add to list</p>
                                 <PlaylistAddRounded className="  text-white" onClick={toggleAddToList} />
                             </div>
@@ -173,7 +173,7 @@ const Book = ({setShowSessionTimer}) => {
                                 </h1>
 
                             </div>
-                            <h2 className="text-xl mb-4 text-crayola">{book.author}</h2>
+                            <h2 className="text-xl mb-4 text-carrot">{book.author}</h2>
                             <p to={`/genres/${book.genre}`} style={{ backgroundColor: bookGenreData?.data().color }} className="text-white w-fit px-2 py-1 mb-10 rounded-md">{bookGenreData?.data().name}</p>
 
 

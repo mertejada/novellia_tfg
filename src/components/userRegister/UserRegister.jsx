@@ -158,19 +158,19 @@ const UserRegister = ({ handleClose }) => {
                 <div className="flex flex-col">
                     <h1 className="  mb-10 mt-5 self-center text-xl text-center md:text-left md:text-2xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
                     <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
-                        <li className={`flex md:w-full items-center ${step >= 0 ? 'text-crayola dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
+                        <li className={`flex md:w-full items-center ${step >= 0 ? 'text-carrot dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
                             <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
                                 <AccountCircleIcon className="p-1" />
                                 Personal <span className="hidden sm:inline-flex sm:ms-2">Info</span>
                             </span>
                         </li>
-                        <li className={`flex md:w-full items-center ${step >= 1 ? 'text-crayola dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
+                        <li className={`flex md:w-full items-center ${step >= 1 ? 'text-carrot dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'} after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700`}>
                             <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500">
                                 <BookIcon className="p-1" />
                                 Reading <span className="hidden sm:inline-flex sm:ms-2">goals</span>
                             </span>
                         </li>
-                        <li className={`flex items-center ${step >= 2 ? 'text-crayola dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'}`}>
+                        <li className={`flex items-center ${step >= 2 ? 'text-carrot dark:text-blue-500' : 'text-gray-300 dark:text-gray-400'}`}>
                             <InterestsIcon className="p-1" />
                             Interests
                         </li>
@@ -194,7 +194,7 @@ const UserRegister = ({ handleClose }) => {
                     </button>
                     <div className="flex items-end gap-2 font-light ">
                         {step > 0 && <button onClick={previousStep} className=" bg-gray-300 button-register">Previous</button>}
-                        {step < 2 ? <button onClick={nextStep} className=" bg-crayola button-register" >Continue</button> : <button className=" bg-crayola button button-register" onClick={uploadUserData}>Finish</button>}
+                        {step < 2 ? <button onClick={nextStep} className=" bg-carrot button-register" >Continue</button> : <button className=" bg-carrot button button-register" onClick={uploadUserData}>Finish</button>}
                     </div>
                 </div>
             </div>

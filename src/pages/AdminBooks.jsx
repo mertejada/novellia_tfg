@@ -20,7 +20,7 @@ const AdminBooks = () => {
 
                 <SearchBar isAdmin="true" />
                 <button
-                    className="button bg-crayola text-white py-2 px-4 rounded"
+                    className="button bg-carrot text-white py-2 px-4 rounded"
                     onClick={toggleAddBook}
                 >
                     Add Book

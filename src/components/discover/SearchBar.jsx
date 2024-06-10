@@ -83,7 +83,7 @@ const SearchBar = ({isAdmin}) => {
                         <li key={index} className="px-4 py-5 cursor-pointer hover:bg-gray-100" onClick={handleRedirection(book.id)}>
                             <div className='flex items-center' >
                                 <img src={book.cover} alt={book.title} className='w-10 object-cover rounded-lg mr-3' />
-                                <p className='text-black'>{book.title} -<span className='text-crayola font-light'> {book.author}</span></p>
+                                <p className='text-black'>{book.title} -<span className='text-carrot font-light'> {book.author}</span></p>
                             </div>
                         </li>
                     ))}

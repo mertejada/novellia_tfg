@@ -19,7 +19,7 @@ const SessionTimer = ({ setShowSessionTimer }) => {
 
     const [message, setMessage] = useState({ type: null, content: null });
 
-    let saveColor = time == 0 ? "text-gray-300" : "text-crayola hover:bg-gray-100";
+    let saveColor = time == 0 ? "text-gray-300" : "text-carrot hover:bg-gray-100";
     let restartColor = time == 0 ? "text-gray-300" : "text-red-500 hover:bg-gray-100";
 
     const handlePlay = () => {

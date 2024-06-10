@@ -244,7 +244,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                             <input type="file" id="cover" accept="image/*" name="cover" onChange={(e) => setBookInfo(prev => ({ ...prev, cover: e.target.files[0] }))} />
                         </div>
                     </div>
-                    <button type="submit" className="bg-crayola text-white button w-fit" >Add book</button>
+                    <button type="submit" className="bg-carrot text-white button w-fit" >Add book</button>
                 </form>
                 {message.type === "success" && <Alert severity="success" className="mt-2">{message.content}</Alert>}
                 {message.type === "error" && <Alert severity="error" className="mt-2">{message.content}</Alert>}

@@ -65,7 +65,7 @@ const RecommendedBook = ({ userGenres }) => {
 
                 <div className="flex flex-col gap-2 shadow rounded-xl border md:border-0 md:shadow-none md:rounded-none py-8 px-5 md:p-0 items-center md:items-baseline bg-white relative overflow-hidden">
                     <h2 className="font-bold text-lg sm:text-2xl text-center md:text-start w-2/3">{recommendedBook.title}</h2>
-                    <p className="font-light text-lavender text-center md:text-start">{recommendedBook.author} - {recommendedBook.published}</p>
+                    <p className="font-light text-mariner text-center md:text-start">{recommendedBook.author} - {recommendedBook.published}</p>
                     <p className="font-light text-white text-center md:text-start p-1 px-2 rounded-lg" style={{ backgroundColor: recommendedBookGenre.color }}>{recommendedBookGenre.name}</p>
                     <div className="relative h-28 overflow-hidden">
                         <p className="mt-2 font-light text-gray-500 overflow-hidden relative z-10 text-justify">
@@ -73,7 +73,7 @@ const RecommendedBook = ({ userGenres }) => {
                         </p>
                         <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent z-20"></div>
                     </div>
-                    <Link to={`/book/${recommendedBook.id}`} name="Read More" className="button text-white bg-gray-300 rounded-md text-center w-full md:w-fit hover:bg-crayola duration-200 ease-in-out">
+                    <Link to={`/book/${recommendedBook.id}`} name="Read More" className="button text-white bg-gray-300 rounded-md text-center w-full md:w-fit hover:bg-carrot duration-200 ease-in-out">
                     Read more
                     </Link>
                 </div>

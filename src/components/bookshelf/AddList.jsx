@@ -89,7 +89,7 @@ const AddList = ({ handleClose, currentUserLists }) => {
                 </div>
                 {message.type && <Alert severity={message.type} className="">{message.content}</Alert>} 
 
-                <button className="button bg-crayola text-white" onClick={addNewList}>Add list</button>
+                <button className="button bg-carrot text-white" onClick={addNewList}>Add list</button>
             </div>
         </div>
     );

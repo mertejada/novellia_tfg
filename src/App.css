@@ -17,7 +17,7 @@
   }
 
   .gradient{
-    @apply bg-gradient-to-r from-lavender via-salmon to-crayola ;
+    @apply bg-gradient-to-r from-mariner via-salmon to-carrot ;
   }
 
   .button {

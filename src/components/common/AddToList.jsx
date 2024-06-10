@@ -70,7 +70,7 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
     
     return (
         <div ref={addToListRef} className="bg-white w-52 h-auto  shadow p-5 rounded-lg z-10 absolute -top-20 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="flex justify-between items-center text-crayola p-2">
+            <div className="flex justify-between items-center text-carrot p-2">
                 <h3 className="text-lg">Add to list</h3>
                 <CloseRoundedIcon className="cursor-pointer" onClick={toggleAddToList} />
             </div>

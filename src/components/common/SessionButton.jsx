@@ -12,7 +12,7 @@ const SessionButton = ({setShowSessionTimer}) => {
 
     const theme = createTheme({
         palette: {
-            lavender: {
+            mariner: {
                 main: '#1F7AC5',
             },
         },
@@ -21,7 +21,7 @@ const SessionButton = ({setShowSessionTimer}) => {
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ '& > :not(style)': { m: 1 } }} className="fixed bottom-10 right-10 " onClick={() => setShowSessionTimer(true)}  >
-                <Fab color="lavender" aria-label="add" onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)} >
+                <Fab color="mariner" aria-label="add" onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)} >
                     <PlayCircleRounded className="text-white" fontSize="large"  /> 
                 </Fab>
             </Box>

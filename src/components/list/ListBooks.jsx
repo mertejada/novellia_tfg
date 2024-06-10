@@ -34,8 +34,8 @@ const ListBooks = () => {
 
     const icons = {
         "favourites": <FavoriteRounded className="text-red-500" />,
-        "wishList": <ShoppingBasketRounded className="text-lavender" />,
-        "currentlyReading": <BookRounded className="text-crayola" />,
+        "wishList": <ShoppingBasketRounded className="text-mariner" />,
+        "currentlyReading": <BookRounded className="text-carrot" />,
         "finishedBooks": <BeenhereRounded className="text-green-800" />,
     };
 

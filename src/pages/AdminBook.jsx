@@ -176,7 +176,7 @@ const AdminBook = () => {
                 {message.type === "success" && <Alert severity="success" className="mb-5">{message.content}</Alert>}
                 {message.type === "error" && <Alert severity="error" className="mb-5">{message.content}</Alert>}
 
-                <button type="submit" className="button bg-crayola text-white w-52 ">Update
+                <button type="submit" className="button bg-carrot text-white w-52 ">Update
                     {!book.adminVerified ? " and verify" : ""}
                 </button>
 

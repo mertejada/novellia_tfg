@@ -86,7 +86,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
                             {bookInfo.adminVerified !== false && <VerifiedBook fontSize="small" />}
                             {bookInfo.title}</h3>
 
-                        <p className="text-sm text-crayola overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.author}</p>
+                        <p className="text-sm text-carrot overflow-ellipsis" style={{ maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{bookInfo.author}</p>
                         <p className="text-sm text-gray-400">{bookInfo.language}</p>
 
 
@@ -98,7 +98,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
 
                         </div> :
                         <div className=" w-1/3 flex justify-end gap-5">
-                            <PlaylistAddRoundedIcon className="cursor-pointer text-crayola" onClick={toggleAddToList} />
+                            <PlaylistAddRoundedIcon className="cursor-pointer text-carrot" onClick={toggleAddToList} />
                             {showAddToList && <AddToList toggleAddToList={toggleAddToList} bookId={bookId} className="absolute bottom-20" bookPages={bookInfo.pages} bookGenre={bookInfo.genre} />}
                         </div>
                     }
