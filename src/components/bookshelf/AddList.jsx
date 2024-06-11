@@ -8,26 +8,28 @@ import { doc, updateDoc, setDoc } from 'firebase/firestore';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Alert from '@mui/material/Alert';
-import { list } from "firebase/storage";
 
+/**
+ * 
+ *
+ * @param {*} { handleClose, currentUserLists }
+ * @return {*} 
+ */
 const AddList = ({ handleClose, currentUserLists }) => {
 
     const { user } = useAuth();
-    const navigate = useNavigate();
     const [message, setMessage] = React.useState({ type: null, content: null });
 
+    // Disable scrolling when modal is open
     useEffect(() => {
-        // Bloquear el scroll al montar el componente
         document.body.style.overflow = 'hidden';
 
-        // Función de limpieza que se ejecuta al desmontar el componente
         return () => {
-            // Reactivar el scroll al desmontar el componente
             document.body.style.overflow = 'auto';
         };
     }, []);
 
-    //que al hacer click fuera del modal, se cierre
+    // Close modal when clicking outside
     const handleClickOutside = (e) => {
         if (e.target.classList.contains('fixed')) {
             handleClose();

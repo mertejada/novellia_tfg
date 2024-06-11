@@ -12,7 +12,7 @@ import RecommendedBook from "../components/home/RecommendedBook";
 
 const Home = () => {
     const [userInfo, setUserInfo] = useState(null);
-    const [userGenres, setUserGenres] = useState(null); // Added state for userGenres
+    const [userGenres, setUserGenres] = useState(null); 
     const [showForm, setShowForm] = useState(false);
     const { user } = useAuth();
 

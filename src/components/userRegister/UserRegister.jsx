@@ -29,7 +29,6 @@ const UserRegister = ({ handleClose }) => {
     const [showFormError, setFormErrorMsg] = useState(null);
     const { isMobile } = useMediaQueries();
 
-    //PARAR EL SCROLL EN EL EJE X
     useEffect(() => {
         document.body.style.overflowY = "hidden";
         return () => {
@@ -92,13 +91,12 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
-        //name and last name must be letters,spaces and hyphens and accents
+    
         if (!/^[a-zA-ZÀ-ÿ\s-]*$/.test(name) || !/^[a-zA-ZÀ-ÿ\s-]*$/.test(lastName)) {
             setFormErrorMsg("Name and last name must only contain letters, spaces, hyphens and accents");
             return false;
         }
 
-        //si no se ha seleccionado un género
         if(formData.personalInfo.gender === ""){
             setFormErrorMsg("You must choose a gender to continue");
             return false;

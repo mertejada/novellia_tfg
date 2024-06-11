@@ -7,11 +7,6 @@ import { useMediaQueries } from '../../contexts/MediaQueries';
 
 import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon, CancelRounded as CancelRoundedIcon } from '@mui/icons-material';
 
-
-
-
-
-
 const NavBar = ({ setShowSessionTimer }) => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isLinksMenuOpen, setIsLinksMenuOpen] = useState(false);

@@ -34,7 +34,6 @@ export const MediaQueriesProvider = ({ children }) => {
         };
     }, []);
 
-    //handle beginning state
     useEffect(() => {
         if (window.innerWidth < 768) {
             setIsMobile(true);

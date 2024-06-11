@@ -145,7 +145,6 @@ const ListBooks = () => {
                         <CircularProgress />
                     </div>
                     :
-                    //si hay libros en la lista
 
                     listBooks.length > 0 ?
                     <>

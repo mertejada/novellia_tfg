@@ -7,15 +7,13 @@ import { BeenhereRounded, BookRounded, FavoriteRounded, ShoppingBasketRounded, D
 const ListElement = ({ name }) => {
     const navigate = useNavigate();
 
-
-    //que las minúsculas se conviertan en mayúsculas
     const displayedName = name
         .replace(/([a-z])([A-Z])/g, '$1 $2')
         .replace(/\b\w/g, c => c.toUpperCase());
 
     const icons = {
-        "favourites": <FavoriteRounded className="text-red-500" />, // "favourites" is the key, <FavoriteIcon /> is the value
-        "wishList": <ShoppingBasketRounded className="text-mariner" />, // "wishList" is the key, <ShoppingBasketIcon /> is the value
+        "favourites": <FavoriteRounded className="text-red-500" />, 
+        "wishList": <ShoppingBasketRounded className="text-mariner" />, 
         "currentlyReading": <BookRounded className="text-carrot" />,
         "finishedBooks": <BeenhereRounded className="text-green-800" />,
     };

@@ -15,11 +15,11 @@ export const AuthProvider = ({ children }) => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [userLists, setUserLists] = useState(null);
     const [userRatedBooks, setUserRatedBooks] = useState(null);
-    const [loading, setLoading] = useState(true); // Estado de carga
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-            setLoading(true); // Comienza a cargar
+            setLoading(true); 
             if (user) {
                 setUser(user);
                 if (user.email === "admin@novellia.com") {
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
                 });
 
                 setTimeout(() => {
-                    setLoading(false); // Termina de cargar
+                    setLoading(false); 
                 }
                 , 1000);
 
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
                 setIsAdmin(false);
                 setUserLists(null);
                 setUserRatedBooks(null);
-                setLoading(false); // Termina de cargar incluso si no hay usuario
+                setLoading(false);
             }
         });
 

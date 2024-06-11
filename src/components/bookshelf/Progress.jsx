@@ -29,21 +29,19 @@ const Progress = () => {
     const getUserInfo = () => {
         const userDocRef = doc(db, 'users', user.uid);
 
-        // Usar onSnapshot para escuchar cambios en tiempo real
         onSnapshot(userDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const userDoc = docSnap.data();
 
                 setUserGoals(userDoc.readingGoals);
                 setUserReadingSessions(userDoc.readingSessions);
-                setUserFinishedBooks(userDoc.finishedBooksInfo); //devuelve un objeto
+                setUserFinishedBooks(userDoc.finishedBooksInfo); 
             }
 
             setLoading(false);
         });
     }
 
-    //conseguir los años en los que el usuario tiene registros de sesiones o libros terminados
     const getYears = () => {
         let years = [];
 

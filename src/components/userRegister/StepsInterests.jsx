@@ -64,9 +64,6 @@ function StepsInterest({ formData, setFormData }) {
                 </button>
 
               )
-
-
-
             ))}
           </div>
         }

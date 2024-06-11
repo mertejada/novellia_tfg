@@ -36,7 +36,7 @@ const AdminGenres = () => {
             const querySnapshot = await getDocs(query(collection(db, "books"), where("genre", "==", genreId)));
             if (!querySnapshot.empty) {
 
-                //que esos libros cambien su genreId por unknown
+                //esos libros cambian su genreId por unknown
                 querySnapshot.forEach(async (doc) => {
                     await updateDoc(doc.ref, {
                         genre: "unknown"

@@ -27,19 +27,15 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks 
             if (userLists && userLists[listName]) {
                 const updatedList = userLists[listName].filter(id => id !== bookId);
 
-                // Obtener el documento del usuario
                 const userRef = doc(db, "users", user.uid);
                 const userDoc = await getDoc(userRef);
 
                 if (userDoc.exists()) {
-                    // Obtener el objeto actual de "lists" del documento del usuario
                     const userData = userDoc.data();
                     const lists = userData.lists || {};
 
-                    // Actualizar la lista específica dentro del objeto "lists"
                     lists[listName] = updatedList;
 
-                    // Actualizar el documento del usuario con el nuevo objeto de "lists"
                     await updateDoc(userRef, { lists });
 
                     if(listName === "finishedBooks"){

@@ -12,7 +12,7 @@ import Alert from '@mui/material/Alert';
 
 const SessionTimer = ({ setShowSessionTimer }) => {
     const [time, setTime] = useState(0);
-    const [timerId, setTimerId] = useState(null); //timerId is used to store the interval id
+    const [timerId, setTimerId] = useState(null);
     const today = new Date();
 
     const { user } = useAuth();
@@ -27,7 +27,8 @@ const SessionTimer = ({ setShowSessionTimer }) => {
             const id = setInterval(() => {
                 setTime(prevTime => prevTime + 1);
             }, 1000);
-            setTimerId(id);
+            setTimerId(id); 
+
         }
     }
 

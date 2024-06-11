@@ -22,12 +22,9 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             toggleAddBook();
         }
     }
-    //que si esta el componente montado no haya scroll y al hacer click fuera del modal se cierre
+
     useEffect(() => {
         document.body.style.overflow = 'hidden';
-        //que al hacer click fuera del modal, se cierre
-
-
         return () => {
             document.body.style.overflow = 'auto';
         };
@@ -64,26 +61,25 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     }
 
     const validateFormData = () => {
-        //segun el tipo de dato que se espera, se valida
         if (typeof bookInfo.author !== "string" || typeof bookInfo.title !== "string") {
             setMessage({ type: "error", content: "Author and title must be strings" });
             return false;
         }
 
-        //el author y el publisher deben tener al menos 3 caracteres
+        //author y publisher  3 caracteres
         if (bookInfo.author.length < 3 || bookInfo.publisher.length < 3) {
             setMessage({ type: "error", content: "Author and publisher must be at least 3 characters long" });
             return false;
         }
 
-        //el author y publisher pueden tener letras, espacios, tilde, guion y apostrofe
+        //author y publisher solo letras, espacios, guiones, apostrofes y acentos
         if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/.test(bookInfo.author) || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/.test(bookInfo.publisher)) {
             setMessage({ type: "error", content: "Author and publisher must only contain letters, spaces, hyphens, apostrophes and accents" });
             return false;
         }
 
 
-        //la sipnosis debe tener al menos 50 caracteres
+        //sipnosis minimo 50 caracteres
         if (bookInfo.sipnosis.length < 50) {
             setMessage({ type: "error", content: "Sipnosis must be at least 50 characters long" });
             return false;
@@ -94,18 +90,17 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             return false;
         }
 
-        //el isbn puede ser ISbN-13 o ISbN-10 con el guion opcional
+        //isbn solo numeros y guiones
         if (!/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(bookInfo.isbn)) {
             setMessage({ type: "error", content: "ISBN must be a valid ISBN-13 or ISBN-10" });
             return false;
         }
 
-        //EL PUBLISHED TIENE QUE SER UN AÑO VALIDO Y NO PUEDE SER MAYOR AL AÑO ACTUAL
+        //published año valido
         if (isNaN(bookInfo.published) || bookInfo.published < 0 || bookInfo.published > new Date().getFullYear()) {
             setMessage({ type: "error", content: "Published must be a valid year" });
             return false;
         }
-
 
         return true;
     }
@@ -138,9 +133,6 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
         try {
 
-
-
-
             if (!imageFile.type.includes("image/")) {
                 setMessage({ type: "error", content: "File must be an image" });
                 return;
@@ -151,9 +143,6 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                 return;
             }
 
-
-
-
             let coverUrl = null;
 
             const storageRef = ref(storage, `covers/${imageFile.name}`);
@@ -162,8 +151,6 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
             bookInfo.cover = coverUrl;
             bookInfo.pages = parseInt(bookInfo.pages);
-
-
 
             await addDoc(collection(db, "books"), bookInfo);
 

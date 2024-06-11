@@ -35,7 +35,7 @@ const StepPersonal = ({ formData, setFormData }) => {
                     />
                 </div>
 
-                <div className="w-full flex flex-col w-full md:w-1/2 gap-2">
+                <div className="w-full flex flex-col md:w-1/2 gap-2">
                     <label className="text-gray-600 dark:text-gray-400">Last name</label>
                     <input
                         type="text"

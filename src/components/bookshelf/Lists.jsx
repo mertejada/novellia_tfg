@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from '../../contexts/AuthContext'
-import { db } from '../../services/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { useAuth } from '../../contexts/AuthContext';
 
 import ListElement from "./ListElement";
 import AddList from "./AddList";
@@ -13,7 +11,7 @@ import Box from '@mui/material/Box';
 
 const Lists = () => {
     const [showAddList, setShowAddList] = useState(false);
-    const { user, userLists } = useAuth();
+    const { userLists } = useAuth();
 
     const handleListCreation = () => {
         setShowAddList(true);

@@ -25,7 +25,7 @@ const AdminBook = () => {
 
             if (docSnap.exists()) {
                 setBook(docSnap.data());
-                setFormData(docSnap.data()); // Inicializar el estado del formulario con los valores del libro
+                setFormData(docSnap.data()); 
             } else {
                 console.log("No such document!");
             }
@@ -43,15 +43,14 @@ const AdminBook = () => {
 
         getBook();
 
-    }, []); // Añade las dependencias adecuadas si es necesario para evitar bucles infinitos
+    }, []); 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //añadir el campo adminVerified al objeto formData
             formData.adminVerified = true;
-            await updateDoc(doc(db, "books", bookId), formData); // Actualizar los datos del libro en la base de datos
+            await updateDoc(doc(db, "books", bookId), formData); 
             setMessage({ type: "success", content: "Book updated successfully" });
         } catch (error) {
             setMessage({ type: "error", content: "Error updating book:"+error.message });
