@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import videoBg from "../../assets/video.mp4";
-import videoBgTablet from "../../assets/video-tablet.mp4";
-import videoBgMobile from "../../assets/video-mobile.mp4";
+import videoBg from "../../assets/videos/video.mp4";
+import videoBgTablet from "../../assets/videos/video-tablet.mp4";
+import videoBgMobile from "../../assets/videos/video-mobile.mp4";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 import { Link } from "react-router-dom";
 
@@ -11,14 +11,9 @@ import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 const HomeIntro = () => {
     const { isTablet, isMobile } = useMediaQueries();
-    const [videoSrc, setVideoSrc] = useState(videoBg);
     const height = isMobile ? 500 : isTablet ? 600 : 800;
     const width = isMobile ? 300 : isTablet ? 400 : 600;
-
-    useEffect(() => {
-        const video = isMobile ? videoBgMobile : isTablet ? videoBgTablet : videoBg;
-        setVideoSrc(video);
-    }, [isMobile, isTablet]);
+    const videoSrc = isMobile ? videoBgMobile : isTablet ? videoBgTablet : videoBg;
 
     const leadToAbout = () => {
         const aboutSection = document.getElementById('about');
@@ -36,7 +31,7 @@ const HomeIntro = () => {
 
     return (
         <div className="bg-black relative">
-            <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-15" width={width} height={height}></video>
+            <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-20" width={width} height={height}></video>
 
             {!isMobile && (
                 <div className="absolute top-0 right-0 m-10 z-10 text-white text-right flex gap-5 cursor-pointer opacity ">

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import bkImg from "../assets/testdiscover.png";
+import { useMediaQueries } from "../contexts/MediaQueries";
 
 
 import AddIcon from '@mui/icons-material/Add';
@@ -8,9 +8,17 @@ import SearchBar from "../components/discover/SearchBar";
 import AddBook from "../components/discover/AddBook";
 import Books from "../components/discover/Books";
 
+import desktopImg from "../assets/img/discover/discover-2500.webp";
+import tabletImg from "../assets/img/discover/discover-1800.webp";
+import mobileImg from "../assets/img/discover/discover-1000.webp";
+
 
 const Discover = () => {
     const [showAddBook, setShowAddBook] = useState(false);
+
+    const { isMobile, isTablet, isDesktop } = useMediaQueries();
+
+    const bkImg = isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
 
     const toggleAddBook = () => {
         setShowAddBook(!showAddBook);
