@@ -2,14 +2,25 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-const ProgressItem = ({ userGoals, title, content, min, value, reach, greyBg }) => {
+import crownImg from "../../assets/img/crown.svg";
+
+
+const ProgressItem = ({ title, content, min, value, reach, greyBg, isTodayProgress }) => {
     let progressColor = reach ? 'green' : 'orange';
     let bg = greyBg ? 'bg-gray-100' : 'bg-white';
 
     let goalProgress = Math.floor((value / min) * 100);
 
+
+
+
+
+
     return (
         <div className={`flex flex-col items-center justify-center border shadow rounded-xl p-10 ${bg}`}>
+            {min <= value &&
+                <img src={crownImg} alt="Congratulations Crown" className="mb-3 w-8"
+            />}
             <h1 className="text-xl font-bold mb-4">{title}</h1>
             <div className="flex items-end gap-5 justify-center mb-4">
                 <Box position="relative" display="inline-flex">

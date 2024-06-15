@@ -99,7 +99,6 @@ const Book = ({setShowSessionTimer}) => {
         const bookDocRef = doc(db, "books", bookId);
         const bookDocSnap = await getDoc(bookDocRef);
         const bookData = bookDocSnap.data();
-        const bookRating = bookData.rating;
         const newBookRatings = { ...bookData.rating, [user.uid]: rating };
 
         await updateDoc(bookDocRef, {

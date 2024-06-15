@@ -48,6 +48,9 @@
     @apply opacity-60 hover:opacity-100 transition-opacity  ease-in-out;
   }
 
+  .color-transition {
+    @apply transform transition duration-150 ease-in-out; 
+  }
   .input {
     @apply border border-gray-300 p-2 rounded-xl bg-gray-50 ;
   }

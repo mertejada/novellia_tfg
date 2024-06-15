@@ -3,9 +3,11 @@ import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
+
 import CircularProgress from '@mui/material/CircularProgress';
 import ProgressItem from "./ProgressItem";
 
+import Modal from '@mui/material/Modal';
 
 
 const Progress = () => {
@@ -35,7 +37,7 @@ const Progress = () => {
 
                 setUserGoals(userDoc.readingGoals);
                 setUserReadingSessions(userDoc.readingSessions);
-                setUserFinishedBooks(userDoc.finishedBooksInfo); 
+                setUserFinishedBooks(userDoc.finishedBooksInfo);
             }
 
             setLoading(false);
@@ -50,7 +52,16 @@ const Progress = () => {
                 const bookDate = new Date(book.finishedDate);
                 years.push(bookDate.getFullYear());
             });
+        }
 
+        if (userReadingSessions) {
+            userReadingSessions.forEach(session => {
+                const sessionDate = new Date(session.date);
+                if (!years.includes(sessionDate.getFullYear())) {
+                    years.push(sessionDate.getFullYear());
+                }
+            }
+            );
         }
 
         const uniqueYears = [...new Set(years)];
@@ -135,6 +146,24 @@ const Progress = () => {
         setSelectedYear(parseInt(e.target.value));
     }
 
+    const showCongratulationsModal = () => {
+        return (
+            <Modal
+                open={true}
+                onClose={() => { }}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div className="bg-white p-5 rounded-lg w-96 mx-auto mt-20">
+                    <h1 className="text-center text-2xl font-bold">Congratulations!</h1>
+                    <p className="text-center text-lg">You've reached your daily reading goal!</p>
+                </div>
+            </Modal>
+        );
+    }
+
+
+
     useEffect(() => {
         getUserInfo();
     }, []);
@@ -142,15 +171,13 @@ const Progress = () => {
 
     useEffect(() => {
         getTodaysReading();
-    }
-        , [userReadingSessions]);
+    }, [userReadingSessions]);
 
     useEffect(() => {
         getThisYearFinishedBooks();
         getThisYearDiffGenres();
         getThisYearTotalHours();
-    }
-        , [userFinishedBooks, userReadingSessions, selectedYear]);
+    }, [userFinishedBooks, userReadingSessions, selectedYear]);
 
     useEffect(() => {
         getYears();
@@ -158,7 +185,7 @@ const Progress = () => {
 
 
     return (
-        <div className="content content-element">
+        <section className="content content-element">
             {loading ?
                 <div className="flex items-center justify-center">
                     <CircularProgress />
@@ -166,15 +193,17 @@ const Progress = () => {
                 :
                 <>
 
-                    <div className="flex flex-col justify-between gap-5 my-5">
-                        <h1 className="subtitle"><span className="text-gradient gradient">Today's</span>  progress</h1>
-                        <ProgressItem userInfo={userGoals} title="Today's reading" content='minutes' min={userGoals.dailyReading} value={todaysReading} reach={true} greyBg={true} />
+                    <article className="flex flex-col justify-between gap-5 my-5">
+                            <h1 className="subtitle"><span className="text-gradient gradient">Today's</span>  progress</h1>
+                            
 
-                    </div>
+                        <ProgressItem title="Today's reading" content='minutes' min={userGoals.dailyReading} value={todaysReading} reach={true} greyBg={true} isTodayProgress={true} />
+                    </article>
 
 
-                    <div className="content-element flex items-center justify-between gap-5 my-5">
-                        <h1 className="subtitle"><span className="text-gradient gradient">Your {selectedYear}</span>  progress</h1>
+                    <article className="content-element flex items-center justify-between gap-5 my-5">
+                        <h1 className="subtitle flex items-center"><span className="text-gradient gradient">Your {selectedYear}</span> progress</h1>
+
                         <form className="flex flex-col items-center justify-center gap-5" onChange={handleYearChange}>
                             <select className="border rounded-lg p-2" name="year" id="year" value={selectedYear}>
                                 {yearOptions.map((year, index) => (
@@ -183,18 +212,16 @@ const Progress = () => {
                             </select>
                         </form>
 
-                    </div>
+                    </article>
 
-
-
-                    <div className=" grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
-                        <ProgressItem userInfo={userGoals} title="Finished books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} reach={true} />
-                        <ProgressItem userInfo={userGoals} title="Different genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} reach={true} />
-                        <ProgressItem userInfo={userGoals} title="Reading total hours" content='hours' min={userGoals.totalHours} value={thisYearTotalHours} />
-                    </div>
+                    <article className=" grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4">
+                        <ProgressItem title="Finished books" content='books' min={userGoals.booksPerYear} value={thisYearFinishedBooks} reach={true} />
+                        <ProgressItem title="Different genres" content='genres' min={userGoals.diffGenres} value={thisYearDiffGenresNum} reach={true} />
+                        <ProgressItem title="Reading total hours" content='hours' min={userGoals.totalHours} value={thisYearTotalHours} />
+                    </article>
                 </>
             }
-        </div>
+        </section>
     );
 }
 
