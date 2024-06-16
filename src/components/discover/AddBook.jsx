@@ -232,7 +232,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                             <select id="genre" name="genre" className="input" onChange={handleChange}>
                                 <option value="">Select a genre</option>
                                 {genres.map((genre) => (
-                                    <option key={genre} value={genre}>{genre}</option>
+                                    <option key={genre} value={genre}>{genre.charAt(0).toUpperCase() + genre.slice(1)}</option>
                                 ))}
                             </select>
                         </div>
