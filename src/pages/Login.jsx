@@ -12,6 +12,7 @@ import { db } from '../services/firebase';
 import About from '../components/about/About';
 import Alert from '@mui/material/Alert';
 
+import bigScreenImg from '../assets/img/login/login-2700.webp';
 import desktopImg from '../assets/img/login/login-2000.webp';
 import tabletImg from '../assets/img/login/login-1700.webp';
 import mobileImg from '../assets/img/login/login-1000.webp';
@@ -26,11 +27,11 @@ const Login = () => {
     const [register, setRegister] = useState(false);
     const [message, setMessage] = useState({ type: null, content: null });
 
-    const { isTablet, isDesktop } = useMediaQueries();
+    const { isTablet, isDesktop, isBigScreen } = useMediaQueries();
     const { auth } = useAuth(); 
     const navigate = useNavigate();
 
-    const background = isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
+    const background = isBigScreen ? bigScreenImg : isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
 
     // User document template
     const userTemplate = (email) => {

@@ -14,6 +14,7 @@ export const MediaQueriesProvider = ({ children }) => {
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
     const [isDesktop, setIsDesktop] = useState(true);
+    const [isBigScreen, setIsBigScreen] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -21,15 +22,23 @@ export const MediaQueriesProvider = ({ children }) => {
                 setIsMobile(true);
                 setIsTablet(false);
                 setIsDesktop(false);
+                setIsBigScreen(false);
             } else if (window.innerWidth <= 1024) {
                 setIsTablet(true);
                 setIsMobile(false);
                 setIsDesktop(false);
-                
-            } else {
+                setIsBigScreen(false);
+            } else if(window.innerWidth <= 2000){
                 setIsDesktop(true);
+                setIsBigScreen(false);
                 setIsMobile(false);
                 setIsTablet(false);
+            }else{
+                setIsDesktop(false);
+                setIsBigScreen(true);
+                setIsMobile(false);
+                setIsTablet(false);
+        
             }
         };
 
@@ -44,18 +53,27 @@ export const MediaQueriesProvider = ({ children }) => {
             setIsMobile(true);
             setIsTablet(false);
             setIsDesktop(false);
+            setIsBigScreen(false);
         } else if (window.innerWidth <= 1024) {
             setIsTablet(true);
             setIsMobile(false);
             setIsDesktop(false);
-        } else {
+            setIsBigScreen(false);
+        } else if(window.innerWidth <= 2000){
             setIsDesktop(true);
+            setIsBigScreen(false);
             setIsMobile(false);
             setIsTablet(false);
+        }else{
+            setIsDesktop(false);
+            setIsBigScreen(true);
+            setIsMobile(false);
+            setIsTablet(false);
+    
         }
     }, []);
 
-    const value = { isMobile, isTablet, isDesktop };
+    const value = { isMobile, isTablet, isDesktop, isBigScreen };
 
     return <MediaQueriesContext.Provider value={value}>{children}</MediaQueriesContext.Provider>;
 }

@@ -201,13 +201,13 @@ const List = () => {
                 }
             </div>
             <div className="flex items-end justify-center mb-8 gap-1" id="book-list">
-                <div className="flex flex-col items-center gap-2 p-4 m-5">
-                    <div className="flex flex-col xs:flex-row items-center gap-4">
+                <div className="flex flex-col items-center xs:gap-2 p-4 m-5">
+                    <div className="flex flex-col xs:flex-row items-center text-center gap-4">
                         {icons[listName] || <DashboardRounded className="text-gray-500" />}
                         {editing ?
                             <input type="text" value={newListName} className=" w-fit rounded-full text-center border-gray-300" onChange={(e) => setNewListName(e.target.value)} />
                             :
-                            <h1 className="text-3xl font-semibold">{listNameTitle}</h1>
+                            <h1 className="text-xl sm:text-3xl font-semibold">{listNameTitle}</h1>
                         }
                         {!defaultLists.includes(listName) &&
 

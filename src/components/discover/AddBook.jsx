@@ -94,8 +94,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             return false;
         }
 
-        //author y publisher solo letras, espacios y otros caracteres aceptados
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-&!]+$/.test(bookInfo.author) || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-&!]+$/.test(bookInfo.publisher)) {
+        //author y publisher solo letras, espacios y otros caracteres aceptados como & - . ' 
+        if (!/^[a-zA-ZÀ-ÿ\s&\-.'\u00C0-\u00FF]+$/.test(bookInfo.author) || !/^[a-zA-ZÀ-ÿ\s&\-.'\u00C0-\u00FF]+$/.test(bookInfo.publisher)) {
             setMessage({ type: "error", content: "Author and publisher must only contain letters, spaces, hyphens, apostrophes and accents" });
             return false;
         }
@@ -220,7 +220,7 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                             <input type="number" id="pages" placeholder="Number of pages" name="pages" className="input" value={bookInfo.pages} onChange={handleChange} min="1" required />
                         </div>
                         <div className="flex flex-col gap-1">
-                            <label htmlFor="published">Published:</label>
+                            <label htmlFor="published">Publishement year:</label>
                             <input type="text" id="published" placeholder="Year of publishment" name="published" className="input" value={bookInfo.published} onChange={handleChange} required />
                         </div>
                         <div className="flex flex-col gap-1">

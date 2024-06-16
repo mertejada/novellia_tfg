@@ -164,7 +164,7 @@ const NavBar = ({ setShowSessionTimer }) => {
              {renderUserImg()}
 
                 {isUserMenuOpen && (
-                    <div className="absolute top-20 right-0 z-30 bg-white px-4 opacity-95 border  xs:opacity-100 rounded py-5 xs:m-4 text-center w-full xs:w-fit" ref={profileMenuRef}>
+                    <div className="absolute top-0 xs:top-20 right-0 z-30 bg-white px-4 border  xs:opacity-100 rounded py-5 xs:m-4 -scroll-mx-10z text-center w-full xs:w-fit" ref={profileMenuRef}>
                         <CancelRoundedIcon onClick={toggleUserMenu} className="cursor-pointer text-gray-300" />
 
                         <ul className="m-4 flex gap-2 flex-col">

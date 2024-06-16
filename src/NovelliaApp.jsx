@@ -58,7 +58,7 @@ function App() {
         return (
             <div className="bg-white flex flex-col gap-5 justify-center items-center h-screen w-screen" >
                 <img src={loadingGif
-                } alt="Loading" className="w-32" width={50} color="inherit" />
+                } alt="Loading" className="w-32 2xl:w-40" width={50} color="inherit" />
                 <Stack sx={{ color: 'black' }} >
                 <CircularProgress size={30} color="inherit" />
                 </Stack>
