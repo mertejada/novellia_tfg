@@ -2,8 +2,19 @@ import { update } from "firebase/database";
 import React from "react";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
-
+/**
+ * 
+ * @param {*} formData
+ * @param {*} setFormData
+ * @returns 
+ */
 const StepPersonal = ({ formData, setFormData }) => {
+    const { isMobile } = useMediaQueries();
+
+    /**
+     * Handle form input change
+     * @param {*} e 
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -15,10 +26,9 @@ const StepPersonal = ({ formData, setFormData }) => {
         }));
     };
 
-    const { isMobile } = useMediaQueries();
  
     return (
-        <div className="flex flex-col items-center gap-2 p-5 sm:p-5 overflow-y-auto overflow-x-scroll md:gap-5 w-full" style={{ maxHeight: isMobile ? "calc(60vh - 100px)" : "none" }}>
+        <section className="flex flex-col items-center gap-2 p-5 sm:p-5 overflow-y-auto overflow-x-scroll md:gap-5 w-full" style={{ maxHeight: isMobile ? "calc(60vh - 100px)" : "none" }}>
             <div className="w-full flex flex-col md:items-center justify-center md:justify-between md:flex-row gap-4 ">
                 <div className="flex flex-col gap-2 ">
                     <label className="text-gray-600 dark:text-gray-400">Name</label>
@@ -99,7 +109,7 @@ const StepPersonal = ({ formData, setFormData }) => {
                     </select>
                 </div>
             </div>
-        </div>
+        </section>
 
     )
 }

@@ -4,6 +4,13 @@ import { collection, getDocs } from "firebase/firestore";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+
+/**
+ * 
+ * @param {*} formData
+ * @param {*} setFormData
+ * @returns 
+ */
 function StepsInterest({ formData, setFormData }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,19 +18,30 @@ function StepsInterest({ formData, setFormData }) {
   const [genresData, setGenresData] = useState([]);
   const { isMobile } = useMediaQueries();
 
+  /**
+   * Fetch genres from database
+   * @returns {void}
+   */
   const getGenres = async () => {
     const querySnapshot = await getDocs(collection(db, "genres"));
     const genres = querySnapshot.docs.map(doc => doc.id);
     const genresData = querySnapshot.docs.map(doc => doc.data());
+
     setGenres(genres);
     setGenresData(genresData);
     setLoading(false);
   };
 
+  // Fetch genres on component mount
   useEffect(() => {
     getGenres();
   }, []);
 
+  /**
+   * Toggle genre selection
+   * @param {*} genre 
+   * @returns {void}
+   */
   const toggleGenre = (genre) => {
     if (selectedGenres.includes(genre)) {
       setSelectedGenres(selectedGenres.filter((selected) => selected !== genre));
@@ -34,18 +52,18 @@ function StepsInterest({ formData, setFormData }) {
     }
   };
 
+  // Update formData when selectedGenres change
   useEffect(() => {
-    // Update formData when selectedGenres change
     setFormData({
-      ...formData,
-      genres: selectedGenres,
+      ...formData, //maintain the other form data
+      genres: selectedGenres, //update user genres
     });
   }, [selectedGenres, setFormData]);
 
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center overflow-y-auto  h-fit" >
-      <h2 className="text-2xl text-center mt-10 w-3/4 text-gray-300">Choose 3 genres you are interested in!</h2>    
+    <main className="flex flex-col gap-2 items-center justify-center overflow-y-auto  h-fit" >
+      <h2 className="text-2xl text-center mt-10 w-3/4 text-gray-300">Choose 3 genres you are interested in!</h2>
       <div className=" flex flex-wrap justify-center items-center p-5 overflow-y-auto h-fit" style={{ maxHeight: isMobile ? "calc(60vh - 200px)" : "none" }}>
         {loading ? <p>Loading...</p> :
           <div className=" grid gap-2 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center overflow-y-auto h-fit" >
@@ -68,7 +86,7 @@ function StepsInterest({ formData, setFormData }) {
           </div>
         }
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -18,18 +18,21 @@ import mobileImg from '../assets/img/login/login-1000.webp';
 
 
 
-
+/**
+ * 
+ * @returns Login page 
+ */
 const Login = () => {
     const [register, setRegister] = useState(false);
     const [message, setMessage] = useState({ type: null, content: null });
-    const { isMobile, isTablet, isDesktop } = useMediaQueries();
 
-    const background = isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
-
+    const { isTablet, isDesktop } = useMediaQueries();
     const { auth } = useAuth(); 
     const navigate = useNavigate();
 
+    const background = isDesktop ? desktopImg : isTablet ? tabletImg : mobileImg;
 
+    // User document template
     const userTemplate = (email) => {
         let userData = {
             email: email,
@@ -53,6 +56,11 @@ const Login = () => {
     }
 
 
+    /**
+     * Authentication function
+     * @param {Event} event
+     * @returns Authentication function
+     */
     const authentication = async (event) => {
         event.preventDefault();
 
@@ -60,17 +68,19 @@ const Login = () => {
         const password = event.target.password.value;
 
         if (register && event.target.password_repeat.value !== password) {
-            setPasswordMatchError(true);
+            setPasswordMatchError(true); // if both password inputs don't match
             setMessage({ type: "error", content: "Passwords do not match." });
             return;
         }
 
         try {
-            if (register) {
+            if (register) { 
+                // Create user and set user document
                 await createUserWithEmailAndPassword(auth, email, password);
                 await setDoc(doc(db, "users", auth.currentUser.uid), userTemplate(email));
             
             } else {
+                // Sign in 
                 await signInWithEmailAndPassword(auth, email, password);
             }
 
@@ -80,6 +90,10 @@ const Login = () => {
         }
     };
 
+    /**
+     * 
+     * @returns Sign in with Google
+     */
     const signInWithGoogle = async () => {
         try {
             const provider = new GoogleAuthProvider();
@@ -91,13 +105,12 @@ const Login = () => {
             const userDocRef = doc(db, "users", auth.currentUser.uid);
             const docSnap = await getDoc(userDocRef);
 
+            // Create user document if it doesn't exist
             if (!docSnap.exists()) {
                 await setDoc(userDocRef, userTemplate(email));
                 navigate("/");
                 return;
-                
             }
-
             navigate("/");
             
         } catch (error) {
@@ -105,6 +118,11 @@ const Login = () => {
         }
     };
 
+    /**
+     * Message for error handling
+     * @param {*} errorCode 
+     * @returns Error message
+     */
     const errorType = (errorCode) => {
         let errorMessage = "";
         switch (errorCode) {
@@ -159,7 +177,7 @@ const Login = () => {
                             </button>
                         </form>
                         <h3 className="text-gray text-center cursor-default mt-4">{register ? "Already have an account? " : "Don't have an account? "}
-                            <button className="text-blue-500" onClick={() => { setRegister(!register); setShowError(""); setPasswordMatchError(false); }}>{register ? "Log in here." : "Sign up here."}</button>
+                            <button className="text-blue-500" onClick={() => { setRegister(!register); setPasswordMatchError(false); }}>{register ? "Log in here." : "Sign up here."}</button> {/** Change to login or register */}
                         </h3>
                     </div>
                 </div>

@@ -20,7 +20,11 @@ import BookIcon from '@mui/icons-material/Book';
 import ErrorIcon from '@mui/icons-material/Error';
 
 
-
+/**
+ * 
+ * @param {*} handleClose
+ * @returns User Register form
+ */
 const UserRegister = ({ handleClose }) => {
 
     const { user } = useAuth();
@@ -36,7 +40,7 @@ const UserRegister = ({ handleClose }) => {
         }
     }, []);
 
-
+    // Form data
     const [formData, setFormData] = useState({
         personalInfo: {
             name: "",
@@ -54,7 +58,10 @@ const UserRegister = ({ handleClose }) => {
         userInfo: true 
     });
 
-
+    /**
+     * Validate step data and move to next step
+     * @returns 
+     */
     const nextStep = () => {
         if (step === 0 && !validatePersonalInput()) {
             return;
@@ -66,10 +73,12 @@ const UserRegister = ({ handleClose }) => {
         setStep(step + 1);
     }
 
+    /**
+     * Validate personal input
+     */
     const validatePersonalInput = () => {
         const { name, lastName, phoneNumber, birthDate } = formData.personalInfo;
         const currentDate = new Date();
-
 
         if (name === "" || lastName === "" || phoneNumber === "" || birthDate === "") {
             setFormErrorMsg("You must fill all the fields to continue");
@@ -91,7 +100,6 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
-    
         if (!/^[a-zA-ZÀ-ÿ\s-]*$/.test(name) || !/^[a-zA-ZÀ-ÿ\s-]*$/.test(lastName)) {
             setFormErrorMsg("Name and last name must only contain letters, spaces, hyphens and accents");
             return false;
@@ -102,11 +110,13 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
-
         setFormErrorMsg(null);
         return true;
     }
 
+    /**
+     * Validate goals input
+     */
     const validateGoalsInput = () => {
         const { dailyReading, booksPerYear, diffGenres } = formData.readingGoals;
 
@@ -115,18 +125,21 @@ const UserRegister = ({ handleClose }) => {
             return false;
         }
 
-        
-
         setFormErrorMsg(null);
         return true;
     }
 
-
+    /**
+     * Handle previous step
+     */
     const previousStep = () => {
         setStep(step - 1);
     }
 
-
+    /**
+     * Upload user data to database
+     * @returns {void}
+     */
     const uploadUserData = async () => {
         try {
             const userDocRef = doc(db, "users", user.uid);
@@ -137,6 +150,10 @@ const UserRegister = ({ handleClose }) => {
         }
     }
 
+    /**
+     * Render form based on step
+     * @returns
+     * */
     const renderForm = () => {
         switch (step) {
             case 0:
@@ -151,8 +168,8 @@ const UserRegister = ({ handleClose }) => {
     }
 
     return (
-        <div id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="form-container bg-white m-5 rounded-2xl shadow-lg  p-4 md:p-8 h-fit" style={{ width: isMobile ? "90%" : "70%" }}>
+        <section id="register-form" className="form fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+            <article className="form-container bg-white m-5 rounded-2xl shadow-lg  p-4 md:p-8 h-fit" style={{ width: isMobile ? "90%" : "70%" }}>
                 <div className="flex flex-col">
                     <h1 className="  mb-10 mt-5 self-center text-xl text-center md:text-left md:text-2xl">Welcome to <span className="text-2xl md:text-4xl gradient text-gradient font-extrabold font-playfair">Novellia!</span></h1>
                     <ol className="pb-6 mx-4 flex items-center text-sm font-medium text-center text-gray-300 dark:text-gray-400 sm:text-base flex-wrap sm:flex-nowrap">
@@ -195,9 +212,9 @@ const UserRegister = ({ handleClose }) => {
                         {step < 2 ? <button onClick={nextStep} className=" bg-carrot button-register" >Continue</button> : <button className=" bg-carrot button button-register" onClick={uploadUserData}>Finish</button>}
                     </div>
                 </div>
-            </div>
+            </article>
 
-        </div>
+        </section>
     )
 }
 

@@ -9,23 +9,32 @@ import NewBooks from "../components/home/NewBooks";
 import UserRegister from "../components/userRegister/UserRegister";
 import RecommendedBook from "../components/home/RecommendedBook";
 
-
+/**
+ * 
+ * @returns Home page
+ */
 const Home = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [userGenres, setUserGenres] = useState(null); 
     const [showForm, setShowForm] = useState(false);
     const { user } = useAuth();
 
+    // Fetch user data
     useEffect(() => {
         if (user && user.uid) {
             const userDocRef = doc(db, 'users', user.uid);
 
+            /**
+             * Fetch user data
+             * @param {Object} docSnapshot 
+             * @returns {void}
+             */
             const unsubscribe = onSnapshot(userDocRef, (docSnapshot) => {
                 if (docSnapshot.exists()) {
                     const userData = docSnapshot.data();
                     setUserInfo(userData.userInfo);
                     setUserGenres(userData.genres);
-                    setShowForm(!userData.userInfo);
+                    setShowForm(!userData.userInfo); // Show form if not user info
                 } else {
                     console.log('No data available');
                 }
@@ -37,6 +46,7 @@ const Home = () => {
         }
     }, [user]);
 
+    // Close form
     const handleClose = () => {
         setShowForm(false); 
     }
@@ -44,19 +54,15 @@ const Home = () => {
     return (
         <main className="">
             {showForm && <UserRegister handleClose={handleClose} />}
-
             <HomeIntro id="about-info"/>
+
             <div id="new-books"></div>
             <NewBooks />
             <RecommendedBook userGenres={userGenres} />
 
-
             <div id="about"></div>
             <About />
-
         </main>
-
-
     );
 };
 

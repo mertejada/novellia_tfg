@@ -7,6 +7,11 @@ import { useMediaQueries } from '../../contexts/MediaQueries';
 
 import { PersonRounded as PersonRoundedIcon, FlagRounded as FlagRoundedIcon, ExitToAppRounded as ExitToAppRoundedIcon, MenuRounded as MenuRoundedIcon, PlayCircleRounded as PlayCircleRoundedIcon, CancelRounded as CancelRoundedIcon } from '@mui/icons-material';
 
+/**
+ * 
+ * @param {*} setShowSessionTimer
+ * @returns Navigation bar component
+ */
 const NavBar = ({ setShowSessionTimer }) => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isLinksMenuOpen, setIsLinksMenuOpen] = useState(false);
@@ -20,6 +25,7 @@ const NavBar = ({ setShowSessionTimer }) => {
     const { user, isAdmin, logout } = useAuth();
     const { isMobile, isDesktop } = useMediaQueries();
 
+    // Close the user menu when clicking outside of it
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
@@ -37,14 +43,23 @@ const NavBar = ({ setShowSessionTimer }) => {
         };
     }, []);
 
+    /**
+     * Toggle the user menu
+     */
     const toggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen);
     };
 
+    /**
+     * Toggle the links menu
+     */
     const toggleLinksMenu = () => {
         setIsLinksMenuOpen(!isLinksMenuOpen);
     };
 
+    /**
+     * Handle the logout
+     */
     const handleLogout = () => {
         logout();
         navigate("/");
@@ -61,6 +76,10 @@ const NavBar = ({ setShowSessionTimer }) => {
         { name: "Genres", path: "/admin/genres" },
     ];
 
+    /**
+     * 
+     * @returns User image component
+     */
     const renderUserImg = () => {
         return user.photoURL ? (
             <img
@@ -75,6 +94,11 @@ const NavBar = ({ setShowSessionTimer }) => {
         );  
     };
 
+    /**
+     * Create the links component
+     * @param {*} links 
+     * @returns Links component
+     */
     const renderLinks = (links) => {
         return isMobile ? (
             <>
@@ -109,6 +133,10 @@ const NavBar = ({ setShowSessionTimer }) => {
         );
     };
 
+    /**
+     * 
+     * @returns Admin navigation component
+     */
     const renderAdminNav = () => (
         <div className="flex items-center gap-2  text-gray-800 cursor-pointer">
             {renderLinks(adminLinks)}
@@ -117,6 +145,10 @@ const NavBar = ({ setShowSessionTimer }) => {
         </div>
     );
 
+    /**
+     * 
+     * @returns User navigation component
+     */
     const renderUserNav = () => (
         <div className="flex gap-2 sm:gap-5 items-center text-gray-800 cursor-pointer">
 
@@ -132,7 +164,7 @@ const NavBar = ({ setShowSessionTimer }) => {
              {renderUserImg()}
 
                 {isUserMenuOpen && (
-                    <div className="absolute top-20 right-0 z-30 bg-white px-4 opacity-95 border  xs:opacity-100 rounded py-5 m-4 text-center w-full sm:w-fit" ref={profileMenuRef}>
+                    <div className="absolute top-20 right-0 z-30 bg-white px-4 opacity-95 border  xs:opacity-100 rounded py-5 xs:m-4 text-center w-full xs:w-fit" ref={profileMenuRef}>
                         <CancelRoundedIcon onClick={toggleUserMenu} className="cursor-pointer text-gray-300" />
 
                         <ul className="m-4 flex gap-2 flex-col">

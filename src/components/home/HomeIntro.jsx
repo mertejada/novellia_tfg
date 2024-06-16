@@ -8,13 +8,19 @@ import { Link } from "react-router-dom";
 
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
-
+/**
+ * 
+ * @returns Home Intro component
+ */
 const HomeIntro = () => {
     const { isTablet, isMobile } = useMediaQueries();
     const height = isMobile ? 500 : isTablet ? 600 : 800;
     const width = isMobile ? 300 : isTablet ? 400 : 600;
     const videoSrc = isMobile ? videoBgMobile : isTablet ? videoBgTablet : videoBg;
 
+    /**
+     * Scroll to the about section
+     */
     const leadToAbout = () => {
         const aboutSection = document.getElementById('about');
         if (aboutSection) {
@@ -22,6 +28,9 @@ const HomeIntro = () => {
         }
     };
 
+    /**
+     * Scroll to the new books section
+     */
     const leadToNewBooks = () => {
         const newBooksSection = document.getElementById('new-books');
         if (newBooksSection) {
@@ -30,7 +39,7 @@ const HomeIntro = () => {
     };
 
     return (
-        <div className="bg-black relative">
+        <section className="bg-black relative">
             <video src={videoSrc} autoPlay loop muted className="w-full h-full object-cover opacity-20" width={width} height={height}></video>
 
             {!isMobile && (
@@ -44,7 +53,7 @@ const HomeIntro = () => {
                 </div>
             )}
 
-            <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center p-4 gap-4 text-center">
+            <article className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center p-4 gap-4 text-center">
                 {isMobile && (
                     <ul className="flex items-center gap-4 justify-center ">
                         <li className="text-white  cursor-pointer opacity-60 hover:opacity-100 transition-opacity duration-300 ease-in-out" onClick={leadToNewBooks}>New
@@ -76,8 +85,8 @@ const HomeIntro = () => {
                         Your bookshelf
                     </Link>
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
     );
 }
 

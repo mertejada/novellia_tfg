@@ -10,9 +10,14 @@ import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded';
 
 import Alert from '@mui/material/Alert';
 
+/**
+ * 
+ * @param {*} setShowSessionTimer
+ * @returns  Session Timer component
+ */
 const SessionTimer = ({ setShowSessionTimer }) => {
-    const [time, setTime] = useState(0);
-    const [timerId, setTimerId] = useState(null);
+    const [time, setTime] = useState(0); // Time in seconds
+    const [timerId, setTimerId] = useState(null); // Timer ID used to clear the interval
     const today = new Date();
 
     const { user } = useAuth();
@@ -22,28 +27,33 @@ const SessionTimer = ({ setShowSessionTimer }) => {
     let saveColor = time == 0 ? "text-gray-300" : "text-carrot hover:bg-gray-100";
     let restartColor = time == 0 ? "text-gray-300" : "text-red-500 hover:bg-gray-100";
 
+    /**
+     * Start the timer
+     */
     const handlePlay = () => {
         if (!timerId) {
-            const id = setInterval(() => {
+            const id = setInterval(() => { // Increment the time every second
                 setTime(prevTime => prevTime + 1);
             }, 1000);
             setTimerId(id); 
-
         }
     }
 
+    /**
+     * Pause the timer
+     */
     const handlePause = () => {
         if (timerId) {
             clearInterval(timerId);
             setTimerId(null);
             return;
         }
-
-        const id = setInterval(() => {
-            setTime(prevTime => prevTime + 1);
-        }, 1000);
     }
 
+    /**
+     * Stop the timer and save the session
+     * @returns {void}
+     */
     const handleStop = async () => {
         if(time == 0) {
             setMessage({ type: "error", content: "Session time is 0" });
@@ -54,7 +64,6 @@ const SessionTimer = ({ setShowSessionTimer }) => {
             , 3500);
             return;
         }
-
 
         if (timerId) {
             clearInterval(timerId);
@@ -67,7 +76,7 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         if (docSnap.exists()) {
             const userDoc = docSnap.data();
             const sessions = userDoc.readingSessions || [];
-            const session = {
+            const session = { // Create a new session object with the current date and time
                 date: new Date().toISOString(),
                 time: time
             };
@@ -78,10 +87,8 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                 readingSessions: sessions
             });
 
-            //REINICIAR A 0
+            // Reset the timer
             setTime(0);
-
-
         } else {
             await setDoc(userDocRef, {
                 readingSessions: [session]
@@ -97,6 +104,9 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         console.log("Session saved");
     }
 
+    /**
+     * Restart the timer
+     */
     const handleRestart = () => {
         setTime(0);
         if (timerId) {
@@ -105,12 +115,11 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         }
     }
 
-    useEffect(() => {
-        return () => {
-            clearInterval(timerId);
-        };
-    }, [timerId]);
-
+    /**
+     * Format the time in seconds to HH:MM:SS to display
+     * @param {*} totalSeconds 
+     * @returns Formatted time
+     */
     const formatTime = (totalSeconds) => {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -119,13 +128,19 @@ const SessionTimer = ({ setShowSessionTimer }) => {
         return `${hours > 0 ? hours.toString().padStart(2, '0') : ''}${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
 
+    // Clear the interval when the component unmounts
+    useEffect(() => {
+        return () => {
+            clearInterval(timerId);
+        };
+    }, [timerId]);
+
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white xs:p-2 sm:p-4 rounded-lg">
                 <div className="flex justify-end items-center gap-1 text-gray-300 hover:text-gray-500 transition-all duration-150 ease-in-out">
                     <CloseRoundedIcon className="cursor-pointer m-2" onClick={() => setShowSessionTimer(false)} fontSize="small" />
-
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2 text-center p-6">
                     <div className="flex flex-col items-center gap-1">
@@ -133,12 +148,8 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                         <h2 className="text-xl">Reading session</h2>
                         <p className="text-gradient gradient text-sm">{today.toDateString()}</p>
                     </div>
-
                     <p className=" text-6xl font-extralight font-poppins">{formatTime(time)}</p>
-
-
                     <div className="flex  items-center xs:pl-1 sm:pl-3 mt-5 gap-1   ">
-                        
                     <button className={`flex gap-1 font-normal px-2 py-1 items-center justify-center  transition-all duration-150 ease-in-out    hover:bg-gray-100 hover:border-gray-100  rounded-full  border-gray-300 ${saveColor}`} onClick={handleRestart}>
                             <RestartAltRoundedIcon />
                         </button>
@@ -146,33 +157,21 @@ const SessionTimer = ({ setShowSessionTimer }) => {
                             <StopCircle /> Save
                         </button>
                         {!timerId ?
-
                             (
                                 <button className="flex gap-1 font-normal w-28    px-4 py-1 items-center transition-all duration-150 ease-in-out hover:bg-black hover:text-white hover:border-black  rounded-full  border-black text-black" onClick={handlePlay}>
                                     <PlayCircle className="" /> Start
                                 </button>
                             )
                             :
-
                             (
                                 <button className="flex gap-2 font-normal w-28   px-4 py-1 items-center   transition-all duration-150 ease-in-out  hover:bg-black hover:text-white hover:border-black  rounded-full  border-black text-black" onClick={handlePause}>
                                     <PauseCircle /> Pause
                                 </button>)
                         }
-                        
-                        
-                        
-
-
-
                     </div>
-
-
                     {message.type !== null ? <Alert severity={message.type} className="mt-5">{message.content}</Alert> :
                     <p className="text-xs bg-slate-100 text-slate-600 w-48 mt-5 p-3 rounded-xl">Always save your session before closing the window</p>
                     }
-
-                    
                 </div>
             </div>
         </div>

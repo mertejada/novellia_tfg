@@ -5,6 +5,10 @@ import Books from "../components/discover/Books";
 import AddBook from '../components/discover/AddBook';
 import SearchBar from '../components/discover/SearchBar';
 
+/**
+ * 
+ * @returns Admin Books page
+ */
 const AdminBooks = () => {
     const [showAddBook, setShowAddBook] = useState(false);
 

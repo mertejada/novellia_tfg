@@ -9,23 +9,32 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import Box from '@mui/material/Box';
 
+/**
+ * 
+ * @returns Lists component
+ */
 const Lists = () => {
     const [showAddList, setShowAddList] = useState(false);
     const { userLists } = useAuth();
 
+    /**
+     * Show the AddList component
+     */
     const handleListCreation = () => {
         setShowAddList(true);
     }
 
+    /**
+     * Close the AddList component
+     */
     const handleClose = () => {
         setShowAddList(false);
     };
 
-
     const defaultLists = ['currentlyReading', 'wishList', 'favourites', 'finishedBooks'];
 
     return (
-        <div className="content">
+        <section className="content">
             <h2 className="subtitle text-center  sm:text-start my-5">Your lists</h2>
             {userLists ? (
                 <>
@@ -59,7 +68,7 @@ const Lists = () => {
             ) : (
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><CircularProgress /></Box>
             )}
-        </div>
+        </section>
     );
 };
 

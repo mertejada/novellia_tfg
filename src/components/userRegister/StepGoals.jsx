@@ -1,9 +1,19 @@
 import React from "react";
 import { useMediaQueries } from '../../contexts/MediaQueries';
 
+/**
+ * 
+ * @param {*} formData
+ * @param {*} setFormData 
+ * @returns 
+ */
 const StepsGoals = ({ formData, setFormData }) => {
     const { isMobile } = useMediaQueries();
 
+    /**
+     * Handle form input change
+     * @param {*} e 
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -17,7 +27,7 @@ const StepsGoals = ({ formData, setFormData }) => {
     };
 
     return (
-        <div className="flex flex-col items-center gap-5 p-5 sm:p-5 overflow-y-auto overflow-x-scroll md:gap-10" style={{ maxHeight: isMobile ? "calc(60vh - 100px)" : "none" }}>
+        <section className="flex flex-col items-center gap-5 p-5 sm:p-5 overflow-y-auto overflow-x-scroll md:gap-10" style={{ maxHeight: isMobile ? "calc(60vh - 100px)" : "none" }}>
             <h2 className="text-2xl text-center mb-6 mx-7 w-1/2 text-gray-300">Tell us about your yearly goals!</h2>
             <div className="flex flex-col md:flex-row gap-7">
                 <div className="flex flex-col w-full md:w-1/3 gap-2 items-center">
@@ -63,7 +73,7 @@ const StepsGoals = ({ formData, setFormData }) => {
                     />
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

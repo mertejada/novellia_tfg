@@ -9,7 +9,10 @@ import ProgressItem from "./ProgressItem";
 
 import Modal from '@mui/material/Modal';
 
-
+/**
+ * 
+ * @returns Progress component
+ */
 const Progress = () => {
     const { user } = useAuth();
     const [loading, setLoading] = useState(true);
@@ -27,10 +30,14 @@ const Progress = () => {
 
     const [todaysReading, setTodaysReading] = useState(0);
 
-
+    /**
+     * Get user information from database
+     * @returns {void}
+     */
     const getUserInfo = () => {
         const userDocRef = doc(db, 'users', user.uid);
 
+        // Get user information in real-time updates
         onSnapshot(userDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const userDoc = docSnap.data();
@@ -44,6 +51,9 @@ const Progress = () => {
         });
     }
 
+    /**
+     * Get years from user reading sessions and finished books
+     */
     const getYears = () => {
         let years = [];
 
@@ -68,7 +78,9 @@ const Progress = () => {
         setYearOptions(uniqueYears);
     }
 
-
+    /**
+     * Get today's reading time
+     */
     const getTodaysReading = async () => {
 
         let todaysReading = 0;
@@ -87,6 +99,9 @@ const Progress = () => {
         setTodaysReading(Math.floor(todaysReading / 60));
     }
 
+    /**
+     * Get this year's total reading hours
+     */
     const getThisYearTotalHours = () => {
         let totalHours = 0;
 
@@ -103,6 +118,9 @@ const Progress = () => {
         setThisYearTotalHours(Math.floor(totalHours / 3600));
     }
 
+    /**
+     * Get this year's finished books
+     */
     const getThisYearFinishedBooks = () => {
         let finishedBooks = 0;
 
@@ -116,9 +134,14 @@ const Progress = () => {
         setThisYearFinishedBooks(finishedBooks);
     };
 
+    /**
+     * Get this year's different genres
+     * @returns {void}
+     */
     const getThisYearDiffGenres = async () => {
         let genres = [];
 
+        // From all the finished books, get the genres and filter by the selected year
         const promises = Object.values(userFinishedBooks).map(async (book) => {
             const bookDate = new Date(book.finishedDate);
 
@@ -135,6 +158,7 @@ const Progress = () => {
 
         const results = await Promise.all(promises);
 
+        // Filter out null values and get unique genres
         genres = results.filter(genre => genre !== null);
         const uniqueGenres = [...new Set(genres)];
 
@@ -142,43 +166,32 @@ const Progress = () => {
         setThisYearDiffGenresNum(uniqueGenres.length);
     };
 
+    /**
+     * Handle year change
+     * @param {*} e 
+     */
     const handleYearChange = (e) => {
         setSelectedYear(parseInt(e.target.value));
     }
 
-    const showCongratulationsModal = () => {
-        return (
-            <Modal
-                open={true}
-                onClose={() => { }}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <div className="bg-white p-5 rounded-lg w-96 mx-auto mt-20">
-                    <h1 className="text-center text-2xl font-bold">Congratulations!</h1>
-                    <p className="text-center text-lg">You've reached your daily reading goal!</p>
-                </div>
-            </Modal>
-        );
-    }
-
-
-
+    // Get user information on component mount
     useEffect(() => {
         getUserInfo();
     }, []);
 
-
+    // Get today's reading time on userReadingSessions change
     useEffect(() => {
         getTodaysReading();
     }, [userReadingSessions]);
 
+    // Get this year's progress on selectedYear change and userReadingSessions change
     useEffect(() => {
         getThisYearFinishedBooks();
         getThisYearDiffGenres();
         getThisYearTotalHours();
     }, [userFinishedBooks, userReadingSessions, selectedYear]);
 
+    // Get years on userReadingSessions and userFinishedBooks change
     useEffect(() => {
         getYears();
     }, [userReadingSessions, userFinishedBooks]);

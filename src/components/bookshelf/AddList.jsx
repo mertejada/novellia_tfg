@@ -36,18 +36,22 @@ const AddList = ({ handleClose, currentUserLists }) => {
         }
     }
 
+    /**
+     * Add a new list
+     * @returns {void}
+     */
     const addNewList = async () => {
         const listName = document.querySelector('input').value;
         if (listName) {
             try {
                 const userDocRef = doc(db, 'users', user.uid);
 
-                
                 if(listName.trim() === '') {
                     setMessage({ type: "error", content: "List name can't be empty" });
                     return;
                 }
 
+                // Convert list name to camelCase
                 const camelCaseListName = listName
                     .toLowerCase()
                     .replace(/\s+(.)/g, function (match, group1) {
@@ -74,8 +78,6 @@ const AddList = ({ handleClose, currentUserLists }) => {
             }
         }
     }
-
-
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50" onClick={handleClickOutside}>

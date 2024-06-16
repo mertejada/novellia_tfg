@@ -10,26 +10,28 @@ import { languages } from "../../data";
 import Alert from '@mui/material/Alert';
 import CancelRoundedIcon from '@mui/icons-material/Cancel';
 
-
+/**
+ * @param {*} toggleAddBook
+ * @param {*} adminVerified
+ * @returns 
+ */
 const AddBook = ({ toggleAddBook, adminVerified }) => {
     const navigate = useNavigate();
     const [message, setMessage] = useState({ type: null, content: null });
     const [genres, setGenres] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    /**
+     * Close the modal when clicking outside
+     * @param {*} e 
+     */
     const handleClickOutside = (e) => {
         if (e.target.classList.contains('fixed')) {
             toggleAddBook();
         }
     }
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
+    // Book info state
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
@@ -46,6 +48,10 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     });
 
     useEffect(() => {
+        /**
+         * Fetch genres from the database
+         * @returns {void}
+         */
         const fetchGenres = async () => {
             const querySnapshot = await getDocs(collection(db, "genres"));
             const genreNames = querySnapshot.docs.map(doc => doc.id);
@@ -55,11 +61,27 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         fetchGenres();
     }, []);
 
+    // Prevent scrolling when modal is open
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
+    /**
+     * Handle form input change
+     * @param {*} e 
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setBookInfo(prev => ({ ...prev, [name]: value }));
     }
 
+    /**
+     * Validate form data
+     * @returns {boolean}
+     */
     const validateFormData = () => {
         if (typeof bookInfo.author !== "string" || typeof bookInfo.title !== "string") {
             setMessage({ type: "error", content: "Author and title must be strings" });
@@ -72,12 +94,11 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
             return false;
         }
 
-        //author y publisher solo letras, espacios, guiones, apostrofes y acentos
-        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/.test(bookInfo.author) || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/.test(bookInfo.publisher)) {
+        //author y publisher solo letras, espacios y otros caracteres aceptados
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-&!]+$/.test(bookInfo.author) || !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-&!]+$/.test(bookInfo.publisher)) {
             setMessage({ type: "error", content: "Author and publisher must only contain letters, spaces, hyphens, apostrophes and accents" });
             return false;
         }
-
 
         //sipnosis minimo 50 caracteres
         if (bookInfo.sipnosis.length < 50) {
@@ -105,23 +126,25 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
         return true;
     }
 
-
+    /**
+     * Add a new book to the database
+     * @param {*} e 
+     * @returns {void}
+     */
     const addBook = async (e) => {
         e.preventDefault();
-
-        setIsSubmitting(true);
+        
+        setIsSubmitting(true);// Prevent multiple submissions
 
         const imageInputElement = document.getElementById("cover");
 
-        if (!imageInputElement.files[0]) {
+        if (!imageInputElement.files[0]) { // Check if an image was selected
             setMessage({ type: "error", content: "You must select a cover image" });
             setIsSubmitting(false);
             return;
         }
 
-        const imageFile = imageInputElement.files[0];
-
-
+        const imageFile = imageInputElement.files[0]; // Get the image file
 
         if (!validateFormData()) {
             setIsSubmitting(false);
@@ -130,33 +153,33 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
 
         setMessage({ type: "none", content: null });
 
-
         try {
 
-            if (!imageFile.type.includes("image/")) {
+            if (!imageFile.type.includes("image/")) { // Check if the file is an image
                 setMessage({ type: "error", content: "File must be an image" });
                 return;
             }
 
-            if (imageFile.size > 1000000) {
+            if (imageFile.size > 1000000) { // Check if the file is smaller than 1MB
                 setMessage({ type: "error", content: "File must be smaller than 1MB" });
                 return;
             }
 
+            // Upload the image to the storage
             let coverUrl = null;
 
             const storageRef = ref(storage, `covers/${imageFile.name}`);
             await uploadBytes(storageRef, imageFile);
             coverUrl = await getDownloadURL(storageRef);
 
-            bookInfo.cover = coverUrl;
+            bookInfo.cover = coverUrl; // Add the cover URL to the book info
             bookInfo.pages = parseInt(bookInfo.pages);
 
-            await addDoc(collection(db, "books"), bookInfo);
+            await addDoc(collection(db, "books"), bookInfo); // Add the book to the database
 
             setMessage({ type: "success", content: "Book added successfully" });
 
-            setTimeout(() => {
+            setTimeout(() => { // Close the modal after 3 seconds
                 setMessage({ type: null, content: null });
                 setIsSubmitting(false);
                 toggleAddBook();
@@ -171,8 +194,8 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center" onClick={handleClickOutside}>
-            <div className=" bg-white p-4 py-6 sm:p-8 rounded-xl m-10 md:m-20">
+        <section className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center" onClick={handleClickOutside}>
+            <article className=" bg-white p-4 py-6 sm:p-8 rounded-xl m-10 md:m-20">
                 <div className="flex justify-between items-center mb-5">
                     <h2 className="text-2xl font-normal"><span className="gradient text-gradient font-light ">Add a</span>  new book</h2>
                     <CancelRoundedIcon className="cursor-pointer text-gray-300" onClick={toggleAddBook} />
@@ -236,9 +259,9 @@ const AddBook = ({ toggleAddBook, adminVerified }) => {
                 {message.type === "success" && <Alert severity="success" className="mt-2">{message.content}</Alert>}
                 {message.type === "error" && <Alert severity="error" className="mt-2">{message.content}</Alert>}
 
-            </div>
+            </article>
 
-        </div>
+        </section>
     );
 }
 

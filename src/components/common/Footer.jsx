@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import logoImg from '../../assets/img/logo.png';
 import { useAuth } from "../../contexts/AuthContext";
 
-
+/**
+ * 
+ * @returns Footer component
+ */
 const Footer = () => {
     const { user, isAdmin } = useAuth();
 

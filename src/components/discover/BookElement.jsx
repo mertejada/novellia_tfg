@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../services/firebase";
-import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, deleteDoc, collection, getDocs } from "firebase/firestore";
 
 import AddToList from "../common/AddToList";
 
@@ -12,7 +12,16 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import VerifiedBook from '../common/VerifiedBook';
 
-
+/**
+ * @param {*} bookInfo
+ * @param {*} bookId
+ * @param {*} isList
+ * @param {*} listName
+ * @param {*} isAdmin
+ * @param {*} updateBooks
+ * @param {*} genres
+ * @returns 
+ */
 const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks, genres }) => {
     const { user, userLists } = useAuth();
     const [genreColor, setGenreColor] = useState('#FFFFFF');
@@ -20,10 +29,17 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
 
     const [showAddToList, setShowAddToList] = useState(false);
 
+    /**
+     * Toggle the AddToList component
+     */
     const toggleAddToList = () => {
         setShowAddToList(!showAddToList);
     }
 
+    /**
+     * Delete the book from the user's list
+     * @returns {void}
+     */
     const deleteBookFromList = async () => {
         try {
             if (userLists && userLists[listName]) {
@@ -36,11 +52,11 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
                     const userData = userDoc.data();
                     const lists = userData.lists || {};
 
-                    lists[listName] = updatedList;
+                    lists[listName] = updatedList; // Update the list 
 
                     await updateDoc(userRef, { lists });
 
-                    if (listName === "finishedBooks") {
+                    if (listName === "finishedBooks") { // If the book was in the finishedBooks list, delete the book
                         const finishedBooksInfo = userData.finishedBooksInfo || {};
                         delete finishedBooksInfo[bookId];
                         await updateDoc(userRef, { finishedBooksInfo });
@@ -57,15 +73,57 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
         }
     }
 
+    /**
+     * Delete the book from the database
+     * @returns {void}
+     */
     const deleteBook = async () => {
         try {
+            // Delete the book document
             await deleteDoc(doc(db, "books", bookId));
+    
+            // Delete the book from all users' lists
+            const usersCollectionRef = collection(db, "users");
+            const usersSnapshot = await getDocs(usersCollectionRef);
+    
+            usersSnapshot.forEach(async (userDoc) => {
+                const userData = userDoc.data();
+                const userLists = userData.lists || {};
+    
+                let listsUpdated = false;
+    
+                for (const listName in userLists) {
+                    // If the book is in the list
+                    if (userLists[listName].includes(bookId)) {
+                        // Delete the book from the list
+                        userLists[listName] = userLists[listName].filter(id => id !== bookId);
+                        listsUpdated = true;
+
+                        // If the book was in the finishedBooks list, delete the book info
+                        if (listName == "finishedBooks") {
+                            const finishedBooksInfo = userData.finishedBooksInfo;
+                            delete finishedBooksInfo[bookId];
+                            await updateDoc(userDoc.ref, { finishedBooksInfo });
+                        }
+                    }
+                }
+    
+                //Once the search is done, update the user document
+                if (listsUpdated) {
+                    await updateDoc(userDoc.ref, { lists: userLists });
+                }
+            });
+
             updateBooks();
         } catch (error) {
             console.error("Error deleting book:", error);
         }
     }
 
+    /**
+     * Get the genre info
+     * @returns {void}
+     */
     const getGenreInfo =  () => {
         genres.map(genre => {
             if (genre.id === bookInfo.genre) {
@@ -76,6 +134,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
         );
     }
 
+    // Get the genre info on component mount or when genres change
     useEffect(() => {
         if(genres){
             getGenreInfo();
@@ -83,7 +142,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
     }, [genres]);
 
     return (
-        <div className=" bg-white py-10 rounded-lg border shadow-md flex items-center flex-col">
+        <section className=" bg-white py-10 rounded-lg border shadow-md flex items-center flex-col">
             <img
                 src={bookInfo.cover}
                 alt={bookInfo.title}
@@ -156,7 +215,7 @@ const BookElement = ({ bookInfo, bookId, isList, listName, isAdmin, updateBooks,
 
 
             </div>
-        </div>
+        </section>
     );
 }
 

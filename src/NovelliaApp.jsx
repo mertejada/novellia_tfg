@@ -25,13 +25,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import './App.css';
 
+/**
+ * 
+ * @returns Main App component
+ */
 function App() {
     const { user, isAdmin, loading } = useContext(AuthContext);
     const [showSessionTimer, setShowSessionTimer] = useState(false);
     const [minLoading, setMinLoading] = useState(true);
 
     
-
+    // Disable scrolling when the session timer is active
     useEffect(() => {
         if (showSessionTimer) {
             document.body.style.overflow = 'hidden';
@@ -40,6 +44,7 @@ function App() {
         }
     }, [showSessionTimer]);
 
+    // Loading screen for 2 seconds while the user is being authenticated
     useEffect(() => {
         const timer = setTimeout(() => {
             setMinLoading(false);
@@ -48,6 +53,7 @@ function App() {
         return () => clearTimeout(timer);
     }, []);
 
+    // Loading screen if the user is being authenticated or the minimum loading screen
     if (loading || minLoading) {
         return (
             <div className="bg-white flex flex-col gap-5 justify-center items-center h-screen w-screen" >

@@ -4,7 +4,11 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import Popover from '@mui/material/Popover';
 
 
-
+/**
+ * 
+ * @param {*} fontSize
+ * @returns Verified book component
+ */
 const VerifiedBook = ({fontSize}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 

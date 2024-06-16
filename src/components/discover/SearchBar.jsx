@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
+/**
+ * 
+ * @param {*} isAdmin 
+ * @returns Search bar component
+ */
 const SearchBar = ({isAdmin}) => {
     const [books, setBooks] = useState(null);
     const [searchInput, setSearchInput] = useState('');
@@ -12,6 +17,10 @@ const SearchBar = ({isAdmin}) => {
 
     const navigate = useNavigate();
 
+    /**
+     * Fetch books from the database
+     * @returns {void}
+     */
     const fetchBooks = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, "books"));
@@ -25,10 +34,13 @@ const SearchBar = ({isAdmin}) => {
         }
     };
 
-    useEffect(() => {
-        fetchBooks();
-    }, []);
+    
 
+    /**
+     * Handle input change
+     * @param {*} event 
+     * @returns {void}
+     */
     const handleInputChange = (event) => {
         const input = event.target.value;
         setSearchInput(input);
@@ -44,6 +56,11 @@ const SearchBar = ({isAdmin}) => {
         }
     };
 
+    /**
+     * Redirect to book page
+     * @param {*} id 
+     * @returns  {void}
+     */
     const handleRedirection = (id) => () => {
         if(isAdmin){
             navigate(`/admin/books/${id}`);
@@ -55,6 +72,7 @@ const SearchBar = ({isAdmin}) => {
         setSearchInput('');
     };
 
+    // Close suggestions when clicking outside 
     useEffect(() => {
         const handleClick = (event) => {
             if (event.target.tagName !== 'INPUT') {
@@ -65,8 +83,13 @@ const SearchBar = ({isAdmin}) => {
         return () => document.removeEventListener('click', handleClick);
     }, []);
 
+    // Fetch books on component mount
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
     return (
-        <div className="relative w-3/4 sm:w-1/2 ">
+        <section className="relative w-3/4 sm:w-1/2 ">
             <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }}>
                 <SearchRoundedIcon style={{ color: 'black' }} />
             </div>
@@ -89,7 +112,7 @@ const SearchBar = ({isAdmin}) => {
                     ))}
                 </ul>
             )}
-        </div>
+        </section>
     );
 }
 

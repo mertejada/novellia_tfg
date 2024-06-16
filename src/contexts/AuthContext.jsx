@@ -8,6 +8,11 @@ export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
+/**
+ * 
+ * @param {*} children
+ * @returns  Auth context provider
+ */
 export const AuthProvider = ({ children }) => {
     const auth = getAuth(appFirebase);
 
@@ -18,6 +23,9 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
+        /**
+         * On auth state change, check if the user is logged in
+         */
         const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
             setLoading(true); 
             if (user) {
@@ -37,6 +45,9 @@ export const AuthProvider = ({ children }) => {
                     console.log("No such document!");
                 }
 
+                /**
+                 * Get user information in real-time updates
+                 */
                 const userDocUnsubscribe = onSnapshot(docRef, (doc) => {
                     if (doc.exists()) {
                         setUserLists(doc.data().lists);
@@ -49,6 +60,7 @@ export const AuthProvider = ({ children }) => {
                 }
                 , 1000);
 
+                // Cleanup
                 return () => {
                     userDocUnsubscribe();
                 };
@@ -61,12 +73,15 @@ export const AuthProvider = ({ children }) => {
             }
         });
 
-        // Limpieza de la suscripción al desmontar el componente
+        // Cleanup
         return () => {
             unsubscribeAuth();
         };
     }, [auth]);
 
+    /**
+     * Logout the user
+     */
     const logout = () => {
         signOut(auth).then(() => {
             setUser(null);

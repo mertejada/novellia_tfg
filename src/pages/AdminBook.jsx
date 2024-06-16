@@ -10,17 +10,26 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-
+/**
+ *
+ * @returns AdminBook page
+ */
 const AdminBook = () => {
     const [book, setBook] = useState({});
     const [genres, setGenres] = useState([]);
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState({ type: null, content: null });
     const [loading, setLoading] = useState(true);
+
     const location = useLocation();
     const bookId = location.pathname.split("/").pop();
 
+    // Fetch book data
     useEffect(() => {
+        /**
+         * Get book data
+         * @returns {void}
+         */
         const getBook = async () => {
             const docRef = doc(db, "books", bookId);
             const docSnap = await getDoc(docRef);
@@ -32,6 +41,7 @@ const AdminBook = () => {
                 console.log("No such document!");
             }
 
+            // Listen for changes on book
             const bookDocUnsubscribe = onSnapshot(docRef, (doc) => {
                 if (doc.exists()) {
                     setBook(doc.data());
@@ -49,7 +59,10 @@ const AdminBook = () => {
 
     }, []);
 
-
+    /**
+     * Handle form submit
+     * @param {*} e 
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -61,6 +74,10 @@ const AdminBook = () => {
         }
     };
 
+    /**
+     * Handle image change
+     * @param {*} e 
+     */
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -74,10 +91,15 @@ const AdminBook = () => {
         }
     };
 
+    /**
+     * Handle form change
+     * @param {*} e 
+     */
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Fetch genres
     useEffect(() => {
         const fetchGenres = async () => {
             const querySnapshot = await getDocs(collection(db, "genres"));
@@ -88,14 +110,11 @@ const AdminBook = () => {
         fetchGenres();
     }, [bookId]);
 
-
-    console.log(book.adminVerified);
-
     return (
         <>
             {loading ? <div className="flex justify-center items-center h-screen"><CircularProgress /></div> :
 
-                <div className="content mx-auto  p-8">
+                <main className="content mx-auto  p-8">
                     <div className="flex items-center mb-8">
                         <button className="text-zinc-200" onClick={() => navigate(-1)}>
                             <div className="flex items-center gap-2">
@@ -117,7 +136,7 @@ const AdminBook = () => {
                             </div>
                         }
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 my-10 gap-4 border border-gray-300 rounded-lg p-4 w-full bg-gray-50 shadow-md">
+                        <section className="grid grid-cols-1 md:grid-cols-2 my-10 gap-4 border border-gray-300 rounded-lg p-4 w-full bg-gray-50 shadow-md">
 
                             <div>
                                 <label className="block mb-1">Title:</label>
@@ -177,7 +196,7 @@ const AdminBook = () => {
                                 <input type="file" name="cover" onChange={handleImageChange} accept="image/*" className="block mb-2" />
                             </div>
 
-                        </div>
+                        </section>
 
                         {message.type === "success" && <Alert severity="success" className="mb-5">{message.content}</Alert>}
                         {message.type === "error" && <Alert severity="error" className="mb-5">{message.content}</Alert>}
@@ -189,7 +208,7 @@ const AdminBook = () => {
 
 
                     </form>
-                </div>
+                </main>
 
             }
         </>

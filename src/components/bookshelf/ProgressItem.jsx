@@ -4,20 +4,24 @@ import Box from '@mui/material/Box';
 
 import crownImg from "../../assets/img/crown.svg";
 
-
-const ProgressItem = ({ title, content, min, value, reach, greyBg, isTodayProgress }) => {
+/**
+ * 
+ * @param {*} title
+ * @param {*} content
+ * @param {*} min
+ * @param {*} value
+ * @param {*} reach
+ * @param {*} greyBg
+ * @returns 
+ */
+const ProgressItem = ({ title, content, min, value, reach, greyBg }) => {
     let progressColor = reach ? 'green' : 'orange';
     let bg = greyBg ? 'bg-gray-100' : 'bg-white';
 
     let goalProgress = Math.floor((value / min) * 100);
 
-
-
-
-
-
     return (
-        <div className={`flex flex-col items-center justify-center border shadow rounded-xl p-10 ${bg}`}>
+        <section className={`flex flex-col items-center justify-center border shadow rounded-xl p-10 ${bg}`}>
             {min <= value &&
                 <img src={crownImg} alt="Congratulations Crown" className="mb-3 w-8"
             />}
@@ -60,7 +64,7 @@ const ProgressItem = ({ title, content, min, value, reach, greyBg, isTodayProgre
             ) : (
                 <p className="text-sm text-gray-400 text-center">What a great progress! Keep going!</p>
             )}
-        </div>
+        </section>
     );
 };
 

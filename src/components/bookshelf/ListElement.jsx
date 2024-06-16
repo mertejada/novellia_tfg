@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import { BeenhereRounded, BookRounded, FavoriteRounded, ShoppingBasketRounded, DashboardRounded, KeyboardArrowRightRounded } from '@mui/icons-material';
 
-
+/**
+ * 
+ * @param {*} name
+ * @returns List element component
+ */ 
 const ListElement = ({ name }) => {
     const navigate = useNavigate();
 
+    // Format the name to be displayed
     const displayedName = name
         .replace(/([a-z])([A-Z])/g, '$1 $2')
         .replace(/\b\w/g, c => c.toUpperCase());
@@ -26,12 +31,8 @@ const ListElement = ({ name }) => {
                 <h2 className="truncate overflow-hidden whitespace-nowrap" style={{ maxWidth: "9rem" }}>
                     {displayedName}
                 </h2>
-
             </div>
-
             <KeyboardArrowRightRounded />
-
-
         </li>
     );
 };

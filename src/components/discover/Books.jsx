@@ -12,14 +12,22 @@ import BookElement from "./BookElement";
 
 import noDataImg from '../../assets/errors/no-books.png';
 
+/**
+ * 
+ * @param {*} isAdmin
+ * @returns  Books component
+ */
 const Books = ({ isAdmin }) => {
     const [books, setBooks] = useState(null);
     const [genres, setGenres] = useState(null);
+
     const [genreFilter, setGenreFilter] = useState('');
     const [adminVerifiedBooks, setAdminVerifiedBooks] = useState(false);
     const [adminNonVerifiedBooks, setAdminNonVerifiedBooks] = useState(false);
+
     const [orderParam, setOrderParam] = useState('published');
     const [order, setOrder] = useState('desc');
+
     const [booksPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -28,6 +36,11 @@ const Books = ({ isAdmin }) => {
     let adminVerifiedColor = adminVerifiedBooks ? 'text-green-500' : 'text-green-200';
     let nonVerifiedColor = adminNonVerifiedBooks ? 'text-red-500' : 'text-red-200';
 
+    /**
+     * Fetch books from the database with filters and order
+     * @param {*} genre 
+     * @param {*} page 
+     */
     const getBooksFiltered = async (genre = '', page = 1) => {
         setCurrentPage(page);
         setGenreFilter(genre);
@@ -46,6 +59,8 @@ const Books = ({ isAdmin }) => {
             }));
 
             let filteredBooks = bookData;
+
+            // Filter by admin verification
             if (adminNonVerifiedBooks) {
                 filteredBooks = bookData.filter(book => book.adminVerified !== true);
             }
@@ -61,17 +76,25 @@ const Books = ({ isAdmin }) => {
             const startIndex = (page - 1) * booksPerPage;
             const endIndex = startIndex + booksPerPage;
             const booksToShow = filteredBooks.slice(startIndex, endIndex);
-
             setBooks(booksToShow);
         });
     };
 
+    /**
+     * Handle order change
+     * @param {*} e 
+     */
     const handleOrderChange = (e) => {
         const [param, order] = e.target.value.split('-');
         setOrderParam(param);
         setOrder(order);
     };
 
+    /**
+     * Handle page change
+     * @param {*} event 
+     * @param {*} value 
+     */
     const handlePageChange = (event, value) => {
         const element = document.getElementById('books');
         element.scrollIntoView({ behavior: "smooth" });
@@ -79,6 +102,10 @@ const Books = ({ isAdmin }) => {
         getBooksFiltered(genreFilter, value);
     };
 
+    /**
+     * Fetch genres from the database
+     * @returns {void}
+     */
     const fetchGenres = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, "genres"));
@@ -93,11 +120,13 @@ const Books = ({ isAdmin }) => {
         }
     };
 
+    // Fetch books and genres on component mount
     useEffect(() => {
         getBooksFiltered();
         fetchGenres();
     }, []);
 
+    // Get books when filters and order change
     useEffect(() => {
         getBooksFiltered(genreFilter);
     }, [adminVerifiedBooks, genreFilter, orderParam, order, adminNonVerifiedBooks]);

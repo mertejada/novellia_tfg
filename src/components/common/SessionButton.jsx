@@ -5,10 +5,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'; // Importa Th
 import { PlayCircleRounded } from "@mui/icons-material";
 
 
-
+/**
+ *
+ * @param {*} setShowSessionTimer
+ * @return {*} 
+ */
 const SessionButton = ({setShowSessionTimer}) => {
     const [onHover, setOnHover] = useState(false);
-
 
     const theme = createTheme({
         palette: {

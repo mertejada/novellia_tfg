@@ -9,7 +9,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import Alert from '@mui/material/Alert';
 
-
+/**
+ * 
+ * @returns AdminGenres page
+ */
 const AdminGenres = () => {
     const [loading, setLoading] = useState(true);
     const [genresId, setGenresId] = useState([]);
@@ -18,7 +21,10 @@ const AdminGenres = () => {
     const [message, setMessage] = useState({ type: null, content: null });
 
 
-
+    /**
+     * Fetch genres from database
+     * @returns {void}
+     */
     const fetchGenres = async () => {
         setLoading(true);
 
@@ -30,19 +36,23 @@ const AdminGenres = () => {
         setLoading(false);
     };
 
+    /**
+     * Delete genre from database
+     * @param {*} genreId 
+     */
     const deleteGenre = async (genreId) => {
         try {
-            // Revisar que no haya libros con ese género
             const querySnapshot = await getDocs(query(collection(db, "books"), where("genre", "==", genreId)));
             if (!querySnapshot.empty) {
-
-                //esos libros cambian su genreId por unknown
+                //if there are books with this genre, set genre to unknown
                 querySnapshot.forEach(async (doc) => {
                     await updateDoc(doc.ref, {
                         genre: "unknown"
                     });
                 });
             }
+
+            //delete genre
             await deleteDoc(doc(db, "genres", genreId));
             setGenreMessage({ type: "success", content: "Genre deleted successfully" });
 
@@ -56,7 +66,11 @@ const AdminGenres = () => {
         }
     }
 
-
+    /**
+     * Add genre to database
+     * @param {*} genreName 
+     * @param {*} genreColor 
+     */
     const addGenre = async (genreName, genreColor) => {
         try {
             const genreDocRef = doc(db, "genres", genreName.toLowerCase());
@@ -75,7 +89,12 @@ const AdminGenres = () => {
         }
     }
 
-
+    /**
+     * Edit genre in database
+     * @param {*} genreId 
+     * @param {*} genreName 
+     * @param {*} genreColor 
+     */
     const editGenre = async (genreId, genreName, genreColor) => {
         try {
             const genreDocRef = doc(db, "genres", genreId);
@@ -93,17 +112,14 @@ const AdminGenres = () => {
         }
     }
 
-
+    // Fetch genres on component mount
     useEffect(() => {
         fetchGenres();
     }, []);
 
-
-
-
     return (
-        <div className="content">
-            <div className="flex flex-col mt-10 sm:mt-0 w-full justify-center gap-6 items-center">
+        <main className="content">
+            <section className="flex flex-col mt-10 sm:mt-0 w-full justify-center gap-6 items-center">
                 <h1 className="title w-fit font-bold font-playfair text-center gradient text-gradient">Genres Panel</h1>
                 <div className="p-4 text-center md:w-1/3 bg-gray-200 rounded-md border border-gray-300 shadow-md">
                     <form onSubmit={(e) => { e.preventDefault(); addGenre(e.target[0].value, e.target[1].value) }} className="flex flex-col gap-2 items-center">
@@ -122,7 +138,7 @@ const AdminGenres = () => {
 
 
                 </div>
-            </div>
+            </section>
 
             {genreMessage.type === "success" && <Alert severity="success" className="mt-10">{genreMessage.content}</Alert>}
             {genreMessage.type === "error" && <Alert severity="error" className="mt-10">{genreMessage.content}</Alert>}
@@ -133,7 +149,7 @@ const AdminGenres = () => {
                     <CircularProgress />
                 </div>
             :
-                <div className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <section className="my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
 
                     {
@@ -162,9 +178,9 @@ const AdminGenres = () => {
 
                         ))}
 
-                </div>
+                </section>
             }
-        </div>
+        </main>
     )
 }
 

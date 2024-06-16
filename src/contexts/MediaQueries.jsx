@@ -5,6 +5,11 @@ const MediaQueriesContext = createContext();
 
 export const useMediaQueries = () => useContext(MediaQueriesContext);
 
+/**
+ * 
+ * @param {*} children
+ * @returns Media queries context provider
+ */
 export const MediaQueriesProvider = ({ children }) => {
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);

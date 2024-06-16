@@ -9,6 +9,10 @@ import TimerIcon from '@mui/icons-material/Timer';
 
 import Alert from "@mui/material/Alert";
 
+/**
+ * 
+ * @returns Goals Settings page
+ */
 const GoalsSettings = () => {
     const { user } = useAuth();
 
@@ -23,7 +27,12 @@ const GoalsSettings = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState({ type: "", content: "" });
 
+    // Fetch user goals
     useEffect(() => {
+        /**
+         * Get user goals
+         * @returns {void}
+         */
         const getUserGoals = async () => {
             const userDocRef = doc(db, 'users', user.uid);
             onSnapshot(userDocRef, (doc) => {
@@ -39,17 +48,19 @@ const GoalsSettings = () => {
         getUserGoals();
     }, [user]);
 
+    // Handle input change in form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUpdatedGoals((prevGoals) => ({
             ...prevGoals,
             [name]: value,
         }));
-
-
-
     };
 
+    /**
+     * Validate goals input
+     * @returns {boolean}
+     */
     const validateGoals = () => {
         if (updatedGoals.dailyReading < 1 || updatedGoals.booksPerYear < 1 || updatedGoals.diffGenres < 1) {
             setMessage({ type: "error", content: "Please enter valid goals. Goals must be greater than 0." });
@@ -60,13 +71,19 @@ const GoalsSettings = () => {
     };
 
 
+    /**
+     * Update goals
+     * @param {*} e 
+     * @returns {void}
+     */
     const updateGoals = async (e) => {
         e.preventDefault();
-        if (!validateGoals()) {
+        if (!validateGoals()) { // Validate goals
             return;
         }
+
         const userDocRef = doc(db, 'users', user.uid);
-        await updateDoc(userDocRef, { readingGoals: updatedGoals });
+        await updateDoc(userDocRef, { readingGoals: updatedGoals }); // Update user goals
         setMessage({ type: "success", content: "Goals updated successfully!" });
 
         setTimeout(() => {
@@ -84,7 +101,7 @@ const GoalsSettings = () => {
                 <p>Loading...</p>
             ) : (
                 <form onSubmit={updateGoals} className="grid grid-cols-1 gap-7 md:grid-cols-2 w-full mt-20">
-                    <div className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
+                    <section className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
                         <div className="text-center mb-4 p-2 ">
                             <TimerIcon className="text-carrot my-2" />
                             <h2 className="text-2xl font-semibold  text-gray-800">Daily Reading</h2>
@@ -100,9 +117,9 @@ const GoalsSettings = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
+                    <section className="border shadow rounded-xl p-10 bg-white flex flex-col justify-between">
                         <div className="text-center mb-4 p-2">
                             <BookIcon className="text-mariner my-2" />
                             <h2 className="text-2xl font-semibold  text-gray-800">Books Per Year</h2>
@@ -118,9 +135,9 @@ const GoalsSettings = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="border shadow rounded-xl p-8 bg-white md:col-span-2  flex flex-col justify-between">
+                    <section className="border shadow rounded-xl p-8 bg-white md:col-span-2  flex flex-col justify-between">
                         <div className="text-center mb-4 p-2">
                             <InterestsIcon className="text-salmon my-2" />
                             <h2 className="text-2xl font-semibold  text-gray-800">Different Genres</h2>
@@ -136,7 +153,7 @@ const GoalsSettings = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                    </div>
+                    </section>
 
                     {message.content && (
                         <div className="md:col-span-2">

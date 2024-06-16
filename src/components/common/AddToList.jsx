@@ -7,12 +7,21 @@ import Alert from '@mui/material/Alert';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
+/**
+ * 
+ * @param {*} toggleAddToList
+ * @param {*} bookId
+ * @param {*} bookPages
+ * @param {*} bookGenre
+ * @returns Add to list component
+ */
 const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
     const { user, userLists } = useAuth();
     const addToListRef = useRef(null);
 
     const [message, setMessage] = useState({ type: null, content: null });
 
+    // Close the AddToList component when clicking outside of it
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (addToListRef.current && !addToListRef.current.contains(event.target)) {
@@ -28,21 +37,29 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
         };
     }, []);
 
+    /** 
+     * Add a book to a list
+     * @param {*} listName 
+     * @returns 
+     */
     const addBookToList = async (listName) => {
         try {
+            // Check if the book is already in the list
             if (userLists[listName].includes(bookId)) {
                 setMessage({ type: "error", content: "Book already in list" });
                 return;
             }
     
+            //Update user lists
             const updatedLists = {
-                ...userLists,
+                ...userLists, //merge with the other lists
                 [listName]: [...userLists[listName], bookId]
             };
     
             const userDocRef = doc(db, 'users', user.uid);
             await updateDoc(userDocRef, { lists: updatedLists });
 
+            // Add book to finishedBooks list if the list is finishedBooks
             if(listName == "finishedBooks") {
                 const userDoc = await getDoc(userDocRef);
                 const userData = userDoc.data();
@@ -54,12 +71,7 @@ const AddToList = ({ toggleAddToList, bookId, bookPages, bookGenre }) => {
                 };
 
                 await updateDoc(userDocRef, { finishedBooksInfo });
-
-                console.log("Book added to finishedBooks list")
-
             }
-                
-
             setMessage({ type: "success", content: "Book added to list" });
         } catch (error) {
             console.error("Error adding book to list: ", error);

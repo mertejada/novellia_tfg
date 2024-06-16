@@ -3,11 +3,15 @@ import React from "react";
 import Intro from './Intro';
 import InfoCard from './InfoCard';
 
+/**
+ * 
+ * @returns About component
+ */
 const About = () => {
     return (
         <div className="content" >
                 <Intro className="mt-10" />
-                <div className="content-element mx-12 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8">
+                <section className="content-element mx-12 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8">
                     <InfoCard
                         color="#EE902D"
                         title="Bookshelf"
@@ -28,8 +32,7 @@ const About = () => {
                         title="Add books"
                         text="Add new books and share them all!"
                         icon={3} />
-                </div>
-
+                </section>
             </div>
     ) 
 }

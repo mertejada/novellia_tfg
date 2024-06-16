@@ -8,13 +8,20 @@ import { useMediaQueries } from "../../contexts/MediaQueries";
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 
-
+/**
+ * 
+ * @returns New Books component
+ */
 const NewBooks = () => {
     const [books, setBooks] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
 
     const { isMobile, isTablet, isDesktop } = useMediaQueries();
 
+    /**
+     * Fetch the latest books from the database
+     * @returns {void}
+     */
     const getNewBooks = async () => {
         const q = query(collection(db, "books"), orderBy("insertDate", "desc"), limit(3));
         const querySnapshot = await getDocs(q);
@@ -25,12 +32,17 @@ const NewBooks = () => {
         setBooks(booksData);
     }
 
+    // Fetch new books on component mount
     useEffect(() => {
         getNewBooks();
     }, []);
 
+    /**
+     * Handle hover effect on book card
+     * @param {*} e 
+     */
     const handleHover = (e) => {
-        const target = e.currentTarget; 
+        const target = e.currentTarget;
         target.style.transform = "scale(1.1)";
         target.style.transition = "transform 0.5s ease";
 
@@ -40,6 +52,10 @@ const NewBooks = () => {
         button.classList.add("bg-carrot");
     }
 
+    /**
+     * Handle leave effect on book card
+     * @param {*} e 
+     */
     const handleLeave = (e) => {
         const target = e.currentTarget;
         const button = target.children[1];
@@ -49,14 +65,23 @@ const NewBooks = () => {
         target.style.transition = "transform 0.5s ease";
     }
 
+    /**
+     * Scroll to top of the page
+     */
     const handleScrollTop = () => {
         window.scrollTo(0, 0);
     }
 
+    /**
+     * Handle next page
+     */
     const handleNextPage = () => {
         setCurrentPage(prevPage => Math.min(prevPage + 1, books.length - 1));
     }
 
+    /**
+     * Handle previous page
+     */
     const handlePrevPage = () => {
         setCurrentPage(prevPage => Math.max(prevPage - 1, 0));
     }
@@ -67,8 +92,7 @@ const NewBooks = () => {
                 <h1 className="title font-bold font-playfair text-center gradient text-gradient">Latest books</h1>
                 <h2 className="subtitle text-gray-300 text-center mx-5 font-light">Take a look at the latest books added to our collection!</h2>
                 <Link to="/discover" name="Discover more" className="button border border-gray-400 text-gray-400 transition-all duration-500 ease-in-out hover:scale-110 hover:bg-black hover:text-white hover:border-black"
-                onClick={handleScrollTop}>Discover more</Link>
-                
+                    onClick={handleScrollTop}>Discover more</Link>
             </div>
             <div className="content flex justify-center gap-10">
                 {(isDesktop || isTablet) &&
@@ -92,7 +116,7 @@ const NewBooks = () => {
 
 
             </div>
-            {(isMobile ) &&
+            {(isMobile) &&
                 <div className="flex justify-center gap-5">
 
                     {currentPage > 0 && <KeyboardArrowLeftRoundedIcon className="cursor-pointer text-5xl text-carrot" onClick={handlePrevPage} />}
