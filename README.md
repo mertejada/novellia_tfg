@@ -1,12 +1,13 @@
-# Novellia - Proyecto Integrado DAW
+# Novellia 📚 - Proyecto Integrado DAW
 <a href="https://novellia-92ee0.web.app">
-    <img src="src/assets/img/logo.png" alt="Logo" width="80">
+    <img src="src/assets/img/logo.png" alt="Logo" width="100">
 </a>
 
-### Hosting link: https://novellia-92ee0.web.app/
+**Hosting link:** https://novellia-92ee0.web.app/
+**Project Documentation Link (Spanish):** [https://drive.google.com/file/d/1VfxUYNNuUi_BD12Wts6Aq4jKh7IL8D-L/view?usp=sharing]
 
 
-## About
+## About 💬
 Novellia is a web application focused on organizing and monitoring users' reading progress, as well as acting as a searching and discovering books tool. 
 
 It is a minimalist, simple and intuitive space.
@@ -14,7 +15,7 @@ It is a minimalist, simple and intuitive space.
 Developed with technologies such as React for a dynamic user interface and Firebase for real-time data management and secure authentication. By using Novellia, users will be able to enjoy a platform that enriches their literary horizons and encourages them to meet their reading goals.
 
 
-## Built With
+## Built With 🛠
 
 * React JS
 * Vite
@@ -22,7 +23,7 @@ Developed with technologies such as React for a dynamic user interface and Fireb
 * Tailwind CSS
 
 
-## What can yo do with Novellia?
+## What can you do with Novellia? 😊
 
 **Admin Functions**
 
@@ -45,7 +46,7 @@ Developed with technologies such as React for a dynamic user interface and Fireb
 
 
 
-## Contact
+## Contact 📧
 Mercedes Tejada Porcel - mercedestejadaporcel@gmail.com
 
 
