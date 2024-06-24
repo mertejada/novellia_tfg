@@ -1,9 +1,9 @@
 ## Novellia - Proyecto Integrado DAW
-<a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="src/assets/img/logo.png" alt="Logo" width="80" height="80">
+<a href="https://novellia-92ee0.web.app">
+    <img src="src/assets/img/logo.png" alt="Logo" width="80">
 </a>
 
-# Hosting link: https://novellia-92ee0.web.app/
+### Hosting link: https://novellia-92ee0.web.app/
 
 
 # About
