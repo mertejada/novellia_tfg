@@ -3,8 +3,8 @@
     <img src="src/assets/img/logo.png" alt="Logo" width="100">
 </a>
 
-**Hosting link:** https://novellia-92ee0.web.app/
-**Project Documentation Link (Spanish):** https://drive.google.com/file/d/1VfxUYNNuUi_BD12Wts6Aq4jKh7IL8D-L/view?usp=sharing
+- **Hosting link:** https://novellia-92ee0.web.app/
+- **Project Documentation Link (Spanish):** https://drive.google.com/file/d/1VfxUYNNuUi_BD12Wts6Aq4jKh7IL8D-L/view?usp=sharing
 
 
 ## About 💬
