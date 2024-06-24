@@ -1,4 +1,4 @@
-## Novellia - Proyecto Integrado DAW
+# Novellia - Proyecto Integrado DAW
 <a href="https://novellia-92ee0.web.app">
     <img src="src/assets/img/logo.png" alt="Logo" width="80">
 </a>
@@ -6,7 +6,7 @@
 ### Hosting link: https://novellia-92ee0.web.app/
 
 
-# About
+## About
 Novellia is a web application focused on organizing and monitoring users' reading progress, as well as acting as a searching and discovering books tool. 
 
 It is a minimalist, simple and intuitive space.
@@ -24,13 +24,13 @@ Developed with technologies such as React for a dynamic user interface and Fireb
 
 ## What can yo do with Novellia?
 
-## Admin Functions
+**Admin Functions**
 
 - **Login**: Use the email "admin@novellia.com".
 - **Book Management**: Add, delete, and edit books + verifying book information.
 - **Genre Management**: Add, delete, and edit genres.
 
-## User Functions
+**User Functions**
 
 - **Login/Registration**: Email or Google.
 - **Reading Goals**: Set and modify daily reading minutes, annual book goals, and different genres to read.
